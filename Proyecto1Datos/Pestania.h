@@ -21,6 +21,8 @@ public:
 	void irAdelante();
 	void agregarMarcador(SitioWeb* sitioWeb);
 	list<Marcador> getListaMarcadores(string x);
+	void setSitioWebActual(SitioWeb* sitioWebActual1);
+	void setHistorial(Historial* historial);
 	
 };
 
