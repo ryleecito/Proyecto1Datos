@@ -22,7 +22,13 @@ public:
 	void agregarMarcador(SitioWeb* sitioWeb);
 	list<Marcador> getListaMarcadores(string x);
 	void setSitioWebActual(SitioWeb* sitioWebActual1);
+	SitioWeb* getSitioWebActual();
 	void setHistorial(Historial* historial);
+	Historial* getHistorial();
+	bool operator==(const Pestania& other) const;
+	void importarHistorial(ifstream& input);
+	void exportarHistorial(ofstream& output);
+
 	
 };
 

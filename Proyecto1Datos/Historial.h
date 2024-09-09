@@ -2,6 +2,7 @@
 #include <stack>
 #include "AdminHistorial.h"
 #include "SitioWeb.h"
+#include <fstream>
 class Historial
 {
 private:
@@ -14,6 +15,7 @@ public:
 	void retroceder();
 	void avanzar();
 	void limpiarHistorial();
-
+	void importarHistorial(ifstream& in);
+	void exportarHistorial(ofstream& out);
 };
 

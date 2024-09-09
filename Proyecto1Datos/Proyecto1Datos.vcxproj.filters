@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Interfaz">
+      <UniqueIdentifier>{352f104c-1cd2-4f30-b900-5d9ef06cf7a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaz">
+      <UniqueIdentifier>{f71cbae3-7377-425b-92d1-1f8f2dd39201}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pestania.h">
@@ -36,6 +42,15 @@
     <ClInclude Include="Navegador.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Controladora.h">
+      <Filter>Header Files\Interfaz</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaz.h">
+      <Filter>Header Files\Interfaz</Filter>
+    </ClInclude>
+    <ClInclude Include="Excepciones.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pestania.cpp">
@@ -57,6 +72,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Navegador.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controladora.cpp">
+      <Filter>Source Files\Interfaz</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaz.cpp">
+      <Filter>Source Files\Interfaz</Filter>
+    </ClCompile>
+    <ClCompile Include="Excepciones.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

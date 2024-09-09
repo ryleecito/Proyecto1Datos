@@ -50,6 +50,11 @@ void Pestania::setSitioWebActual(SitioWeb* sitioWebActual1)
 	this->sitioWebActual = sitioWebActual1;
 }
 
+SitioWeb* Pestania::getSitioWebActual()
+{
+	return sitioWebActual;
+}
+
 void Pestania::setHistorial(Historial* historial1)
 {
 	if (this->historial != NULL)
@@ -57,4 +62,26 @@ void Pestania::setHistorial(Historial* historial1)
 		delete this->historial;
 	}
 	this->historial = historial1;
+}
+
+Historial* Pestania::getHistorial()
+{
+	return historial;
+}
+
+void Pestania::importarHistorial(ifstream& input) {
+	if (historial) {  
+		historial->importarHistorial(input);
+	}
+}
+
+void Pestania::exportarHistorial(ofstream& output) {
+	if (historial) {
+		historial->exportarHistorial(output);
+	}
+}
+bool Pestania::operator==(const Pestania& other) const {
+	
+	return sitioWebActual == other.sitioWebActual;
+
 }

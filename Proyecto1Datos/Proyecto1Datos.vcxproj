@@ -128,7 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AdminHistorial.h" />
+    <ClInclude Include="Controladora.h" />
+    <ClInclude Include="Excepciones.h" />
     <ClInclude Include="Historial.h" />
+    <ClInclude Include="Interfaz.h" />
     <ClInclude Include="Marcador.h" />
     <ClInclude Include="Navegador.h" />
     <ClInclude Include="Pestania.h" />
@@ -137,12 +140,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdminHistorial.cpp" />
+    <ClCompile Include="Controladora.cpp" />
+    <ClCompile Include="Excepciones.cpp" />
     <ClCompile Include="Historial.cpp" />
+    <ClCompile Include="Interfaz.cpp" />
     <ClCompile Include="Marcador.cpp" />
     <ClCompile Include="Navegador.cpp" />
     <ClCompile Include="Pestania.cpp" />
     <ClCompile Include="Sesion.cpp" />
     <ClCompile Include="SitioWeb.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

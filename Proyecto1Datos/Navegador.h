@@ -1,5 +1,6 @@
 #pragma once
 #include "Pestania.h"
+#include <fstream>
 class Navegador
 {
 private:
@@ -8,10 +9,11 @@ private:
 public:
 	Navegador();
 	virtual ~Navegador();
-	void nuevaPestania();
-	void cerrarPestania();
+	void nuevaPestania(Pestania* pest);
+	void cerrarPestania(Pestania* pest); 
 	void cambiarmodoIncognito();
-	void importarHistorial();
-	void exportarHistorial();
+	void importarHistorial(const string& nombreHistorial);
+	void exportarHistorial(const string& nombreHistorial);
+
 };
 
