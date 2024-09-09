@@ -6,16 +6,18 @@
 class Historial
 {
 private:
-	stack<SitioWeb> pilaAtras;
-	stack<SitioWeb> pilaAdelante;
+	stack<SitioWeb*> pilaAtras;
+	stack<SitioWeb*> pilaAdelante;
 public:
 	Historial();
 	virtual ~Historial();
-	void navegar(SitioWeb sitioWeb);
+	void navegar(SitioWeb* sitioWeb);
 	void retroceder();
 	void avanzar();
 	void limpiarHistorial();
 	void importarHistorial(ifstream& in);
 	void exportarHistorial(ofstream& out);
+	stack<SitioWeb*> getpilaAtras();
+	stack<SitioWeb*> getpilaAdelante();
 };
 

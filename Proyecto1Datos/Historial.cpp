@@ -9,7 +9,7 @@ Historial::~Historial()
 {
 }
 
-void Historial::navegar(SitioWeb sitioWeb)
+void Historial::navegar(SitioWeb* sitioWeb)
 {
     pilaAtras.push(sitioWeb);
     while (!pilaAdelante.empty()) {
@@ -20,7 +20,7 @@ void Historial::navegar(SitioWeb sitioWeb)
 void Historial::retroceder()
 {
     if (!pilaAtras.empty()) {
-        SitioWeb sitio = pilaAtras.top();
+        SitioWeb* sitio = pilaAtras.top();
         pilaAtras.pop();
         pilaAdelante.push(sitio);
     }
@@ -29,7 +29,7 @@ void Historial::retroceder()
 void Historial::avanzar()
 {
     if (!pilaAdelante.empty()) {
-        SitioWeb sitio = pilaAdelante.top();
+        SitioWeb* sitio = pilaAdelante.top();
         pilaAdelante.pop();
         pilaAtras.push(sitio);
     }
@@ -52,19 +52,29 @@ void Historial::importarHistorial(ifstream& in) {
     std::string url, titulo, dominio;
     while (getline(in, url)) {
         if (getline(in, titulo) && getline(in, dominio)) {
-            SitioWeb sitio(url, titulo, dominio);
+            SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
             navegar(sitio);
         }
     }
 }
 
 void Historial::exportarHistorial(ofstream& out) {
-    std::stack<SitioWeb> temp = pilaAtras;
+    std::stack<SitioWeb*> temp = pilaAtras;
     while (!temp.empty()) {
-        SitioWeb sitio = temp.top();
-        out << sitio.getUrl() << std::endl;
-        out << sitio.getTitulo() << std::endl;
-        out << sitio.getDominio() << std::endl;
+        SitioWeb* sitio = temp.top();
+        out << sitio->getUrl() << std::endl;
+        out << sitio->getTitulo() << std::endl;
+        out << sitio->getDominio() << std::endl;
         temp.pop();
     }
+}
+
+stack<SitioWeb*> Historial::getpilaAtras()
+{
+    return pilaAtras;
+}
+
+stack<SitioWeb*> Historial::getpilaAdelante()
+{
+    return pilaAdelante;
 }
