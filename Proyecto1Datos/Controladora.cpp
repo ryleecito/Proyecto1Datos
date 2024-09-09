@@ -39,43 +39,27 @@ void Controladora::mostrarNavegador() {
 void Controladora::control0() {
     int opcion = 0;
     do {
-        try {
-			system("cls");
+            system("cls");
             mostrarNavegador(); // Mostramos el navegador
             opcion = Interfaz::navegadorPrincipal();
             switch (opcion) {
-                case 1: // pagina anterior
-                
-                    break;
-                case 2: // Pagina siguiente
-                 
-                    break;
-                case 3: // pestania anterior
-                    
-                    break;
-                case 4: // pestania siguiente
-                    
-                    break;
-                case 5: // Ir al menu del navegador
-                
-                    return;
-                default:
-                    throw ExcepcionTipo(); 
+            case 1: // Página anterior
+                cout << "Navegando a la página anterior..." << endl;
+                break;
+            case 2: // Página siguiente
+                cout << "Navegando a la página siguiente..." << endl;
+                break;
+            case 3: // Pestaña anterior
+                cout << "Cambiando a la pestaña anterior..." << endl;
+                break;
+            case 4: // Pestaña siguiente
+                cout << "Cambiando a la pestaña siguiente..." << endl;
+                break;
+            case 0: // Ir al menú del navegador
+                return;
             }
-        } catch (ExcepcionTipo& ex) {
-            cout << "Error: " << ex.what() << endl;
-            system("pause");
-        } catch (ExcepcionMin& ex) {
-            cout << "Error: " << ex.what() << endl;
-            system("pause");
-        } catch (ExcepcionMax& ex) {
-            cout << "Error: " << ex.what() << endl;
-            system("pause");
-        } catch (...) {
-            cout << "Error desconocido." << endl;
-            system("pause");
-        }
-    } while (opcion != 0);
+        
+    } while (opcion != 0); 
 }
 
 void Controladora::control1() {

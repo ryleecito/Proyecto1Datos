@@ -1,40 +1,52 @@
 #include "Interfaz.h"
 #include <limits>
 #include <iomanip>
-
+#include <windows.h>
+#include <fstream>
 int Interfaz::navegadorPrincipal()
 {
-    
-    int opc;
     cout << "----------------------------------------" << endl;
-    cout << "|  (1) Pagina anterior                   |" << endl;
-    cout << "|  (2) Pagina siguiente                  |" << endl;
-    cout << "|  (3) Pestania anterior                 |" << endl;
-    cout << "|  (4) Pestania siguiente                |" << endl;
-    cout << "|  (5) Ir al menu del navegador          |" << endl;
+    cout << "|  Flecha izquierda / pagina anterior   |" << endl;
+    cout << "|  Flecha derecha / pagina siguiente    |" << endl;
+    cout << "|  Flecha arriba / pestania siguiente   |" << endl;
+    cout << "|  Flecha abajo / pestania anterior     |" << endl;
+    cout << "|  Espacio / ir al menu del navegador   |" << endl;
     cout << "----------------------------------------" << endl;
-    cout << "Ingrese una opcion: ";
+    int opc = -1;  
+    Sleep(100);
 
-    cin >> opc;
-
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw ExcepcionTipo();
+    if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+        opc = 1;
+        cout << "Flecha izquierda presionada" << endl;
     }
-    if (opc > 5) {
-        throw ExcepcionMax(1, 5, opc);
+    else if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+        opc = 2;
+        cout << "Flecha derecha presionada" << endl;
     }
-    if (opc < 1) {
-        throw ExcepcionMin(1, 5, opc);
+    else if (GetAsyncKeyState(VK_UP) & 0x8000) {
+        opc = 3;
+        cout << "Flecha arriba presionada" << endl;
     }
-
+    else if (GetAsyncKeyState(VK_DOWN) & 0x8000) {
+        opc = 4;
+        cout << "Flecha abajo presionada" << endl;
+    }
+    else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
+        opc = 0;
+        cout << "Escape presionado, saliendo..." << endl;
+    }
+    if (opc == -1) {
+        throw ExcepcionTipo(); 
+    }
     return opc;
+
+    
 }
 
 int Interfaz::menuNavegador()
 {
     system("cls");
+    string input;
     int opc;
     cout << "----------------------------------------" << endl;
     cout << "|         MENU PRINCIPAL                | " << endl;
@@ -52,17 +64,12 @@ int Interfaz::menuNavegador()
     cout << "Ingrese una opcion: ";
     cin >> opc;
 
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw ExcepcionTipo();
-    }
+    
     if (opc > 9) {
         throw ExcepcionMax(1, 9, opc);
     }
     if (opc < 1) {
         throw ExcepcionMin(1, 9, opc);
     }
-
     return opc;
 }
