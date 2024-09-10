@@ -71,7 +71,7 @@ void Controladora::control1() {
                 case 1: // Ir al navegador actual
                     control0();
                     break;
-                case 2: // Navegar a un sitio web
+                case 2: // agregar a un sitio web
                     
                     break;
                 case 3: // Agregar un bookmark
@@ -111,4 +111,45 @@ void Controladora::control1() {
             system("pause");
         }
     } while (opcion != 9);
+}
+// bookmarks
+void Controladora::control2()
+{
+}
+// historial importar exportar
+void Controladora::control3()
+{
+}
+//mostrar bookmarks
+void Controladora::control4()
+{
+}
+// busqueda y filtros
+void Controladora::control5()
+{
+}
+// activar desactivar modo incognito
+void Controladora::control6()
+{
+}
+// nueva pestaña
+void Controladora::control7()
+{
+}
+
+// pagina anterior
+void Controladora::control8()
+{
+}
+// pagina siguiente
+void Controladora::control9()
+{
+}
+// pestaña anterior
+void Controladora::control10()
+{
+}
+// pestaña siguiente
+void Controladora::control11()
+{
 }

@@ -45,6 +45,7 @@ int Interfaz::navegadorPrincipal()
             cout << "Espacio presionado, ir al menú del navegador" << endl;
             system("pause");
             break;
+           
         }
         else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
             opc = 0;
