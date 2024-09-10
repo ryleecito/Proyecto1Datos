@@ -1,49 +1,41 @@
 #include "Historial.h"
 
-Historial::Historial()
-{
+Historial::Historial() : posicionActual(historial.end()) {}
 
-}
-
-Historial::~Historial()
-{
-}
-
-void Historial::navegar(SitioWeb* sitioWeb)
-{
-    pilaAtras.push(sitioWeb);
-    while (!pilaAdelante.empty()) {
-        pilaAdelante.pop();
+Historial::~Historial() {
+    for (auto sitio : historial) {
+        delete sitio;  
     }
 }
 
-void Historial::retroceder()
-{
-    if (!pilaAtras.empty()) {
-        SitioWeb* sitio = pilaAtras.top();
-        pilaAtras.pop();
-        pilaAdelante.push(sitio);
+void Historial::navegar(SitioWeb* sitioWeb) {
+    
+    if (posicionActual != historial.end()) {
+        auto it = next(posicionActual);
+        historial.erase(it, historial.end());
+    }
+    historial.push_back(sitioWeb);
+    posicionActual = prev(historial.end());
+}
+
+void Historial::retroceder() {
+    if (posicionActual != historial.begin()) {
+        --posicionActual;
     }
 }
 
-void Historial::avanzar()
-{
-    if (!pilaAdelante.empty()) {
-        SitioWeb* sitio = pilaAdelante.top();
-        pilaAdelante.pop();
-        pilaAtras.push(sitio);
+void Historial::avanzar() {
+    if (posicionActual != prev(historial.end())) {
+        ++posicionActual;
     }
 }
 
-void Historial::limpiarHistorial()
-{
-    while (!pilaAtras.empty()) {
-        pilaAtras.pop();
+void Historial::limpiarHistorial() {
+    for (auto sitio : historial) {
+        delete sitio;
     }
-    while (!pilaAdelante.empty()) {
-        pilaAdelante.pop();
-    }
-
+    historial.clear();
+    posicionActual = historial.end();
 }
 
 void Historial::importarHistorial(ifstream& in) {
@@ -59,22 +51,20 @@ void Historial::importarHistorial(ifstream& in) {
 }
 
 void Historial::exportarHistorial(ofstream& out) {
-    std::stack<SitioWeb*> temp = pilaAtras;
-    while (!temp.empty()) {
-        SitioWeb* sitio = temp.top();
-        out << sitio->getUrl() << std::endl;
-        out << sitio->getTitulo() << std::endl;
-        out << sitio->getDominio() << std::endl;
-        temp.pop();
+    for (auto sitio : historial) {
+        out << sitio->getUrl() << endl;
+        out << sitio->getTitulo() << endl;
+        out << sitio->getDominio() << endl;
     }
 }
 
-stack<SitioWeb*> Historial::getpilaAtras()
-{
-    return pilaAtras;
+list<SitioWeb*> Historial::getHistorial() {
+    return historial;
 }
 
-stack<SitioWeb*> Historial::getpilaAdelante()
-{
-    return pilaAdelante;
+SitioWeb* Historial::getSitioActual() {
+    if (posicionActual != historial.end()) {
+        return *posicionActual;
+    }
+    return nullptr;
 }

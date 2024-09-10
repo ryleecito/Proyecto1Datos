@@ -2,6 +2,7 @@
 
 Navegador::Navegador()
 {
+    sesionActual = NULL;
 	modoIncognito = false;
 }
 
@@ -58,5 +59,18 @@ void Navegador::exportarHistorial(const std::string& nombreHistorial)
     }
 
     outputFile.close();
+}
+
+Sesion* Navegador::getSesion()
+{
+    return sesionActual;
+}
+
+void Navegador::setSesion(Sesion* sesion)
+{
+    if (sesionActual != nullptr) {
+        delete sesionActual;
+    }
+    sesionActual = sesion;
 }
 

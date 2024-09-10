@@ -1,23 +1,24 @@
 #pragma once
-#include <stack>
+#include <list>
 #include "AdminHistorial.h"
 #include "SitioWeb.h"
 #include <fstream>
+
 class Historial
 {
 private:
-	stack<SitioWeb*> pilaAtras;
-	stack<SitioWeb*> pilaAdelante;
-public:
-	Historial();
-	virtual ~Historial();
-	void navegar(SitioWeb* sitioWeb);
-	void retroceder();
-	void avanzar();
-	void limpiarHistorial();
-	void importarHistorial(ifstream& in);
-	void exportarHistorial(ofstream& out);
-	stack<SitioWeb*> getpilaAtras();
-	stack<SitioWeb*> getpilaAdelante();
-};
+    list<SitioWeb*> historial;
+    list<SitioWeb*>::iterator posicionActual;
 
+public:
+    Historial();
+    virtual ~Historial();
+    void navegar(SitioWeb* sitioWeb);
+    void retroceder();
+    void avanzar();
+    void limpiarHistorial();
+    void importarHistorial(ifstream& in);
+    void exportarHistorial(ofstream& out);
+    list<SitioWeb*> getHistorial();
+    SitioWeb* getSitioActual();
+};

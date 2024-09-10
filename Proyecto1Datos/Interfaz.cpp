@@ -12,35 +12,53 @@ int Interfaz::navegadorPrincipal()
     cout << "|  Flecha abajo / pestania anterior     |" << endl;
     cout << "|  Espacio / ir al menu del navegador   |" << endl;
     cout << "----------------------------------------" << endl;
-    int opc = -1;  
-    Sleep(100);
 
-    if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
-        opc = 1;
-        cout << "Flecha izquierda presionada" << endl;
+    int opc = -1;
+
+    while (true) {
+        if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+            opc = 1;
+            cout << "Flecha izquierda presionada" << endl;
+            system("pause");
+            break;
+        }
+        else if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+            opc = 2;
+            cout << "Flecha derecha presionada" << endl;
+            system("pause");
+            break;
+        }
+        else if (GetAsyncKeyState(VK_UP) & 0x8000) {
+            opc = 3;
+            cout << "Flecha arriba presionada" << endl;
+            system("pause");
+            break;
+        }
+        else if (GetAsyncKeyState(VK_DOWN) & 0x8000) {
+            opc = 4;
+            cout << "Flecha abajo presionada" << endl;
+            system("pause");
+            break;
+        }
+        else if (GetAsyncKeyState(VK_SPACE) & 0x8000) {
+            opc = 5;
+            cout << "Espacio presionado, ir al menú del navegador" << endl;
+            system("pause");
+            break;
+        }
+        else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
+            opc = 0;
+            cout << "Escape presionado, saliendo..." << endl;
+            system("pause");
+            break;
+        }
+        Sleep(100);
     }
-    else if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
-        opc = 2;
-        cout << "Flecha derecha presionada" << endl;
-    }
-    else if (GetAsyncKeyState(VK_UP) & 0x8000) {
-        opc = 3;
-        cout << "Flecha arriba presionada" << endl;
-    }
-    else if (GetAsyncKeyState(VK_DOWN) & 0x8000) {
-        opc = 4;
-        cout << "Flecha abajo presionada" << endl;
-    }
-    else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
-        opc = 0;
-        cout << "Escape presionado, saliendo..." << endl;
-    }
+
     if (opc == -1) {
-        throw ExcepcionTipo(); 
+        throw ExcepcionTipo();
     }
     return opc;
-
-    
 }
 
 int Interfaz::menuNavegador()

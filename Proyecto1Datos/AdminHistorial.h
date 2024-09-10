@@ -4,6 +4,7 @@
 #include "Historial.h"
 #include "SitioWeb.h"
 using namespace std;
+class Historial;
 
 class AdminHistorial
 {

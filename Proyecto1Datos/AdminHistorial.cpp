@@ -16,18 +16,13 @@ AdminHistorial::~AdminHistorial()
 
 void AdminHistorial::limpiarEntradasAntiguas(Historial* historial)
 {
-    while (historial->getpilaAtras().size() > maxEntradas) {
-        stack<SitioWeb*> tempStack;
-        stack<SitioWeb*> pilaAtras = historial->getpilaAtras();
-        while (pilaAtras.size() > 1) {
-            tempStack.push(pilaAtras.top());
-            pilaAtras.pop();
-        }
-        delete pilaAtras.top();
-        pilaAtras.pop();
-        while (!tempStack.empty()) {
-            pilaAtras.push(tempStack.top());
-            tempStack.pop();
+    while (historial->getHistorial().size() > maxEntradas) {
+      
+        list<SitioWeb*> historialList = historial->getHistorial(); 
+        while (historialList.size() > maxEntradas) {
+            SitioWeb* sitioAntiguo = historialList.front();  
+            historialList.pop_front();
+            delete sitioAntiguo; 
         }
     }
 }
