@@ -10,38 +10,12 @@ Controladora::~Controladora() {
     }
 }
 
-void Controladora::mostrarNavegador() {
-    
-    Interfaz::mostrarPagina()
-    /*
-
-      const int width = 40;
-      const int contentWidth = width - 4;
-      const string border(width, '-');
-
-      string tabTitle = "Google";
-      string url = "https://www.google.com";
-      string currentSite = "Google";
-
-      system("cls");
-      cout << "              NAVEGADOR WEB          " << endl;
-      cout << border << endl;
-      cout << "[ " << string(contentWidth, ' ') << " ]" << endl;
-      cout << "[ " << "Pestana: " << tabTitle << string(contentWidth - ("Pestana: " + tabTitle).length(), ' ') << " ]" << endl;
-      cout << "[ " << "URL: " << url << string(contentWidth - ("URL: " + url).length(), ' ') << " ]" << endl;
-      cout << "[ " << "Titulo: " << currentSite << string(contentWidth - ("Titulo: " + currentSite).length(), ' ') << " ]" << endl;
-      cout << "[ " << string(contentWidth, ' ') << " ]" << endl;
-      cout << border << endl;
-      cout << endl;*/ //(esto tiene que ir en el tostring de pestania)
-    cout << " ESTE ES EL NAVEGADORRRRRRRRRRRRRRRRRRRR" << endl;
-
-}
 
 void Controladora::control1() {
     int opcion = 0;
     do {
             system("cls");
-            mostrarNavegador(); // Mostramos el navegador
+            cout<<navegador->toString();
             opcion = Interfaz::navegadorPrincipal();
             switch (opcion) {
             case 1: // Página anterior

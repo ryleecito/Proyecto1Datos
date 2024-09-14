@@ -74,6 +74,24 @@ void Pestania::exportarHistorial(ofstream& output) {
 		historial->exportarHistorial(output);
 	}
 }
+string Pestania::toString()
+{
+	stringstream s;
+	const int width = 40;
+	const int contentWidth = width - 4;
+	const string border(width, '-');
+
+	system("cls");
+	s << "              NAVEGADOR WEB          " << endl;
+	s << border << endl;
+	s << "[ " << string(contentWidth, ' ') << " ]" << endl;
+	s << "[ " << "URL: " << sitioWebActual->getUrl() << string(contentWidth - ("URL: " + sitioWebActual->getUrl()).length(), ' ') << " ]" << endl;
+	s << "[ " << "Titulo: " << sitioWebActual->getTitulo() << string(contentWidth - ("Titulo: " + sitioWebActual->getTitulo()).length(), ' ') << " ]" << endl;
+	s << "[ " << string(contentWidth, ' ') << " ]" << endl;
+	s << border << endl;
+	s << endl;
+	return s.str();
+}
 bool Pestania::operator==(const Pestania& other) const {
 	
 	return sitioWebActual == other.sitioWebActual;

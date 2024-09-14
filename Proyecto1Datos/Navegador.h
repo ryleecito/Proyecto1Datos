@@ -18,8 +18,9 @@ public:
 	void cambiarmodoIncognito();
 	void importarHistorial(const string& nombreHistorial);
 	void exportarHistorial(const string& nombreHistorial);
-	Sesion* getSesion();
-	void setSesion(Sesion* sesion);
+	//Sesion* getSesion();
+	//void setSesion(Sesion* sesion);
+	string toString();
 	
 
 };

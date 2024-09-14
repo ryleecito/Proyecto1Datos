@@ -2,8 +2,11 @@
 
 Navegador::Navegador()
 {
-    sesionActual = NULL;
+  /*  sesionActual = NULL;*/
 	modoIncognito = false;
+	listaPestanias = list<Pestania>();
+	marcadoresGuardados = list<Marcador>();
+
 }
 
 Navegador::~Navegador()
@@ -61,16 +64,26 @@ void Navegador::exportarHistorial(const std::string& nombreHistorial)
     outputFile.close();
 }
 
-Sesion* Navegador::getSesion()
-{
-    return sesionActual;
-}
+//Sesion* Navegador::getSesion()
+//{
+//    return sesionActual;
+//}
+//
+//void Navegador::setSesion(Sesion* sesion)
+//{
+//    if (sesionActual != nullptr) {
+//        delete sesionActual;
+//    }
+//    sesionActual = sesion;
+//}
 
-void Navegador::setSesion(Sesion* sesion)
+string Navegador::toString()
 {
-    if (sesionActual != nullptr) {
-        delete sesionActual;
+    stringstream s;
+	s << "Navegador: \n";
+    for (auto& pest : listaPestanias) {
+        s << pest.toString();
     }
-    sesionActual = sesion;
+    return s.str();
 }
 

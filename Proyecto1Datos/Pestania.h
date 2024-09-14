@@ -27,6 +27,7 @@ public:
 	bool operator==(const Pestania& other) const;
 	void importarHistorial(ifstream& input);
 	void exportarHistorial(ofstream& output);
+	string toString();
 
 	
 };
