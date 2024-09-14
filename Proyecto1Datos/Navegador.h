@@ -5,10 +5,13 @@
 class Navegador
 {
 private:
-	list<Pestania> listaPestanias;
-	list<Marcador> marcadoresGuardados;
+	list<Pestania*> listaPestanias;
+	list<Marcador*> marcadoresGuardados;
+	Pestania* pestaniaActual;
 	//Sesion* sesionActual;
 	bool modoIncognito;
+
+
 public:
 
 	Navegador();
@@ -21,8 +24,13 @@ public:
 	//Sesion* getSesion();
 	//void setSesion(Sesion* sesion);
 	string toString();
-	list<Pestania> getListaPestanias();
-	list<Marcador> getMarcadoresGuardados();
+	list<Pestania*> getListaPestanias();
+	list<Marcador*> getMarcadoresGuardados();
+
+	//Metodos de la lista de pestanias
+	int cantPestanias();
+	Pestania* firstPestania();
+
 	
 
 };

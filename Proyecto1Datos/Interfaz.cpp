@@ -57,11 +57,18 @@ int Interfaz::navegadorPrincipal(Navegador* navegador)
         }
         Sleep(100);
     }*/
-	if (navegador->getListaPestanias().size() == 0) {
+
+	if (navegador->cantPestanias() == 0) {
 		cout << "No hay pestañas abiertas" << endl;
 		system("pause");
 		return 0;
 	}
+
+    cout << navegador->firstPestania()->toString()<<endl;
+
+  
+
+
     int opc;
     cout << "----------------------------------------" << endl;
     cout << "|                 MENU                  | " << endl;

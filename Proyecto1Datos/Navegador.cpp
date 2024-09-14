@@ -4,8 +4,8 @@ Navegador::Navegador()
 {
   /*  sesionActual = NULL;*/
 	modoIncognito = false;
-	listaPestanias = list<Pestania>();
-	marcadoresGuardados = list<Marcador>();
+	listaPestanias = list<Pestania*>();
+	marcadoresGuardados = list<Marcador*>();
 
 }
 
@@ -15,12 +15,12 @@ Navegador::~Navegador()
 
 void Navegador::nuevaPestania(Pestania* pest)
 {
-	listaPestanias.push_back(*pest);
+	listaPestanias.push_back(pest);
 }
 
 void Navegador::cerrarPestania(Pestania* pest)
 {
-	listaPestanias.remove(*pest);
+	listaPestanias.remove(pest);
 }
 
 void Navegador::cambiarmodoIncognito()
@@ -39,9 +39,9 @@ void Navegador::importarHistorial(const string& nombreHistorial)
 
 
     for (auto& pest : listaPestanias) {
-        if (pest.getHistorial()) {
-            pest.getHistorial()->limpiarHistorial();
-            pest.getHistorial()->importarHistorial(inputFile);
+        if (pest->getHistorial()) {
+            pest->getHistorial()->limpiarHistorial();
+            pest->getHistorial()->importarHistorial(inputFile);
         }
     }
 
@@ -56,8 +56,8 @@ void Navegador::exportarHistorial(const std::string& nombreHistorial)
         return;
     }
     for (auto& pest : listaPestanias) {
-        if (pest.getHistorial()) {  
-            pest.getHistorial()->exportarHistorial(outputFile);  
+        if (pest->getHistorial()) {
+            pest->getHistorial()->exportarHistorial(outputFile);
         }
     }
 
@@ -82,18 +82,32 @@ string Navegador::toString()
     stringstream s;
 	s << "Navegador: \n";
     for (auto& pest : listaPestanias) {
-        s << pest.toString();
+        s << pest->toString();
     }
     return s.str();
 }
 
-list<Pestania> Navegador::getListaPestanias()
+list<Pestania*> Navegador::getListaPestanias()
 {
     return listaPestanias;
 }
 
-list<Marcador> Navegador::getMarcadoresGuardados()
+list<Marcador*> Navegador::getMarcadoresGuardados()
 {
     return marcadoresGuardados;
+}
+
+int Navegador::cantPestanias()
+{
+    return listaPestanias.size();
+}
+
+Pestania* Navegador::firstPestania()
+{
+    if (!listaPestanias.empty()) {
+        pestaniaActual = *listaPestanias.begin();
+        return *listaPestanias.begin();
+    }
+    return nullptr;
 }
 
