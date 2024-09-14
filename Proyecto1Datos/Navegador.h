@@ -8,7 +8,6 @@ class Navegador
 private:
 	ListPestanias* listaPestanias;
 	list<Marcador*> marcadoresGuardados;
-	Pestania* pestaniaActual;
 	//Sesion* sesionActual;
 	bool modoIncognito;
 
