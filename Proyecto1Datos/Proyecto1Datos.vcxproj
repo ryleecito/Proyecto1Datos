@@ -132,6 +132,7 @@
     <ClInclude Include="Excepciones.h" />
     <ClInclude Include="Historial.h" />
     <ClInclude Include="Interfaz.h" />
+    <ClInclude Include="ListPestanias.h" />
     <ClInclude Include="Marcador.h" />
     <ClInclude Include="Navegador.h" />
     <ClInclude Include="Pestania.h" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Excepciones.cpp" />
     <ClCompile Include="Historial.cpp" />
     <ClCompile Include="Interfaz.cpp" />
+    <ClCompile Include="ListaPestanias.cpp" />
     <ClCompile Include="main2.cpp" />
     <ClCompile Include="Marcador.cpp" />
     <ClCompile Include="Navegador.cpp" />

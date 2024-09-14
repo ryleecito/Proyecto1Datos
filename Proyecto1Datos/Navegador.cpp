@@ -4,7 +4,7 @@ Navegador::Navegador()
 {
   /*  sesionActual = NULL;*/
 	modoIncognito = false;
-	listaPestanias = list<Pestania*>();
+    listaPestanias = NULL;
 	marcadoresGuardados = list<Marcador*>();
 
 }
@@ -13,15 +13,8 @@ Navegador::~Navegador()
 {
 }
 
-void Navegador::nuevaPestania(Pestania* pest)
-{
-	listaPestanias.push_back(pest);
-}
 
-void Navegador::cerrarPestania(Pestania* pest)
-{
-	listaPestanias.remove(pest);
-}
+
 
 void Navegador::cambiarmodoIncognito()
 {
@@ -29,40 +22,40 @@ void Navegador::cambiarmodoIncognito()
 
 }
 
-void Navegador::importarHistorial(const string& nombreHistorial)
-{
-    std::ifstream inputFile(nombreHistorial);
-    if (!inputFile.is_open()) {
-        std::cerr << "Error abriendo el archivo para importar el historial.\n";
-        return;
-    }
-
-
-    for (auto& pest : listaPestanias) {
-        if (pest->getHistorial()) {
-            pest->getHistorial()->limpiarHistorial();
-            pest->getHistorial()->importarHistorial(inputFile);
-        }
-    }
-
-    inputFile.close();
-}
-
-void Navegador::exportarHistorial(const std::string& nombreHistorial)
-{
-    std::ofstream outputFile(nombreHistorial);
-    if (!outputFile.is_open()) {
-        std::cerr << "Error abriendo el archivo para exportar el historial.\n";
-        return;
-    }
-    for (auto& pest : listaPestanias) {
-        if (pest->getHistorial()) {
-            pest->getHistorial()->exportarHistorial(outputFile);
-        }
-    }
-
-    outputFile.close();
-}
+//void Navegador::importarHistorial(const string& nombreHistorial)
+//{
+//    std::ifstream inputFile(nombreHistorial);
+//    if (!inputFile.is_open()) {
+//        std::cerr << "Error abriendo el archivo para importar el historial.\n";
+//        return;
+//    }
+//
+//
+//    for (auto& pest : listaPestanias) {
+//        if (pest->getHistorial()) {
+//            pest->getHistorial()->limpiarHistorial();
+//            pest->getHistorial()->importarHistorial(inputFile);
+//        }
+//    }
+//
+//    inputFile.close();
+//}
+//
+//void Navegador::exportarHistorial(const std::string& nombreHistorial)
+//{
+//    std::ofstream outputFile(nombreHistorial);
+//    if (!outputFile.is_open()) {
+//        std::cerr << "Error abriendo el archivo para exportar el historial.\n";
+//        return;
+//    }
+//    for (auto& pest : listaPestanias) {
+//        if (pest->getHistorial()) {
+//            pest->getHistorial()->exportarHistorial(outputFile);
+//        }
+//    }
+//
+//    outputFile.close();
+//}
 
 //Sesion* Navegador::getSesion()
 //{
@@ -81,13 +74,11 @@ string Navegador::toString()
 {
     stringstream s;
 	s << "Navegador: \n";
-    for (auto& pest : listaPestanias) {
-        s << pest->toString();
-    }
+	s << listaPestanias->toString();
     return s.str();
 }
 
-list<Pestania*> Navegador::getListaPestanias()
+ListPestanias* Navegador::getListaPestanias()
 {
     return listaPestanias;
 }
@@ -97,17 +88,5 @@ list<Marcador*> Navegador::getMarcadoresGuardados()
     return marcadoresGuardados;
 }
 
-int Navegador::cantPestanias()
-{
-    return listaPestanias.size();
-}
 
-Pestania* Navegador::firstPestania()
-{
-    if (!listaPestanias.empty()) {
-        pestaniaActual = *listaPestanias.begin();
-        return *listaPestanias.begin();
-    }
-    return nullptr;
-}
 

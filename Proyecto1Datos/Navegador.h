@@ -1,11 +1,12 @@
 #pragma once
 #include "Pestania.h"
 #include "Sesion.h"
+#include "ListPestanias.h"
 #include <fstream>
 class Navegador
 {
 private:
-	list<Pestania*> listaPestanias;
+	ListPestanias* listaPestanias;
 	list<Marcador*> marcadoresGuardados;
 	Pestania* pestaniaActual;
 	//Sesion* sesionActual;
@@ -16,20 +17,15 @@ public:
 
 	Navegador();
 	virtual ~Navegador();
-	void nuevaPestania(Pestania* pest);
-	void cerrarPestania(Pestania* pest); 
 	void cambiarmodoIncognito();
-	void importarHistorial(const string& nombreHistorial);
-	void exportarHistorial(const string& nombreHistorial);
+	/*void importarHistorial(const string& nombreHistorial);
+	void exportarHistorial(const string& nombreHistorial);*/
 	//Sesion* getSesion();
 	//void setSesion(Sesion* sesion);
 	string toString();
-	list<Pestania*> getListaPestanias();
+	ListPestanias* getListaPestanias();
 	list<Marcador*> getMarcadoresGuardados();
-
-	//Metodos de la lista de pestanias
-	int cantPestanias();
-	Pestania* firstPestania();
+	
 
 	
 

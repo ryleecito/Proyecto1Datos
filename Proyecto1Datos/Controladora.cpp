@@ -17,33 +17,24 @@ void Controladora::control0() {
         try {
             opcion = Interfaz::navegadorPrincipal(navegador);
             switch (opcion) {
-                case 1: // Ir al navegador actual
-                    break;
-                case 2: // agregar a un sitio web
-                    
-                    break;
-                case 3: // Agregar un bookmark
-                 
-                    break;
-                case 4: // Importar / Exportar historial
-                   
-                    break;
-                case 5: // Mostrar bookmarks
-                  
-                    break;
-                case 6: // busqueda y filtros
-               
-                    break;
-                case 7: // Activar / desactivar modo incógnito
-                 
-                    break;
-                case 8: // Nueva pestnaia
-                   
-                    break;
-                case 9: // Salir
-                    return;
-                default:
-                    throw ExcepcionTipo(); 
+            case 1: // Agregar a un sitio web
+                break;
+            case 2: // Agregar un bookmark
+                break;
+            case 3: // Importar / Exportar historial
+                break;
+            case 4: // Mostrar bookmarks
+                break;
+            case 5: // Busqueda y filtros
+                break;
+            case 6: // Activar / desactivar modo incógnito
+                break;
+            case 7: // Nueva pestaña
+                break;
+            case 8: // Salir
+                return;
+            default:
+                throw ExcepcionTipo();
             }
         } catch (ExcepcionTipo& ex) {
             cout << "Error: " << ex.what() << endl;
@@ -58,9 +49,8 @@ void Controladora::control0() {
             cout << "Error desconocido." << endl;
             system("pause");
         }
-    } while (opcion != 9);
+    } while (opcion != 8);
 }
-
 
 // bookmarks
 void Controladora::control2()
