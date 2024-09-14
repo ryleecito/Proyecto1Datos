@@ -6,7 +6,8 @@ class Navegador
 {
 private:
 	list<Pestania> listaPestanias;
-	Sesion* sesionActual;
+	list<Marcador> marcadoresGuardados;
+	//Sesion* sesionActual;
 	bool modoIncognito;
 public:
 

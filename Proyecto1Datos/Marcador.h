@@ -4,8 +4,10 @@
 class Marcador
 {
 private:
+
 	SitioWeb* sitio;
 	list<string> listaEtiquetas;
+
 public:
 	Marcador();
 	Marcador(SitioWeb sitio, list<string> listaEtiquetas);

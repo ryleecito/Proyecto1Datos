@@ -68,7 +68,7 @@ int Interfaz::menuNavegador()
     string input;
     int opc;
     cout << "----------------------------------------" << endl;
-    cout << "|         MENU PRINCIPAL                | " << endl;
+    cout << "|                 MENU                  | " << endl;
     cout << "----------------------------------------" << endl;
     cout << "| 1. Ir al navegador actual             |" << endl;
     cout << "| 2. Navegar a un sitio web             |" << endl;

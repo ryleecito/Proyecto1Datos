@@ -12,6 +12,7 @@ Controladora::~Controladora() {
 
 void Controladora::mostrarNavegador() {
     
+    Interfaz::mostrarPagina()
     /*
 
       const int width = 40;
@@ -36,7 +37,7 @@ void Controladora::mostrarNavegador() {
 
 }
 
-void Controladora::control0() {
+void Controladora::control1() {
     int opcion = 0;
     do {
             system("cls");
@@ -62,14 +63,14 @@ void Controladora::control0() {
     } while (opcion != 0); 
 }
 
-void Controladora::control1() {
+void Controladora::control0() {
     int opcion = 0;
     do {
         try {
             opcion = Interfaz::menuNavegador(); // Mostramos el menu
             switch (opcion) {
                 case 1: // Ir al navegador actual
-                    control0();
+                    control1();
                     break;
                 case 2: // agregar a un sitio web
                     

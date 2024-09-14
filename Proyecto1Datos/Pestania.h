@@ -10,17 +10,16 @@ using namespace std;
 class Pestania
 {
 private:
-	list<Marcador> listaMarcadores;
+
 	SitioWeb* sitioWebActual;
 	Historial* historial;
+
 public:
 	Pestania();
 	Pestania(SitioWeb* sitioWebActual, Historial* historial);
 	virtual ~Pestania();
 	void irAtras();	
 	void irAdelante();
-	void agregarMarcador(SitioWeb* sitioWeb);
-	list<Marcador> getListaMarcadores(string x);
 	void setSitioWebActual(SitioWeb* sitioWebActual1);
 	SitioWeb* getSitioWebActual();
 	void setHistorial(Historial* historial);

@@ -6,6 +6,6 @@ using namespace std;
 
 int main() {
     Controladora C0;
-	C0.control1();
+	C0.control0();
     return 0;
 }

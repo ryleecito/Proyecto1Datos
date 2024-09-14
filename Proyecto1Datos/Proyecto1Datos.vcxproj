@@ -144,6 +144,7 @@
     <ClCompile Include="Excepciones.cpp" />
     <ClCompile Include="Historial.cpp" />
     <ClCompile Include="Interfaz.cpp" />
+    <ClCompile Include="main2.cpp" />
     <ClCompile Include="Marcador.cpp" />
     <ClCompile Include="Navegador.cpp" />
     <ClCompile Include="Pestania.cpp" />

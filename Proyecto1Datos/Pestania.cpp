@@ -34,15 +34,6 @@ void Pestania::irAdelante()
 	historial->avanzar();
 }
 
-void Pestania::agregarMarcador(SitioWeb* sitioWeb)
-{
-	
-}
-
-list<Marcador> Pestania::getListaMarcadores(string x)
-{
-	return list<Marcador>();
-}
 
 void Pestania::setSitioWebActual(SitioWeb* sitioWebActual1)
 {

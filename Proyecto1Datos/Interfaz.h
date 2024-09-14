@@ -8,5 +8,6 @@ class Interfaz
 public:
 	static int navegadorPrincipal();
 	static int menuNavegador();
+	static void mostrarPagina();
 };
 
