@@ -33,6 +33,16 @@ void Controladora::control0() {
                 break;
             case 8: // Salir
                 return;
+			case 9: // Pagina anterior  
+                break;
+			case 10: // Pagina siguiente
+                break;
+            case 11: // Pestaña anterior
+                break;
+			case 12: // Pestaña siguiente
+                break;
+
+
             default:
                 throw ExcepcionTipo();
             }
