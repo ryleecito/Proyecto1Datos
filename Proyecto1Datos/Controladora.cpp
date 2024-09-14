@@ -15,7 +15,6 @@ void Controladora::control0() {
     int opcion = 0;
     do {
         try {
-            cout << navegador->toString();
             opcion = Interfaz::navegadorPrincipal(navegador);
             switch (opcion) {
                 case 1: // Ir al navegador actual

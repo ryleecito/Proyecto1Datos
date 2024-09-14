@@ -59,29 +59,27 @@ int Interfaz::navegadorPrincipal(Navegador* navegador)
     }*/
 
 	if (navegador->cantPestanias() == 0) {
-		cout << "No hay pestañas abiertas" << endl;
-		system("pause");
-		return 0;
+        cout << "----------------------------------------" << endl;
+        cout << "|            No hay pestanias           | " << endl;
+        cout << "----------------------------------------" << endl<<endl;
 	}
-
-    cout << navegador->firstPestania()->toString()<<endl;
-
-  
+    else {
+        cout << navegador->firstPestania()->toString() << endl;
+    }
 
 
     int opc;
     cout << "----------------------------------------" << endl;
     cout << "|                 MENU                  | " << endl;
     cout << "----------------------------------------" << endl;
-    cout << "| 1. Ir al navegador actual             |" << endl;
-    cout << "| 2. Navegar a un sitio web             |" << endl;
-    cout << "| 3. Agregar un bookmark                |" << endl;
-    cout << "| 4. Importar / Exportar Historial      |" << endl;
-    cout << "| 5. Mostrar bookmarks                  |" << endl;
-    cout << "| 6. Busqueda y filtros                 |" << endl;
-    cout << "| 7. Activar / desactivar modo incognito|" << endl;
-    cout << "| 8. Nueva pestaña                      |" << endl;
-    cout << "| 9. Salir                              |" << endl;
+    cout << "| 1. Navegar a un sitio web             |" << endl;
+    cout << "| 2.  Agregar un bookmark               |" << endl;
+    cout << "| 3. Importar / Exportar Historial      |" << endl;
+    cout << "| 4. Mostrar bookmarks                  |" << endl;
+    cout << "| 5. Busqueda y filtros                 |" << endl;
+    cout << "| 6. Activar / desactivar modo incognito|" << endl;
+    cout << "| 7. Nueva pestaña                      |" << endl;
+    cout << "| 8. Salir                              |" << endl;
     cout << "----------------------------------------" << endl;
     cout << "Ingrese una opcion: ";
     cin >> opc;
