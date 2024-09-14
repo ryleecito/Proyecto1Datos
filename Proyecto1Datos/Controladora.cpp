@@ -11,40 +11,14 @@ Controladora::~Controladora() {
 }
 
 
-void Controladora::control1() {
-    int opcion = 0;
-    do {
-            system("cls");
-            cout<<navegador->toString();
-            opcion = Interfaz::navegadorPrincipal();
-            switch (opcion) {
-            case 1: // Página anterior
-                cout << "Navegando a la página anterior..." << endl;
-                break;
-            case 2: // Página siguiente
-                cout << "Navegando a la página siguiente..." << endl;
-                break;
-            case 3: // Pestaña anterior
-                cout << "Cambiando a la pestaña anterior..." << endl;
-                break;
-            case 4: // Pestaña siguiente
-                cout << "Cambiando a la pestaña siguiente..." << endl;
-                break;
-            case 0: // Ir al menú del navegador
-                return;
-            }
-        
-    } while (opcion != 0); 
-}
-
 void Controladora::control0() {
     int opcion = 0;
     do {
         try {
-            opcion = Interfaz::menuNavegador(); // Mostramos el menu
+            cout << navegador->toString();
+            opcion = Interfaz::navegadorPrincipal(navegador);
             switch (opcion) {
                 case 1: // Ir al navegador actual
-                    control1();
                     break;
                 case 2: // agregar a un sitio web
                     
@@ -87,6 +61,8 @@ void Controladora::control0() {
         }
     } while (opcion != 9);
 }
+
+
 // bookmarks
 void Controladora::control2()
 {

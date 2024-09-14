@@ -87,3 +87,13 @@ string Navegador::toString()
     return s.str();
 }
 
+list<Pestania> Navegador::getListaPestanias()
+{
+    return listaPestanias;
+}
+
+list<Marcador> Navegador::getMarcadoresGuardados()
+{
+    return marcadoresGuardados;
+}
+

@@ -21,6 +21,8 @@ public:
 	//Sesion* getSesion();
 	//void setSesion(Sesion* sesion);
 	string toString();
+	list<Pestania> getListaPestanias();
+	list<Marcador> getMarcadoresGuardados();
 	
 
 };

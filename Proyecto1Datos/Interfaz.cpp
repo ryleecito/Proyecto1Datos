@@ -3,18 +3,20 @@
 #include <iomanip>
 #include <windows.h>
 #include <fstream>
-int Interfaz::navegadorPrincipal()
+
+
+
+int Interfaz::navegadorPrincipal(Navegador* navegador)
 {
-    cout << "----------------------------------------" << endl;
+    system("cls");
+   /* cout << "----------------------------------------" << endl;
     cout << "|  Flecha izquierda / pagina anterior   |" << endl;
     cout << "|  Flecha derecha / pagina siguiente    |" << endl;
     cout << "|  Flecha arriba / pestania siguiente   |" << endl;
     cout << "|  Flecha abajo / pestania anterior     |" << endl;
     cout << "|  Espacio / ir al menu del navegador   |" << endl;
     cout << "----------------------------------------" << endl;
-
     int opc = -1;
-
     while (true) {
         if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
             opc = 1;
@@ -45,7 +47,7 @@ int Interfaz::navegadorPrincipal()
             cout << "Espacio presionado, ir al menú del navegador" << endl;
             system("pause");
             break;
-           
+
         }
         else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
             opc = 0;
@@ -54,18 +56,12 @@ int Interfaz::navegadorPrincipal()
             break;
         }
         Sleep(100);
-    }
-
-    if (opc == -1) {
-        throw ExcepcionTipo();
-    }
-    return opc;
-}
-
-int Interfaz::menuNavegador()
-{
-    system("cls");
-    string input;
+    }*/
+	if (navegador->getListaPestanias().size() == 0) {
+		cout << "No hay pestañas abiertas" << endl;
+		system("pause");
+		return 0;
+	}
     int opc;
     cout << "----------------------------------------" << endl;
     cout << "|                 MENU                  | " << endl;
@@ -83,12 +79,14 @@ int Interfaz::menuNavegador()
     cout << "Ingrese una opcion: ";
     cin >> opc;
 
-    
     if (opc > 9) {
         throw ExcepcionMax(1, 9, opc);
     }
     if (opc < 1) {
         throw ExcepcionMin(1, 9, opc);
+    }
+    if (opc == -1) {
+        throw ExcepcionTipo();
     }
     return opc;
 }

@@ -12,8 +12,7 @@ public:
 
 	// menu principal
 
-	void control0(); // Navegador web
-	void control1(); // Menu del navegador web
+	void control0(); // navegador y menu
 	void control2(); // bookmarks
 	void control3(); // historial - importar/exportar
 	void control4(); // mostrar bookmarks
