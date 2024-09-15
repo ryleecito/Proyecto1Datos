@@ -32,8 +32,7 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
     cout << "|  Flecha abajo / pestania anterior     |" << endl;
     cout << "|  Espacio / ir al menu del navegador   |" << endl;
     cout << "----------------------------------------" << endl;
-    int opc2;
-    
+
     cout << "----------------------------------------" << endl;
     cout << "|                 MENU                  | " << endl;
     cout << "----------------------------------------" << endl;
