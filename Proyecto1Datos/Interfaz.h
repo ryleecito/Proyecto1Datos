@@ -18,7 +18,10 @@ class Interfaz
         static void pestaniaAnterior(Navegador* navegador);
 
         static void pestaniaSiguiente(Navegador* navegador);
+
+		static void agregarPaginaWeb(Navegador* navegador);
    
+        
 
 };
 

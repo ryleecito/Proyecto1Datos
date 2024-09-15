@@ -83,6 +83,13 @@ list<Pestania*> ListPestanias::getPestanias() {
     return pestanias;
 }
 
+void ListPestanias::agregarPaginaWeb(SitioWeb* sitio)
+{
+	if (posicionActual != pestanias.end()) {
+		(*posicionActual)->agregarPaginaWeb(sitio);
+	}
+}
+
 Pestania* ListPestanias::getPestaniaActual() {
     if (posicionActual != pestanias.end()) {
         return *posicionActual;

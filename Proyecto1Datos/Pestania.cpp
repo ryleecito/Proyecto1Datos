@@ -74,6 +74,13 @@ void Pestania::exportarHistorial(ofstream& output) {
 		historial->exportarHistorial(output);
 	}
 }
+
+void Pestania::agregarPaginaWeb(SitioWeb* sitio)
+{
+	historial->add(sitio);
+	sitioWebActual = sitio;
+}
+
 string Pestania::toString()
 {
 	stringstream s;

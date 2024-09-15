@@ -8,6 +8,7 @@ class Navegador
 private:
 
 	ListPestanias* listaPestanias;
+	list<SitioWeb*> sitios;
 	list<Marcador*> marcadoresGuardados;
 	bool modoIncognito;
 
@@ -31,7 +32,13 @@ public:
 	int posicionDelIndex();
 	void pestaniaAnterior();
 	void pestaniaSiguiente();
+	void agregarPaginaWeb(SitioWeb* sitio);
 	string mostrarPestaniaActual();
+	
+
+	// metodos sitios web
+	SitioWeb* buscarPaginaWeb(const string url);
+
 	
 
 

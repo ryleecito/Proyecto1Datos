@@ -21,5 +21,6 @@ public:
     int posicionActualIndex();
 	string toString();
     list<Pestania*> getPestanias();
+	void agregarPaginaWeb(SitioWeb* sitio);
     Pestania* getPestaniaActual();
 };

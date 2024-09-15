@@ -23,6 +23,7 @@ void Controladora::control0() {
             opcion = Interfaz::detectarTecla();
             switch (opcion) {
             case 1: // Agregar a un sitio web
+                control1();
                 break;
             case 2: // Agregar un bookmark
                 break;
@@ -66,6 +67,11 @@ void Controladora::control0() {
             system("pause");
         }
     } while (opcion != 8);
+}
+
+void Controladora::control1()
+{
+	Interfaz::agregarPaginaWeb(navegador);
 }
 
 // bookmarks

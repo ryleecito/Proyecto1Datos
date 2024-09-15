@@ -33,9 +33,7 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
     cout << "|  Espacio / ir al menu del navegador   |" << endl;
     cout << "----------------------------------------" << endl;
     int opc2;
-    int opc2;
-    int opc2;
-    int opc2;
+    
     cout << "----------------------------------------" << endl;
     cout << "|                 MENU                  | " << endl;
     cout << "----------------------------------------" << endl;
@@ -51,6 +49,7 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
     cout << "Toque tecla para realizar accion: ";
 
 }
+
 
 int Interfaz::detectarTecla() {
     while (true)
@@ -80,7 +79,6 @@ int Interfaz::detectarTecla() {
         }
       
     }
-
     return 0;
 
 }
@@ -98,6 +96,23 @@ void Interfaz::pestaniaAnterior(Navegador* navegador)
 void Interfaz::pestaniaSiguiente(Navegador* navegador)
 {
     navegador->pestaniaSiguiente();
+}
+
+void Interfaz::agregarPaginaWeb(Navegador* navegador)
+{
+    string url;
+	cout << " Ingrese la url: ";    
+	cin >> url;
+
+    if (navegador->buscarPaginaWeb(url) != nullptr) {
+        navegador->agregarPaginaWeb(navegador->buscarPaginaWeb(url));
+	}
+	else {
+		cout << " 404 - Not Found " << endl;
+	}
+    system("pause");
+ 
+	
 }
 
 

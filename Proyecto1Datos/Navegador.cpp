@@ -6,6 +6,9 @@ Navegador::Navegador()
 	modoIncognito = false;
     listaPestanias = new ListPestanias();
 	marcadoresGuardados = list<Marcador*>();
+	sitios = list<SitioWeb*>();
+	sitios.push_back(new SitioWeb("www.google.com", "Google","Pedro"));
+	sitios.push_back(new SitioWeb("www.youtube.com", "Youtube", "Juan"));
 
 }
 
@@ -111,9 +114,26 @@ void Navegador::pestaniaSiguiente()
 	listaPestanias->avanzar();
 }
 
+void Navegador::agregarPaginaWeb(SitioWeb* sitio)
+{
+	listaPestanias->getPestaniaActual()->agregarPaginaWeb(sitio);
+}
+
 string Navegador::mostrarPestaniaActual()
 {
 	return listaPestanias->getPestaniaActual()->toString();
+}
+
+SitioWeb* Navegador::buscarPaginaWeb(const string url)
+{
+	auto it = std::find_if(sitios.begin(), sitios.end(), [&](SitioWeb* sitio) {
+		return sitio->getUrl() == url;
+		});
+
+	if (it != sitios.end()) {
+		return *it;  
+	}
+	return nullptr;
 }
 
 
