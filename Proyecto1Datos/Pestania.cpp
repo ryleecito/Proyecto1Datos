@@ -2,8 +2,8 @@
 
 Pestania::Pestania()
 {
-	sitioWebActual = NULL;
-	historial = NULL;
+	sitioWebActual = new SitioWeb();
+	historial = new Historial();
 }
 
 Pestania::Pestania(SitioWeb* sitioWebActual, Historial* historial)
@@ -81,7 +81,6 @@ string Pestania::toString()
 	const int contentWidth = width - 4;
 	const string border(width, '-');
 
-	system("cls");
 	s << "              NAVEGADOR WEB          " << endl;
 	s << border << endl;
 	s << "[ " << string(contentWidth, ' ') << " ]" << endl;

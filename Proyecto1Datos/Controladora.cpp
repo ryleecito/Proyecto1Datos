@@ -1,4 +1,5 @@
 #include "Controladora.h"
+#include <windows.h>
 
 Controladora::Controladora() {
     navegador = new Navegador();
@@ -12,10 +13,14 @@ Controladora::~Controladora() {
 
 
 void Controladora::control0() {
+   
+    
     int opcion = 0;
     do {
         try {
-            opcion = Interfaz::navegadorPrincipal(navegador);
+            Interfaz::mostrarNavegador(navegador);
+            Sleep(200);
+            opcion = Interfaz::detectarTecla();
             switch (opcion) {
             case 1: // Agregar a un sitio web
                 break;
@@ -30,19 +35,20 @@ void Controladora::control0() {
             case 6: // Activar / desactivar modo incógnito
                 break;
             case 7: // Nueva pestaña
+                control7();
                 break;
-            case 8: // Salir
-                return;
-			case 9: // Pagina anterior  
+            case 9: //Ir a pagina anterior
+                control8();
                 break;
-			case 10: // Pagina siguiente
+            case 10: //Ir a pagina siguiente
+                control9();
                 break;
-            case 11: // Pestaña anterior
+            case 11: //Ir a pestania anterior
+                control10();
                 break;
-			case 12: // Pestaña siguiente
+            case 12: //Ir a pestania siguiente
+                control11();
                 break;
-
-
             default:
                 throw ExcepcionTipo();
             }
@@ -85,6 +91,7 @@ void Controladora::control6()
 // nueva pestaña
 void Controladora::control7()
 {
+    Interfaz::agregarPestania(navegador);
 }
 
 // pagina anterior
@@ -98,8 +105,10 @@ void Controladora::control9()
 // pestaña anterior
 void Controladora::control10()
 {
+    Interfaz::pestaniaAnterior(navegador);
 }
 // pestaña siguiente
 void Controladora::control11()
 {
+    Interfaz::pestaniaSiguiente(navegador);
 }

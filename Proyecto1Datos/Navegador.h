@@ -6,9 +6,9 @@
 class Navegador
 {
 private:
+
 	ListPestanias* listaPestanias;
 	list<Marcador*> marcadoresGuardados;
-	//Sesion* sesionActual;
 	bool modoIncognito;
 
 
@@ -25,6 +25,16 @@ public:
 	ListPestanias* getListaPestanias();
 	list<Marcador*> getMarcadoresGuardados();
 	
+	//metodos de lista pestanias
+	int cantidadPestanias();
+	void agregarPestania(Pestania* pest);
+	int posicionDelIndex();
+	void pestaniaAnterior();
+	void pestaniaSiguiente();
+	string mostrarPestaniaActual();
+	
+
+
 
 	
 

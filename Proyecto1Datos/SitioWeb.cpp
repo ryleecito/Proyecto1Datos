@@ -1,18 +1,10 @@
 #include "SitioWeb.h"
 
-SitioWeb::SitioWeb()
-{
-	this->url = "";
-	this->titulo = "";
-	this->dominio = "";
-}
+SitioWeb::SitioWeb() : url(""), titulo(""), dominio("") {}
 
-SitioWeb::SitioWeb(string url, string titulo, string dominio)
-{
-	this->url = url;
-	this->titulo = titulo;
-	this->dominio = dominio;
-}
+SitioWeb::SitioWeb(string url, string titulo, string dominio): url(url), titulo(titulo), dominio(dominio) {}
+
+SitioWeb::SitioWeb(const SitioWeb& other): url(other.url), titulo(other.titulo), dominio(other.dominio) {}
 
 SitioWeb::~SitioWeb()
 {

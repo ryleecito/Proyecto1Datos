@@ -29,6 +29,5 @@ public:
 	void exportarHistorial(ofstream& output);
 	string toString();
 
-	
 };
 

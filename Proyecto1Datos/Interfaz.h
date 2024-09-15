@@ -3,11 +3,22 @@
 #include "Navegador.h"
 #include <sstream>
 #include <iostream>
-using namespace std;		
+
+
 class Interfaz
 {
-public:
-	static int navegadorPrincipal(Navegador* navegador);
+    public:
+
+        static void mostrarNavegador(Navegador* navegador);
+
+        static int detectarTecla();
+
+        static void agregarPestania(Navegador* navegador);
+        
+        static void pestaniaAnterior(Navegador* navegador);
+
+        static void pestaniaSiguiente(Navegador* navegador);
+   
 
 };
 

@@ -5,19 +5,21 @@ class ListPestanias
 {
 private:
 
-    list<Pestania*> historial;
+    list<Pestania*> pestanias;
     list<Pestania*>::iterator posicionActual;
 
 public:
     ListPestanias();
     virtual ~ListPestanias();
-    void navegar(Pestania* pestania);
+    int size();
+    void add(Pestania* pestania);
     void retroceder();
     void avanzar();
-    void limpiarHistorial();
-    void importarHistorial(ifstream& in);
-    void exportarHistorial(ofstream& out);
+    void limpiarPestanias();
+    void importarPestanias(ifstream& in);
+    void exportarPestanias(ofstream& out);
+    int posicionActualIndex();
 	string toString();
-    list<Pestania*> getHistorial();
+    list<Pestania*> getPestanias();
     Pestania* getPestaniaActual();
 };

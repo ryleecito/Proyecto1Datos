@@ -4,7 +4,7 @@ Navegador::Navegador()
 {
   /*  sesionActual = NULL;*/
 	modoIncognito = false;
-    listaPestanias = NULL;
+    listaPestanias = new ListPestanias();
 	marcadoresGuardados = list<Marcador*>();
 
 }
@@ -12,8 +12,6 @@ Navegador::Navegador()
 Navegador::~Navegador()
 {
 }
-
-
 
 
 void Navegador::cambiarmodoIncognito()
@@ -87,6 +85,38 @@ list<Marcador*> Navegador::getMarcadoresGuardados()
 {
     return marcadoresGuardados;
 }
+
+int Navegador::cantidadPestanias()
+{
+	return listaPestanias->size();
+}
+
+void Navegador::agregarPestania(Pestania* pest)
+{
+	listaPestanias->add(pest);
+}
+
+int Navegador::posicionDelIndex()
+{
+	return listaPestanias->posicionActualIndex();
+}
+
+void Navegador::pestaniaAnterior()
+{
+	listaPestanias->retroceder();
+}
+
+void Navegador::pestaniaSiguiente()
+{
+	listaPestanias->avanzar();
+}
+
+string Navegador::mostrarPestaniaActual()
+{
+	return listaPestanias->getPestaniaActual()->toString();
+}
+
+
 
 
 

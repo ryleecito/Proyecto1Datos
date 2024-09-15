@@ -11,6 +11,7 @@ private:
 public:
 	SitioWeb();
 	SitioWeb(string url, string titulo, string dominio);
+	SitioWeb(const SitioWeb& other); 
 	virtual ~SitioWeb();
 	string getUrl();
 	string getTitulo();

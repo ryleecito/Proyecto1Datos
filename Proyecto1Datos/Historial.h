@@ -13,7 +13,7 @@ private:
 public:
     Historial();
     virtual ~Historial();
-    void navegar(SitioWeb* sitioWeb);
+    void add(SitioWeb* sitioWeb);
     void retroceder();
     void avanzar();
     void limpiarHistorial();
@@ -21,4 +21,6 @@ public:
     void exportarHistorial(ofstream& out);
     list<SitioWeb*> getHistorial();
     SitioWeb* getSitioActual();
+    string toString() const;
+
 };
