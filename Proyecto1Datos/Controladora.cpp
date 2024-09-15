@@ -26,10 +26,12 @@ void Controladora::control0() {
                 control1();
                 break;
             case 2: // Agregar un bookmark
+                control2();
                 break;
             case 3: // Importar / Exportar historial
                 break;
             case 4: // Mostrar bookmarks
+                control4();
                 break;
             case 5: // Busqueda y filtros
                 break;
@@ -70,6 +72,7 @@ void Controladora::control1()
 // bookmarks
 void Controladora::control2()
 {
+    Interfaz::agregarBookmark(navegador);
 }
 // historial importar exportar
 void Controladora::control3()
@@ -78,6 +81,7 @@ void Controladora::control3()
 //mostrar bookmarks
 void Controladora::control4()
 {
+    Interfaz::mostrarBookmarks(navegador);
 }
 // busqueda y filtros
 void Controladora::control5()

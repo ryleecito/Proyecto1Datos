@@ -24,6 +24,10 @@ class Interfaz
         static void paginaAnterior(Navegador* navegador);
 
         static void paginaSiguiente(Navegador* navegador);
+
+        static void agregarBookmark(Navegador* navegador);
+
+        static void mostrarBookmarks(Navegador* navegador);
    
 
 };

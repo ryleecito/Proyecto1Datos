@@ -156,5 +156,24 @@ void Interfaz::paginaSiguiente(Navegador* navegador)
     navegador->paginaSiguiente();
 }
 
+void Interfaz::agregarBookmark(Navegador* navegador)
+{
+    if (navegador->cantidadPaginas() == 0) {
+        throw ExcepcionGenerica("Realice una busqueda para agregar bookmark");
+    }
+    std::string tag;
+    std::cout << " Ingrese un tag: ";
+    std::cin >> tag;
+
+
+    navegador->agregarMarcador(new Marcador(new SitioWeb(*navegador->getSitioActual()), tag));
+}
+
+void Interfaz::mostrarBookmarks(Navegador* navegador)
+{
+    std::cout << navegador->MostrarMarcadoresGuardados();
+    system("pause");
+}
+
 
 

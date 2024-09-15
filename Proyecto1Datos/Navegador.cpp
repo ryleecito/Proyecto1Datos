@@ -10,6 +10,15 @@ Navegador::Navegador()
 	sitios.push_back(new SitioWeb("www.google.com", "Google","Pedro"));
 	sitios.push_back(new SitioWeb("www.youtube.com", "Youtube", "Juan"));
 
+
+	/*
+	std::list<std::string> listaEtiquetas;
+	listaEtiquetas.push_back("videos");
+	SitioWeb* sitio = new SitioWeb("www.youtube.com", "YouTube", "carlos");
+
+	Marcador* marcador = new Marcador(sitio, listaEtiquetas);
+	marcadoresGuardados.push_back(marcador);*/
+
 }
 
 Navegador::~Navegador()
@@ -122,6 +131,41 @@ void Navegador::agregarPaginaWeb(SitioWeb* sitio)
 std::string Navegador::mostrarPestaniaActual()
 {
 	return listaPestanias->getPestaniaActual()->toString();
+}
+
+void Navegador::agregarMarcador(Marcador* marcador)
+{
+	 if (marcador == nullptr) {
+        return;
+    }
+    marcadoresGuardados.push_back(marcador);
+   // posicionActual = std::prev(marcadoresGuardados.end());
+}
+
+std::string Navegador::MostrarMarcadoresGuardados() const
+{
+	std::stringstream ss;
+
+	ss << "=====================\n";
+	ss << " Bookmarks  \n";
+	ss << "=====================\n\n";
+
+	if (marcadoresGuardados.empty()) {
+		ss << "No bookmarks saved.\n";
+	}
+	else {
+		int index = 1;
+		for (auto marcador : marcadoresGuardados) {
+			ss << index++ << ". " << marcador->toString() << "\n";
+			ss << "---------------------\n"; 
+		}
+	}
+	return ss.str();
+}
+
+SitioWeb* Navegador::getSitioActual()
+{
+	return listaPestanias->getPestaniaActual()->getHistorial()->getSitioActual();
 }
 
 SitioWeb* Navegador::buscarPaginaWeb(const std::string url)

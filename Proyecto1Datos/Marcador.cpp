@@ -4,8 +4,8 @@ Marcador::Marcador() : sitio(nullptr) // Inicialización de sitio a nullptr
 {
 }
 
-Marcador::Marcador(SitioWeb* sitio, const std::list<std::string>& listaEtiquetas)
-    : sitio(sitio), listaEtiquetas(listaEtiquetas) // Inicialización de miembro
+Marcador::Marcador(SitioWeb* sitio, const std::string eti)
+    : sitio(sitio), etiqueta(eti) // Inicialización de miembro
 {
 }
 
@@ -16,17 +16,25 @@ Marcador::~Marcador()
     // Por ahora, dejaremos esto vacío.
 }
 
-void Marcador::agregarEtiqueta(const std::string& etiqueta)
-{
-    listaEtiquetas.push_back(etiqueta);
-}
-
-void Marcador::eliminarEtiqueta(const std::string& etiqueta)
-{
-    listaEtiquetas.remove(etiqueta);
-}
-
 SitioWeb* Marcador::getSitio() const
 {
     return sitio;
+}
+
+std::string Marcador::toString() const
+{
+    std::stringstream ss;
+    ss << "Marcador:\n";
+
+    if (sitio != nullptr) {
+        ss << "  Sitio Web: " << sitio->toString() << "\n";
+    }
+    else {
+        ss << "  Sitio Web: (sin sitio asignado)\n";
+    }
+
+    ss << "  Etiqueta: ";
+        ss << etiqueta << " ";
+
+    return ss.str();
 }
