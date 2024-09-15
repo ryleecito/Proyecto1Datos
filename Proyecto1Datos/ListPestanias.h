@@ -5,8 +5,8 @@ class ListPestanias
 {
 private:
 
-    list<Pestania*> pestanias;
-    list<Pestania*>::iterator posicionActual;
+    std::list<Pestania*> pestanias;
+    std::list<Pestania*>::iterator posicionActual;
 
 public:
     ListPestanias();
@@ -16,11 +16,11 @@ public:
     void retroceder();
     void avanzar();
     void limpiarPestanias();
-    void importarPestanias(ifstream& in);
-    void exportarPestanias(ofstream& out);
+    void importarPestanias(std::ifstream& in);
+    void exportarPestanias(std::ofstream& out);
     int posicionActualIndex();
-	string toString();
-    list<Pestania*> getPestanias();
+    std::string toString();
+    std::list<Pestania*> getPestanias();
 	void agregarPaginaWeb(SitioWeb* sitio);
     Pestania* getPestaniaActual();
 };

@@ -4,8 +4,8 @@
 class Sesion
 {
 private:
-	list<Pestania> listaPestanias;
-	list<Marcador> marcadoresGuardados;
+	std::list<Pestania> listaPestanias;
+	std::list<Marcador> marcadoresGuardados;
 public:
 	Sesion();
 	virtual ~Sesion();

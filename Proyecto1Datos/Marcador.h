@@ -1,20 +1,23 @@
 #pragma once
-#include "SitioWeb.h"
 #include <list>
+#include <string>
+#include "SitioWeb.h"
+
 class Marcador
 {
 private:
-
-	SitioWeb* sitio;
-	list<string> listaEtiquetas;
+    SitioWeb* sitio;
+    std::list<std::string> listaEtiquetas;
 
 public:
-	Marcador();
-	Marcador(SitioWeb sitio, list<string> listaEtiquetas);
-	virtual ~Marcador();
-	void agregarEtiqueta(string etiqueta);
-	void eliminarEtiqueta(string etiqueta);
-	SitioWeb* getSitio();
+    // Constructores y Destructor
+    Marcador();
+    Marcador(SitioWeb* sitio, const std::list<std::string>& listaEtiquetas);
+    virtual ~Marcador();
+
+    // Métodos
+    void agregarEtiqueta(const std::string& etiqueta);
+    void eliminarEtiqueta(const std::string& etiqueta);
+    SitioWeb* getSitio() const;
 
 };
-

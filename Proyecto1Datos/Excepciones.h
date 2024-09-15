@@ -1,67 +1,18 @@
 #pragma once
-
 #include <iostream>
-#include <sstream>
-using namespace std;
+#include <exception>
+#include <string>
 
-class Excepcion {
-public:
-    Excepcion() {}
-    virtual ~Excepcion() {}
-    virtual const char* what() const throw() = 0;
-    virtual string toString() = 0;
-};
-
-class ExcepcionRango : public Excepcion {
-protected:
-    int min;
-    int max;
-
-public:
-    ExcepcionRango(int min, int max) : min(min), max(max) {}
-    virtual ~ExcepcionRango() {}
-    virtual const char* what() const throw() { return "Excepcion de rango"; }
-    virtual string toString() = 0;
-};
-
-class ExcepcionMin : public ExcepcionRango {
+class ExcepcionGenerica : public std::exception {
 private:
-    int valor;
+    std::string mensaje;
 
 public:
-    ExcepcionMin(int min, int max, int val) : ExcepcionRango(min, max), valor(val) {}
-    virtual ~ExcepcionMin() {}
-    virtual const char* what() {
-        return "Valor por debajo del minimo permitido";
-    }
-    virtual string toString() {
-        stringstream ss;
-        ss << "ExcepcionMin: Valor " << valor << " es menor que el minimo permitido " << min;
-        return ss.str();
-    }
-};
+    // Constructor que permite pasar un mensaje personalizado
+    explicit ExcepcionGenerica(const std::string& msg) noexcept : mensaje(msg) {}
 
-class ExcepcionMax : public ExcepcionRango {
-private:
-    int valor;
-
-public:
-    ExcepcionMax(int min, int max, int val) : ExcepcionRango(min, max), valor(val) {}
-    virtual ~ExcepcionMax() {}
-    virtual const char* what() {
-        return "Valor por encima del maximo permitido";
+    // Sobreescribe la función what() de std::exception para devolver el mensaje
+    virtual const char* what() const noexcept override {
+        return mensaje.c_str();
     }
-    virtual string toString() {
-        stringstream ss;
-        ss << "ExcepcionMax: Valor " << valor << " es mayor que el maximo permitido " << max;
-        return ss.str();
-    }
-};
-
-class ExcepcionTipo : public Excepcion {
-public:
-    ExcepcionTipo() {}
-    virtual ~ExcepcionTipo() {}
-    virtual const char* what() const throw() { return "Se ha digitado un caracter invalido"; }
-    virtual string toString() { return "Se ha digitado un caracter invalido"; }
 };

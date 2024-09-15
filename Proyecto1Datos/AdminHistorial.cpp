@@ -18,7 +18,7 @@ void AdminHistorial::limpiarEntradasAntiguas(Historial* historial)
 {
     while (historial->getHistorial().size() > maxEntradas) {
       
-        list<SitioWeb*> historialList = historial->getHistorial(); 
+        std::list<SitioWeb*> historialList = historial->getHistorial();
         while (historialList.size() > maxEntradas) {
             SitioWeb* sitioAntiguo = historialList.front();  
             historialList.pop_front();

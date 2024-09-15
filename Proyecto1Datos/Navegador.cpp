@@ -5,8 +5,8 @@ Navegador::Navegador()
   /*  sesionActual = NULL;*/
 	modoIncognito = false;
     listaPestanias = new ListPestanias();
-	marcadoresGuardados = list<Marcador*>();
-	sitios = list<SitioWeb*>();
+	marcadoresGuardados = std::list<Marcador*>();
+	sitios = std::list<SitioWeb*>();
 	sitios.push_back(new SitioWeb("www.google.com", "Google","Pedro"));
 	sitios.push_back(new SitioWeb("www.youtube.com", "Youtube", "Juan"));
 
@@ -71,9 +71,9 @@ void Navegador::cambiarmodoIncognito()
 //    sesionActual = sesion;
 //}
 
-string Navegador::toString()
+std::string Navegador::toString()
 {
-    stringstream s;
+	std::stringstream s;
 	s << "Navegador: \n";
 	s << listaPestanias->toString();
     return s.str();
@@ -84,7 +84,7 @@ ListPestanias* Navegador::getListaPestanias()
     return listaPestanias;
 }
 
-list<Marcador*> Navegador::getMarcadoresGuardados()
+std::list<Marcador*> Navegador::getMarcadoresGuardados()
 {
     return marcadoresGuardados;
 }
@@ -119,12 +119,12 @@ void Navegador::agregarPaginaWeb(SitioWeb* sitio)
 	listaPestanias->getPestaniaActual()->agregarPaginaWeb(sitio);
 }
 
-string Navegador::mostrarPestaniaActual()
+std::string Navegador::mostrarPestaniaActual()
 {
 	return listaPestanias->getPestaniaActual()->toString();
 }
 
-SitioWeb* Navegador::buscarPaginaWeb(const string url)
+SitioWeb* Navegador::buscarPaginaWeb(const std::string url)
 {
 	auto it = std::find_if(sitios.begin(), sitios.end(), [&](SitioWeb* sitio) {
 		return sitio->getUrl() == url;
@@ -134,6 +134,21 @@ SitioWeb* Navegador::buscarPaginaWeb(const string url)
 		return *it;  
 	}
 	return nullptr;
+}
+
+void Navegador::paginaAnterior()
+{
+	listaPestanias->getPestaniaActual()->getHistorial()->retroceder();
+}
+
+void Navegador::paginaSiguiente()
+{
+	listaPestanias->getPestaniaActual()->getHistorial()->avanzar();
+}
+
+int Navegador::cantidadPaginas()
+{
+	return listaPestanias->getPestaniaActual()->getHistorial()->size();
 }
 
 

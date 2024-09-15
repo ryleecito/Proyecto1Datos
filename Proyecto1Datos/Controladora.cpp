@@ -19,7 +19,7 @@ void Controladora::control0() {
     do {
         try {
             Interfaz::mostrarNavegador(navegador);
-            Sleep(200);
+            Sleep(300);
             opcion = Interfaz::detectarTecla();
             switch (opcion) {
             case 1: // Agregar a un sitio web
@@ -51,19 +51,12 @@ void Controladora::control0() {
                 control11();
                 break;
             default:
-                throw ExcepcionTipo();
+                throw ExcepcionGenerica("Opción no válida, por favor elige otra opción.");
             }
-        } catch (ExcepcionTipo& ex) {
-            cout << "Error: " << ex.what() << endl;
-            system("pause");
-        } catch (ExcepcionMin& ex) {
-            cout << "Error: " << ex.what() << endl;
-            system("pause");
-        } catch (ExcepcionMax& ex) {
-            cout << "Error: " << ex.what() << endl;
-            system("pause");
-        } catch (...) {
-            cout << "Error desconocido." << endl;
+        }
+        catch (const ExcepcionGenerica& ex) {
+
+            std::cout << "Error: " << ex.what() << std::endl;
             system("pause");
         }
     } while (opcion != 8);
@@ -103,10 +96,12 @@ void Controladora::control7()
 // pagina anterior
 void Controladora::control8()
 {
+    Interfaz::paginaAnterior(navegador);
 }
 // pagina siguiente
 void Controladora::control9()
 {
+    Interfaz::paginaSiguiente(navegador);
 }
 // pestaña anterior
 void Controladora::control10()

@@ -2,7 +2,7 @@
 #include <sstream>
 #include <string>
 #include "Controladora.h"
-using namespace std;
+
 
 int main() {
     Controladora C0;

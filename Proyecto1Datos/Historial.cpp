@@ -9,6 +9,11 @@ Historial::~Historial() {
     }
 }
 
+int Historial::size()
+{
+    return historial.size();
+}
+
 void Historial::add(SitioWeb* sitioWeb) {
     if (sitioWeb == nullptr) {
         return;
@@ -77,9 +82,9 @@ SitioWeb* Historial::getSitioActual() {
     return nullptr;
 }
 
-string Historial::toString() const {
+std::string Historial::toString() const {
 
-    stringstream ss;
+    std::stringstream ss;
     ss << "Historial:\n";
 
     for (auto sitio : historial) {

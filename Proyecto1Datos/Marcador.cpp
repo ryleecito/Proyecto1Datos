@@ -1,34 +1,32 @@
 #include "Marcador.h"
 
-Marcador::Marcador()
+Marcador::Marcador() : sitio(nullptr) // Inicialización de sitio a nullptr
 {
-	this->sitio = nullptr;
-
 }
 
-Marcador::Marcador(SitioWeb sitio, list<string> listaEtiquetas)
+Marcador::Marcador(SitioWeb* sitio, const std::list<std::string>& listaEtiquetas)
+    : sitio(sitio), listaEtiquetas(listaEtiquetas) // Inicialización de miembro
 {
-	this->sitio = &sitio;
-	this->listaEtiquetas = listaEtiquetas;
-
 }
 
 Marcador::~Marcador()
 {
-	
+    // Si el puntero 'sitio' apunta a un objeto que debe ser eliminado aquí, hazlo.
+    // Pero normalmente, el puntero 'sitio' debería ser manejado por otro objeto o clase.
+    // Por ahora, dejaremos esto vacío.
 }
 
-void Marcador::agregarEtiqueta(string etiqueta)
+void Marcador::agregarEtiqueta(const std::string& etiqueta)
 {
-	listaEtiquetas.push_back(etiqueta);
+    listaEtiquetas.push_back(etiqueta);
 }
 
-void Marcador::eliminarEtiqueta(string etiqueta)
+void Marcador::eliminarEtiqueta(const std::string& etiqueta)
 {
-	listaEtiquetas.remove(etiqueta);
+    listaEtiquetas.remove(etiqueta);
 }
 
-SitioWeb* Marcador::getSitio()
+SitioWeb* Marcador::getSitio() const
 {
-	return sitio;
+    return sitio;
 }

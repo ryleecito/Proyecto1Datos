@@ -2,47 +2,49 @@
 
 SitioWeb::SitioWeb() : url(""), titulo(""), dominio("") {}
 
-SitioWeb::SitioWeb(string url, string titulo, string dominio): url(url), titulo(titulo), dominio(dominio) {}
+SitioWeb::SitioWeb(std::string url, std::string titulo, std::string dominio)
+    : url(url), titulo(titulo), dominio(dominio) {}
 
-SitioWeb::SitioWeb(const SitioWeb& other): url(other.url), titulo(other.titulo), dominio(other.dominio) {}
+SitioWeb::SitioWeb(const SitioWeb& other)
+    : url(other.url), titulo(other.titulo), dominio(other.dominio) {}
 
 SitioWeb::~SitioWeb()
 {
 }
 
-string SitioWeb::getUrl()
+std::string SitioWeb::getUrl()
 {
-	return url;
+    return url;
 }
 
-string SitioWeb::getTitulo()
+std::string SitioWeb::getTitulo()
 {
-	return titulo;
+    return titulo;
 }
 
-string SitioWeb::getDominio()
+std::string SitioWeb::getDominio()
 {
-	return dominio;
+    return dominio;
 }
 
-void SitioWeb::setUrl(string url)
+void SitioWeb::setUrl(std::string url)
 {
-	this->url = url;
+    this->url = url;
 }
 
-void SitioWeb::setTitulo(string titulo)
+void SitioWeb::setTitulo(std::string titulo)
 {
-	this->titulo = titulo;
+    this->titulo = titulo;
 }
 
-void SitioWeb::setDominio(string dominio)
+void SitioWeb::setDominio(std::string dominio)
 {
-	this->dominio = dominio;
+    this->dominio = dominio;
 }
 
-string SitioWeb::toString()
+std::string SitioWeb::toString()
 {
-	stringstream s;
-	s << "URL: " << url << " Titulo: " << titulo << " Dominio: " << dominio;
-	return s.str();
+    std::stringstream s;
+    s << "URL: " << url << " Titulo: " << titulo << " Dominio: " << dominio;
+    return s.str();
 }

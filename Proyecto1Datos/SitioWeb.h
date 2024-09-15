@@ -1,25 +1,28 @@
 #pragma once
 #include <iostream>
 #include <sstream>
-using namespace std;
+#include <string>
+
 class SitioWeb
 {
 private:
-	string url;
-	string titulo;
-	string dominio;
-public:
-	SitioWeb();
-	SitioWeb(string url, string titulo, string dominio);
+    std::string url;
+    std::string titulo;
+    std::string dominio;
 
-	SitioWeb(const SitioWeb& other); 
-	virtual ~SitioWeb();
-	string getUrl();
-	string getTitulo();
-	string getDominio();
-	void setUrl(string url);
-	void setTitulo(string titulo);
-	void setDominio(string dominio);
-	string toString();
+public:
+    SitioWeb();
+    SitioWeb(std::string url, std::string titulo, std::string dominio);
+
+    SitioWeb(const SitioWeb& other);
+    virtual ~SitioWeb();
+
+    std::string getUrl();
+    std::string getTitulo();
+    std::string getDominio();
+    void setUrl(std::string url);
+    void setTitulo(std::string titulo);
+    void setDominio(std::string dominio);
+    std::string toString();
 };
 

@@ -8,8 +8,8 @@ class Navegador
 private:
 
 	ListPestanias* listaPestanias;
-	list<SitioWeb*> sitios;
-	list<Marcador*> marcadoresGuardados;
+	std::list<SitioWeb*> sitios;
+	std::list<Marcador*> marcadoresGuardados;
 	bool modoIncognito;
 
 
@@ -22,9 +22,9 @@ public:
 	void exportarHistorial(const string& nombreHistorial);*/
 	//Sesion* getSesion();
 	//void setSesion(Sesion* sesion);
-	string toString();
+	std::string toString();
 	ListPestanias* getListaPestanias();
-	list<Marcador*> getMarcadoresGuardados();
+	std::list<Marcador*> getMarcadoresGuardados();
 	
 	//metodos de lista pestanias
 	int cantidadPestanias();
@@ -33,12 +33,14 @@ public:
 	void pestaniaAnterior();
 	void pestaniaSiguiente();
 	void agregarPaginaWeb(SitioWeb* sitio);
-	string mostrarPestaniaActual();
+	std::string mostrarPestaniaActual();
 	
 
 	// metodos sitios web
-	SitioWeb* buscarPaginaWeb(const string url);
-
+	SitioWeb* buscarPaginaWeb(const std::string url);
+	void paginaAnterior();
+	void paginaSiguiente();
+	int cantidadPaginas();
 	
 
 

@@ -1,5 +1,6 @@
 #include "ListPestanias.h"
 
+
 ListPestanias::ListPestanias() : posicionActual(pestanias.end()) {}
 
 ListPestanias::~ListPestanias() {
@@ -8,18 +9,17 @@ ListPestanias::~ListPestanias() {
     }
 }
 
-int ListPestanias::size()
-{
+int ListPestanias::size() {
     return pestanias.size();
 }
 
 void ListPestanias::add(Pestania* pestania) {
     if (posicionActual != pestanias.end()) {
-        auto it = next(posicionActual);
+        auto it = std::next(posicionActual);  // Usa std::next en lugar de next para evitar ambigüedad
         pestanias.erase(it, pestanias.end());
     }
     pestanias.push_back(pestania);
-    posicionActual = std::prev(pestanias.end());
+    posicionActual = std::prev(pestanias.end()); // Usa std::prev en lugar de prev
 }
 
 void ListPestanias::retroceder() {
@@ -29,7 +29,7 @@ void ListPestanias::retroceder() {
 }
 
 void ListPestanias::avanzar() {
-    if (posicionActual != prev(pestanias.end())) {
+    if (posicionActual != std::prev(pestanias.end())) {
         ++posicionActual;
     }
 }
@@ -42,52 +42,49 @@ void ListPestanias::limpiarPestanias() {
     posicionActual = pestanias.end();
 }
 
-void ListPestanias::importarPestanias(ifstream& in) {
+void ListPestanias::importarPestanias(std::ifstream& in) {
     limpiarPestanias();
 
-    string nombre; 
-    while (getline(in, nombre)) {
-       /* Pestania* pestania = new Pestania(nombre);*/ 
-     /*   navegar(pestania);*/
+    std::string nombre;
+    while (std::getline(in, nombre)) {
+        // Completar la lógica para crear nuevas pestañas
+        // Ejemplo (si tienes constructor adecuado):
+        // Pestania* pestania = new Pestania(nombre);
+        // pestanias.push_back(pestania);
     }
 }
 
-void ListPestanias::exportarPestanias(ofstream& out) {
+void ListPestanias::exportarPestanias(std::ofstream& out) {
     for (auto pestania : pestanias) {
-      /*  out << pestania->getNombre() << std::endl*/; 
+        // Completar la lógica para exportar cada pestaña
+        // Ejemplo (si tienes método adecuado en Pestania):
+        // out << pestania->getNombre() << std::endl;
     }
 }
 
-int ListPestanias::posicionActualIndex()
-{
-    // Verifica si la lista de pestañas no está vacía y si la posición actual es válida
+int ListPestanias::posicionActualIndex() {
     if (pestanias.empty()) {
-        return -1; // Si la lista está vacía, retornamos -1 o cualquier otro valor que indique error
+        return -1;
     }
-
-    // Calcula la distancia entre el inicio de la lista y la posición actual
     return std::distance(pestanias.begin(), posicionActual);
 }
 
-
-string ListPestanias::toString()
-{
+std::string ListPestanias::toString() {
     std::stringstream s;
     for (auto pestania : pestanias) {
-        s << pestania->toString() << endl;
+        s << pestania->toString() << std::endl;
     }
     return s.str();
 }
 
-list<Pestania*> ListPestanias::getPestanias() {
+std::list<Pestania*> ListPestanias::getPestanias() {
     return pestanias;
 }
 
-void ListPestanias::agregarPaginaWeb(SitioWeb* sitio)
-{
-	if (posicionActual != pestanias.end()) {
-		(*posicionActual)->agregarPaginaWeb(sitio);
-	}
+void ListPestanias::agregarPaginaWeb(SitioWeb* sitio) {
+    if (posicionActual != pestanias.end()) {
+        (*posicionActual)->agregarPaginaWeb(sitio);
+    }
 }
 
 Pestania* ListPestanias::getPestaniaActual() {
