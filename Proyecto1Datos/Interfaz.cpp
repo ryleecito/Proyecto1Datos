@@ -115,11 +115,12 @@ void Interfaz::pestaniaSiguiente(Navegador* navegador)
 void Interfaz::agregarPaginaWeb(Navegador* navegador)
 {
     if (navegador->cantidadPestanias() == 0) {
-        throw ExcepcionGenerica("Cree una pestania para navegar");
+        navegador->agregarPestania(new Pestania());
     }
 
-
-
+    if (navegador->cantidadPestanias() == 0) {
+        throw ExcepcionGenerica("Cree una pestania para navegar");
+    }
     std::string url;
     std::cout << " Ingrese la url: ";
 
@@ -144,6 +145,7 @@ void Interfaz::paginaAnterior(Navegador* navegador)
         throw ExcepcionGenerica("Realice una busqueda para navegar");
     }
     navegador->paginaAnterior();
+    
 }
 
 void Interfaz::paginaSiguiente(Navegador* navegador)
