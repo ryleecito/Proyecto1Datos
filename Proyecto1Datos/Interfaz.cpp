@@ -7,7 +7,6 @@
 #include <sstream>
 #include <iostream>
 #include <windows.h>
-#include <limits> 
 
 
 
@@ -104,7 +103,6 @@ int Interfaz::detectarTecla() {
 
 void Interfaz::agregarPestania(Navegador* navegador )
 {
-
     navegador->agregarPestania(new Pestania());
 }
 
@@ -144,7 +142,7 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
         navegador->agregarPaginaWeb(navegador->buscarPaginaWeb(url));
 	}
 	else {
-        std::cout << " 404 - Not Found " << std::endl;
+        throw ExcepcionGenerica("404-NotFound");
 	}
     system("pause");
  
