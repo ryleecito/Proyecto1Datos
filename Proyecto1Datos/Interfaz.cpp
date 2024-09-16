@@ -150,7 +150,10 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
 
 void Interfaz::paginaAnterior(Navegador* navegador)
 {
-    if (navegador->cantidadPaginas() == 0) {
+    if (navegador->cantidadPestanias() == 0) {
+        throw ExcepcionGenerica("Cree una pestania para navegar");
+    }
+    if ( navegador->cantidadPaginas() == 0) {
         throw ExcepcionGenerica("Realice una busqueda para navegar");
     }
     navegador->paginaAnterior();
@@ -159,7 +162,10 @@ void Interfaz::paginaAnterior(Navegador* navegador)
 
 void Interfaz::paginaSiguiente(Navegador* navegador)
 {
-    if (navegador->cantidadPaginas() == 0) {
+    if (navegador->cantidadPestanias() == 0) {
+        throw ExcepcionGenerica("Cree una pestania para navegar");
+    }
+    if ( navegador->cantidadPaginas() == 0 ) {
         throw ExcepcionGenerica("Realice una busqueda para navegar");
     }
     navegador->paginaSiguiente();

@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
 #include <sstream>
-#include <list>
-#include <fstream>  // Para std::ifstream y std::ofstream
-#include <string>   // Para std::string
+#include <deque>
+#include <fstream>  
+#include <string>   
 #include "Marcador.h"
 #include "SitioWeb.h"
 #include "Historial.h"

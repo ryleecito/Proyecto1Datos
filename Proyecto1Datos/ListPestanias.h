@@ -5,24 +5,28 @@ class ListPestanias
 {
 private:
 
-    std::list<Pestania*> pestanias;
-    std::list<Pestania*>::iterator posicionActual;
+    std::deque<Pestania*> pestanias;
+    std::deque<Pestania*>::iterator posicionActual;
+    int posicionActualIdx; 
    
 public:
 
+public:
     ListPestanias();
     virtual ~ListPestanias();
-    int size();
+
+    int size() const;
     void add(Pestania* pestania);
     void retroceder();
     void avanzar();
     void limpiarPestanias();
+    int getPosicionActualIndex() const;
+    std::string toString() const;
+    std::deque<Pestania*> getPestanias() const;
+    Pestania* getPestaniaActual() const;
+    void agregarPaginaWeb(SitioWeb* sitio);
+
     void importarPestanias(std::ifstream& in);
     void exportarPestanias(std::ofstream& out);
-    int posicionActualIndex();
-    std::string toString();
-    std::list<Pestania*> getPestanias();
-	void agregarPaginaWeb(SitioWeb* sitio);
-    Pestania* getPestaniaActual();
-	
 };
+

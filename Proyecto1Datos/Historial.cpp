@@ -4,31 +4,18 @@
 Historial::Historial() : posicionActual(historial.end()) {}
 
 Historial::~Historial() {
-    for (auto sitio : historial) {
-        delete sitio;
-    }
+    limpiarHistorial();
 }
 
-int Historial::size()
-{
-    return historial.size();
+int Historial::size() const {
+
+    return (int)historial.size();
 }
 
 void Historial::add(SitioWeb* sitioWeb) {
-    if (sitioWeb == nullptr) {
-        return;
-    }
-
-    if (posicionActual != historial.end()) {
-        // Elimina todos los elementos futuros después del sitio actual
-        historial.erase(std::next(posicionActual), historial.end());
-    }
-
-    // Agrega el nuevo sitio al final del historial
     historial.push_back(sitioWeb);
-
-    // Actualiza el iterador al nuevo sitio web agregado
     posicionActual = std::prev(historial.end());
+
 }
 
 void Historial::retroceder() {
@@ -44,7 +31,7 @@ void Historial::avanzar() {
 }
 
 void Historial::limpiarHistorial() {
-    for (auto sitio : historial) {
+    for (SitioWeb* sitio : historial) {
         delete sitio;
     }
     historial.clear();
@@ -55,8 +42,8 @@ void Historial::importarHistorial(std::ifstream& in) {
     limpiarHistorial();
 
     std::string url, titulo, dominio;
-    while (getline(in, url)) {
-        if (getline(in, titulo) && getline(in, dominio)) {
+    while (std::getline(in, url)) {
+        if (std::getline(in, titulo) && std::getline(in, dominio)) {
             SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
             add(sitio);
         }
@@ -64,18 +51,20 @@ void Historial::importarHistorial(std::ifstream& in) {
 }
 
 void Historial::exportarHistorial(std::ofstream& out) {
-    for (auto sitio : historial) {
-        out << sitio->getUrl() << std::endl;
-        out << sitio->getTitulo() << std::endl;
-        out << sitio->getDominio() << std::endl;
-    }
+
+    //for (const SitioWeb* sitio : historial) {
+    //    out << *sitio->getUrl() << '\n';
+    //    out << sitio->getTitulo() << '\n';
+    //    out << sitio->getDominio() << '\n';
+
+    //}
 }
 
-std::list<SitioWeb*> Historial::getHistorial() {
+std::deque<SitioWeb*> Historial::getHistorial() const {
     return historial;
 }
 
-SitioWeb* Historial::getSitioActual() {
+SitioWeb* Historial::getSitioActual() const {
     if (posicionActual != historial.end()) {
         return *posicionActual;
     }
@@ -83,13 +72,13 @@ SitioWeb* Historial::getSitioActual() {
 }
 
 std::string Historial::toString() const {
-
     std::stringstream ss;
     ss << "Historial:\n";
 
-    for (auto sitio : historial) {
+    for (const auto sitio : historial) {
         ss << sitio->toString() << "\n";
     }
 
     return ss.str();
 }
+

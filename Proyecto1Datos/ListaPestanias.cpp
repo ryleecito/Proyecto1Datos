@@ -1,83 +1,66 @@
 #include "ListPestanias.h"
 
-
-ListPestanias::ListPestanias() : posicionActual(pestanias.end()) {}
+ListPestanias::ListPestanias()
+    : posicionActual(pestanias.end()), posicionActualIdx(-1) {}
 
 ListPestanias::~ListPestanias() {
-    for (auto pestania : pestanias) {
-        delete pestania;
-    }
+    limpiarPestanias();
 }
 
-int ListPestanias::size() {
-    return pestanias.size();
+int ListPestanias::size() const {
+    return (int)pestanias.size();
 }
 
 void ListPestanias::add(Pestania* pestania) {
-    if (posicionActual != pestanias.end()) {
-        auto it = std::next(posicionActual);  
-        pestanias.erase(it, pestanias.end());
-    }
     pestanias.push_back(pestania);
-    posicionActual = std::prev(pestanias.end()); 
+    posicionActual = std::prev(pestanias.end());  
+    posicionActualIdx = (int)pestanias.size() - 1;
 }
 
 void ListPestanias::retroceder() {
     if (posicionActual != pestanias.begin()) {
         --posicionActual;
+        --posicionActualIdx;  
     }
 }
 
 void ListPestanias::avanzar() {
     if (posicionActual != std::prev(pestanias.end())) {
         ++posicionActual;
+        ++posicionActualIdx;
     }
 }
 
 void ListPestanias::limpiarPestanias() {
-    // Iteramos por todas las pestañas y las borramos
-    for (auto it = pestanias.begin(); it != pestanias.end(); ++it) {
-        delete* it; // Liberamos la memoria de la pestaña
+    for (auto& pestania : pestanias) {
+        delete pestania;  
     }
-    // Limpiamos la lista de pestañas
-    pestanias.clear();
-    // Reiniciamos posicionActual
+    pestanias.clear();   
     posicionActual = pestanias.end();
-
+    posicionActualIdx = -1;  
 }
 
-void ListPestanias::importarPestanias(std::ifstream& in) {
-    limpiarPestanias();
-
-    std::string nombre;
-    while (std::getline(in, nombre)) {
-       
-    }
+int ListPestanias::getPosicionActualIndex() const {
+    return posicionActualIdx; 
 }
 
-void ListPestanias::exportarPestanias(std::ofstream& out) {
-    for (auto pestania : pestanias) {
-      
-    }
-}
-
-int ListPestanias::posicionActualIndex() {
-    if (pestanias.empty()) {
-        return -1;
-    }
-    return std::distance(pestanias.begin(), posicionActual);
-}
-
-std::string ListPestanias::toString() {
+std::string ListPestanias::toString() const {
     std::stringstream s;
-    for (auto pestania : pestanias) {
+    for (const auto& pestania : pestanias) {
         s << pestania->toString() << std::endl;
     }
     return s.str();
 }
 
-std::list<Pestania*> ListPestanias::getPestanias() {
+std::deque<Pestania*> ListPestanias::getPestanias() const {
     return pestanias;
+}
+
+Pestania* ListPestanias::getPestaniaActual() const {
+    if (posicionActual != pestanias.end()) {
+        return *posicionActual;
+    }
+    return nullptr;
 }
 
 void ListPestanias::agregarPaginaWeb(SitioWeb* sitio) {
@@ -86,9 +69,16 @@ void ListPestanias::agregarPaginaWeb(SitioWeb* sitio) {
     }
 }
 
-Pestania* ListPestanias::getPestaniaActual() {
-    if (posicionActual != pestanias.end()) {
-        return *posicionActual;
+void ListPestanias::importarPestanias(std::ifstream& in) {
+    limpiarPestanias();
+    std::string nombre;
+    while (std::getline(in, nombre)) {
+        // Implementar la lógica para agregar pestañas desde un archivo
     }
-    return nullptr;
+}
+
+void ListPestanias::exportarPestanias(std::ofstream& out) {
+    for (const auto& pestania : pestanias) {
+        // Implementar la lógica para exportar pestañas a un archivo
+    }
 }

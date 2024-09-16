@@ -26,9 +26,6 @@ Navegador::~Navegador()
 {
 }
 
-
-
-
 //void Navegador::importarHistorial(const string& nombreHistorial)
 //{
 //    std::ifstream inputFile(nombreHistorial);
@@ -129,9 +126,9 @@ int Navegador::posicionDelIndex()
 {
 	if (modoIncognito)
 	{
-		return listaPestaniasIncognito->posicionActualIndex();
+		return listaPestaniasIncognito->getPosicionActualIndex();
 	}
-	return listaPestanias->posicionActualIndex();
+	return listaPestanias->getPosicionActualIndex();
 }
 
 void Navegador::pestaniaAnterior()
