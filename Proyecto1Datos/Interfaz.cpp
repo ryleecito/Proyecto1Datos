@@ -1,6 +1,5 @@
 
 #pragma once
-#define NOMINMAX 
 #include "Interfaz.h"
 #include "Excepciones.h"
 #include "Navegador.h"
