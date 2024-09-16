@@ -35,7 +35,7 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
         std::cout << "Pestania " << navegador->posicionDelIndex() + 1 << std::endl;
         std::cout << navegador->mostrarPestaniaActual() << std::endl;
 
-        std::cout << navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->toString() << std::endl;
+        //std::cout << navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->toString() << std::endl;
     }
 
     std::cout << "----------------------------------------" << std::endl;

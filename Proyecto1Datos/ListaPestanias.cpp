@@ -35,18 +35,15 @@ void ListPestanias::avanzar() {
 }
 
 void ListPestanias::limpiarPestanias() {
-    if (pestanias.size() > 1 && posicionActual != pestanias.end()) {
-        auto it = posicionActual;
-        if (posicionActual == --pestanias.end()) {
-            posicionActual = pestanias.begin();
-        }
-        else {
-            ++posicionActual;
-        }
-        delete* it;
-        pestanias.erase(it);
+    // Iteramos por todas las pestañas y las borramos
+    for (auto it = pestanias.begin(); it != pestanias.end(); ++it) {
+        delete* it; // Liberamos la memoria de la pestaña
     }
-  
+    // Limpiamos la lista de pestañas
+    pestanias.clear();
+    // Reiniciamos posicionActual
+    posicionActual = pestanias.end();
+
 }
 
 void ListPestanias::importarPestanias(std::ifstream& in) {

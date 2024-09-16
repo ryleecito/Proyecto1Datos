@@ -8,9 +8,8 @@ private:
     std::list<Pestania*> pestanias;
     std::list<Pestania*>::iterator posicionActual;
    
-    
-
 public:
+
     ListPestanias();
     virtual ~ListPestanias();
     int size();
