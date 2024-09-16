@@ -4,6 +4,7 @@ Navegador::Navegador()
 {
   /*  sesionActual = NULL;*/
 	modoIncognito = false;
+	listaPestaniasIncognito = new ListPestanias();
     listaPestanias = new ListPestanias();
 	marcadoresGuardados = std::list<Marcador*>();
 	sitios = std::list<SitioWeb*>();
@@ -26,11 +27,7 @@ Navegador::~Navegador()
 }
 
 
-void Navegador::cambiarmodoIncognito()
-{
-	modoIncognito = !modoIncognito;
 
-}
 
 //void Navegador::importarHistorial(const string& nombreHistorial)
 //{
@@ -83,7 +80,6 @@ void Navegador::cambiarmodoIncognito()
 std::string Navegador::toString()
 {
 	std::stringstream s;
-	s << "Navegador: \n";
 	s << listaPestanias->toString();
     return s.str();
 }
@@ -98,40 +94,84 @@ std::list<Marcador*> Navegador::getMarcadoresGuardados()
     return marcadoresGuardados;
 }
 
+void Navegador::cambiarModoIncognito()
+{
+	if (modoIncognito == true) {
+		listaPestaniasIncognito->limpiarPestanias();
+	}
+	modoIncognito = !modoIncognito;
+}
+
+bool Navegador::getModoIncognito()
+{
+	return modoIncognito;
+}
+
 int Navegador::cantidadPestanias()
 {
+	if (modoIncognito)
+	{
+		return listaPestaniasIncognito->size();
+	}
 	return listaPestanias->size();
 }
 
 void Navegador::agregarPestania(Pestania* pest)
 {
+	if (modoIncognito)
+	{
+		return listaPestaniasIncognito->add(pest);
+	}
 	listaPestanias->add(pest);
 }
 
 int Navegador::posicionDelIndex()
 {
+	if (modoIncognito)
+	{
+		return listaPestaniasIncognito->posicionActualIndex();
+	}
 	return listaPestanias->posicionActualIndex();
 }
 
 void Navegador::pestaniaAnterior()
 {
+	if (modoIncognito) {
+		listaPestaniasIncognito->retroceder();
+		return;
+	}
 	listaPestanias->retroceder();
 }
 
 void Navegador::pestaniaSiguiente()
 {
+	if (modoIncognito)
+	{
+		listaPestaniasIncognito->avanzar();
+		return;
+	}
 	listaPestanias->avanzar();
 }
 
 void Navegador::agregarPaginaWeb(SitioWeb* sitio)
 {
+	if (modoIncognito) {
+		listaPestaniasIncognito->getPestaniaActual()->agregarPaginaWeb(sitio);
+		return;
+	}
 	listaPestanias->getPestaniaActual()->agregarPaginaWeb(sitio);
 }
 
 std::string Navegador::mostrarPestaniaActual()
+
 {
+	if (modoIncognito)
+	{
+		return listaPestaniasIncognito->getPestaniaActual()->toString();
+	}
 	return listaPestanias->getPestaniaActual()->toString();
 }
+
 
 void Navegador::agregarMarcador(Marcador* marcador)
 {
@@ -147,11 +187,11 @@ std::string Navegador::MostrarMarcadoresGuardados() const
 	std::stringstream ss;
 
 	ss << "=====================\n";
-	ss << " Bookmarks  \n";
+	ss << "       Bookmarks  \n";
 	ss << "=====================\n\n";
 
 	if (marcadoresGuardados.empty()) {
-		ss << "No bookmarks saved.\n";
+		ss << "No hay bookmarks guardados.\n";
 	}
 	else {
 		int index = 1;

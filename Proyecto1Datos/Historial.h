@@ -8,23 +8,22 @@
 class Historial
 {
 private:
-    std::list<SitioWeb*> historial; // Calificación de std::list
-    std::list<SitioWeb*>::iterator posicionActual; // Calificación de std::list y std::iterator
+    std::list<SitioWeb*> historial; 
+    std::list<SitioWeb*>::iterator posicionActual; 
 
 public:
-    // Constructor y Destructor
+
     Historial();
     virtual ~Historial();
 
-    // Métodos
-    int size(); // Retorna el tamaño del historial
-    void add(SitioWeb* sitioWeb); // Agrega un sitio al historial
-    void retroceder(); // Retrocede en el historial
-    void avanzar(); // Avanza en el historial
-    void limpiarHistorial(); // Limpia el historial
-    void importarHistorial(std::ifstream& in); // Importa historial desde un archivo
-    void exportarHistorial(std::ofstream& out); // Exporta historial a un archivo
-    std::list<SitioWeb*> getHistorial(); // Retorna el historial
-    SitioWeb* getSitioActual(); // Retorna el sitio actual
-    std::string toString() const; // Representación textual del historial
+    int size(); 
+    void add(SitioWeb* sitioWeb); 
+    void retroceder(); 
+    void avanzar(); 
+    void limpiarHistorial();
+    void importarHistorial(std::ifstream& in); 
+    void exportarHistorial(std::ofstream& out); 
+    std::list<SitioWeb*> getHistorial(); 
+    SitioWeb* getSitioActual(); 
+    std::string toString() const; 
 };

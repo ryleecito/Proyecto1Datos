@@ -15,11 +15,11 @@ int ListPestanias::size() {
 
 void ListPestanias::add(Pestania* pestania) {
     if (posicionActual != pestanias.end()) {
-        auto it = std::next(posicionActual);  // Usa std::next en lugar de next para evitar ambigüedad
+        auto it = std::next(posicionActual);  
         pestanias.erase(it, pestanias.end());
     }
     pestanias.push_back(pestania);
-    posicionActual = std::prev(pestanias.end()); // Usa std::prev en lugar de prev
+    posicionActual = std::prev(pestanias.end()); 
 }
 
 void ListPestanias::retroceder() {
@@ -35,11 +35,18 @@ void ListPestanias::avanzar() {
 }
 
 void ListPestanias::limpiarPestanias() {
-    for (auto pestania : pestanias) {
-        delete pestania;
+    if (pestanias.size() > 1 && posicionActual != pestanias.end()) {
+        auto it = posicionActual;
+        if (posicionActual == --pestanias.end()) {
+            posicionActual = pestanias.begin();
+        }
+        else {
+            ++posicionActual;
+        }
+        delete* it;
+        pestanias.erase(it);
     }
-    pestanias.clear();
-    posicionActual = pestanias.end();
+  
 }
 
 void ListPestanias::importarPestanias(std::ifstream& in) {
@@ -47,18 +54,13 @@ void ListPestanias::importarPestanias(std::ifstream& in) {
 
     std::string nombre;
     while (std::getline(in, nombre)) {
-        // Completar la lógica para crear nuevas pestañas
-        // Ejemplo (si tienes constructor adecuado):
-        // Pestania* pestania = new Pestania(nombre);
-        // pestanias.push_back(pestania);
+       
     }
 }
 
 void ListPestanias::exportarPestanias(std::ofstream& out) {
     for (auto pestania : pestanias) {
-        // Completar la lógica para exportar cada pestaña
-        // Ejemplo (si tienes método adecuado en Pestania):
-        // out << pestania->getNombre() << std::endl;
+      
     }
 }
 

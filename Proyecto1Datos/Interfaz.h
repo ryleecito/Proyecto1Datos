@@ -28,6 +28,8 @@ class Interfaz
         static void agregarBookmark(Navegador* navegador);
 
         static void mostrarBookmarks(Navegador* navegador);
+
+		static void cambiarModoIncognito(Navegador* navegador);
    
 
 };

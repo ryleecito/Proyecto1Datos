@@ -1,13 +1,13 @@
 
 #pragma once
-#define NOMINMAX  // Desactiva la macro min/max de windows.h
+#define NOMINMAX 
 #include "Interfaz.h"
 #include "Excepciones.h"
 #include "Navegador.h"
 #include <sstream>
 #include <iostream>
 #include <windows.h>
-#include <limits> // Para std::numeric_limits
+#include <limits> 
 
 
 
@@ -15,13 +15,25 @@
 void Interfaz::mostrarNavegador(Navegador* navegador) {
 
     system("cls");
+
+    if (navegador->getModoIncognito()) {
+        std::cout << "----------------------------------------" << std::endl;
+        std::cout << "|        Modo incognito activado        | " << std::endl;
+        std::cout << "----------------------------------------" << std::endl << std::endl;
+    }
+    else {
+        std::cout << "----------------------------------------" << std::endl;
+        std::cout << "|        Modo incognito desactivado     | " << std::endl;
+        std::cout << "----------------------------------------" << std::endl << std::endl;
+    }
+
     if (navegador->cantidadPestanias() == 0) {
         std::cout << "----------------------------------------" << std::endl;
         std::cout << "|            No hay pestanias           | " << std::endl;
         std::cout << "----------------------------------------" << std::endl << std::endl;
     }
     else {
-
+       
         std::cout << "Pestania " << navegador->posicionDelIndex() + 1 << std::endl;
         std::cout << navegador->mostrarPestaniaActual() << std::endl;
 
@@ -161,6 +173,9 @@ void Interfaz::agregarBookmark(Navegador* navegador)
     if (navegador->cantidadPaginas() == 0) {
         throw ExcepcionGenerica("Realice una busqueda para agregar bookmark");
     }
+    if (navegador->getModoIncognito()) {
+		throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     std::string tag;
     std::cout << " Ingrese un tag: ";
     std::cin >> tag;
@@ -173,6 +188,11 @@ void Interfaz::mostrarBookmarks(Navegador* navegador)
 {
     std::cout << navegador->MostrarMarcadoresGuardados();
     system("pause");
+}
+
+void Interfaz::cambiarModoIncognito(Navegador* navegador)
+{
+	navegador->cambiarModoIncognito();
 }
 
 

@@ -7,6 +7,8 @@ private:
 
     std::list<Pestania*> pestanias;
     std::list<Pestania*>::iterator posicionActual;
+   
+    
 
 public:
     ListPestanias();
@@ -23,4 +25,5 @@ public:
     std::list<Pestania*> getPestanias();
 	void agregarPaginaWeb(SitioWeb* sitio);
     Pestania* getPestaniaActual();
+	
 };

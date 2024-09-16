@@ -36,6 +36,7 @@ void Controladora::control0() {
             case 5: // Busqueda y filtros
                 break;
             case 6: // Activar / desactivar modo incógnito
+                control6();
                 break;
             case 7: // Nueva pestaña
                 control7();
@@ -90,6 +91,8 @@ void Controladora::control5()
 // activar desactivar modo incognito
 void Controladora::control6()
 {
+	Interfaz::cambiarModoIncognito(navegador);
+
 }
 // nueva pestaña
 void Controladora::control7()

@@ -8,9 +8,9 @@ class Navegador
 private:
 
 	ListPestanias* listaPestanias;
+	ListPestanias* listaPestaniasIncognito;
 	std::list<SitioWeb*> sitios;
 	std::list<Marcador*> marcadoresGuardados;
-	std::list<Marcador*>::iterator posicionActual;
 	bool modoIncognito;
 
 
@@ -18,14 +18,14 @@ public:
 
 	Navegador();
 	virtual ~Navegador();
-	void cambiarmodoIncognito();
-	/*void importarHistorial(const string& nombreHistorial);
-	void exportarHistorial(const string& nombreHistorial);*/
-	//Sesion* getSesion();
-	//void setSesion(Sesion* sesion);
 	std::string toString();
 	ListPestanias* getListaPestanias();
 	std::list<Marcador*> getMarcadoresGuardados();
+
+	// metodos incognito
+	void cambiarModoIncognito();
+	bool getModoIncognito();
+	
 	
 	//metodos de lista pestanias
 	int cantidadPestanias();
@@ -35,6 +35,7 @@ public:
 	void pestaniaSiguiente();
 	void agregarPaginaWeb(SitioWeb* sitio);
 	std::string mostrarPestaniaActual();
+
 
 	//bookmarks
 	void agregarMarcador(Marcador* );
