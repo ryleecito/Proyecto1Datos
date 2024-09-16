@@ -5,8 +5,8 @@ class ListPestanias
 {
 private:
 
-    std::deque<Pestania*> pestanias;
-    std::deque<Pestania*>::iterator posicionActual;
+    std::list<Pestania*> pestanias;
+    std::list<Pestania*>::iterator posicionActual;
     int posicionActualIdx; 
    
 public:
@@ -22,7 +22,7 @@ public:
     void limpiarPestanias();
     int getPosicionActualIndex() const;
     std::string toString() const;
-    std::deque<Pestania*> getPestanias() const;
+    std::list<Pestania*> getPestanias() const;
     Pestania* getPestaniaActual() const;
     void agregarPaginaWeb(SitioWeb* sitio);
 

@@ -60,7 +60,7 @@ void Historial::exportarHistorial(std::ofstream& out) {
     //}
 }
 
-std::deque<SitioWeb*> Historial::getHistorial() const {
+std::list<SitioWeb*> Historial::getHistorial() const {
     return historial;
 }
 
@@ -82,3 +82,16 @@ std::string Historial::toString() const {
     return ss.str();
 }
 
+void Historial::ajustarTamanoHistorial() {
+    // Mientras el tamaño del historial sea mayor que el límite configurado
+    while (historial.size() > configuraciones->getMaxEntradas()) {
+        // Eliminar la primera entrada (la más antigua)
+        delete historial.front();  // Liberar la memoria si es necesario
+        historial.pop_front();     // Eliminar del historial
+    }
+
+    // Después de eliminar, actualizar la posición actual si es necesario
+    if (posicionActual == historial.end()) {
+        posicionActual = --historial.end();
+    }
+}

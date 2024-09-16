@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AdminHistorial.h" />
+    <ClInclude Include="ConfigHistorial.h" />
     <ClInclude Include="Controladora.h" />
     <ClInclude Include="Excepciones.h" />
     <ClInclude Include="Historial.h" />
@@ -140,7 +140,7 @@
     <ClInclude Include="SitioWeb.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AdminHistorial.cpp" />
+    <ClCompile Include="ConfigHistorial.cpp" />
     <ClCompile Include="Controladora.cpp" />
     <ClCompile Include="Excepciones.cpp" />
     <ClCompile Include="Historial.cpp" />

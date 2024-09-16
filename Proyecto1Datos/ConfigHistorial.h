@@ -4,19 +4,16 @@
 #include "Historial.h"
 #include "SitioWeb.h"
 
-
-class Historial;
-
-class AdminHistorial
+class ConfigHistorial
 {
 private:
 	int maxEntradas;
 public:
-	AdminHistorial();
-	AdminHistorial(int maxEntradas);
-	virtual ~AdminHistorial();
-	void limpiarEntradasAntiguas(Historial* historial);
+	ConfigHistorial();
+	ConfigHistorial(int maxEntradas);
+	virtual ~ConfigHistorial();
 	void setMaxEntradas(int maxEntradas);
+	int getMaxEntradas();
 
 };
 

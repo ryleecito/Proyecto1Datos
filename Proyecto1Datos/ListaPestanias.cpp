@@ -52,7 +52,7 @@ std::string ListPestanias::toString() const {
     return s.str();
 }
 
-std::deque<Pestania*> ListPestanias::getPestanias() const {
+std::list<Pestania*> ListPestanias::getPestanias() const {
     return pestanias;
 }
 
