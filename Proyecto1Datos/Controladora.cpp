@@ -33,6 +33,7 @@ void Controladora::control0() {
                 control4();
                 break;
             case 5: // Busqueda y filtros
+                control5();
                 break;
             case 6: // Activar / desactivar modo incógnito
                 control6();
@@ -63,7 +64,6 @@ void Controladora::control0() {
             }
         }
         catch (const ExcepcionGenerica& ex) {
-
             std::cout << "Error: " << ex.what() << std::endl;
             system("pause");
         }
@@ -83,6 +83,7 @@ void Controladora::control2()
 // historial importar exportar
 void Controladora::control3()
 {
+   
 }
 //mostrar bookmarks
 void Controladora::control4()
@@ -92,6 +93,31 @@ void Controladora::control4()
 // busqueda y filtros
 void Controladora::control5()
 {
+    int opcion = 0;
+    try {
+        do {
+            Interfaz::busquedaYFiltros(navegador);
+            Sleep(300);
+            opcion = Interfaz::detectarTecla();
+            switch (opcion) {
+            case 1: // aplicar filtro navegador
+				control5_1();
+                break;
+            case 2: // cantidad de bookmarks
+                control5_2();
+                break;
+            case 3:
+                break;
+            default:
+                throw ExcepcionGenerica("Opcion no valida, por favor elige otra opcion.");
+            }
+        } while (opcion != 3);
+    }
+    catch (const ExcepcionGenerica& ex) {
+
+        std::cout << "Error: " << ex.what() << std::endl;
+        system("pause");
+    }
 }
 // activar desactivar modo incognito
 void Controladora::control6()
@@ -108,30 +134,30 @@ void Controladora::control7()
 void Controladora::control8()
 {
     int opcion = 0;
-    do {
-        try {
-            Interfaz::menuConfiguraciones();
+    try {
+        do {
+            Interfaz::menuConfiguraciones(navegador);
             Sleep(300);
             opcion = Interfaz::detectarTecla();
             switch (opcion) {
-            case 1: // Agregar a un sitio web
-
+            case 1: // cantidad de entradas
+                control8_1();
                 break;
-            case 2: // Agregar un bookmark
-
+            case 2: // cantidad de bookmarks
+                control8_2();
                 break;
-            case 3: // Importar / Exportar historial
+            case 3:
                 break;
             default:
                 throw ExcepcionGenerica("Opcion no valida, por favor elige otra opcion.");
             }
-        }
-        catch (const ExcepcionGenerica& ex) {
+        } while (opcion != 3);
+    }
+    catch (const ExcepcionGenerica& ex) {
 
-            std::cout << "Error: " << ex.what() << std::endl;
-            system("pause");
-        }
-    } while (opcion != 3);
+        std::cout << "Error: " << ex.what() << std::endl;
+        system("pause");
+    }
 }
 
 //Mensaje de salida
@@ -159,5 +185,26 @@ void Controladora::control12()
 void Controladora::control13()
 {
     Interfaz::pestaniaSiguiente(navegador);
+}
+
+void Controladora::control8_1()
+{
+    Interfaz::agregarCantidadEntradas(navegador);
+}
+
+void Controladora::control8_2()
+{
+    Interfaz::agregarCantidadTiempo(navegador);
+}
+// filtro al navegador
+void Controladora::control5_1()
+{
+    Interfaz::aplicarFiltroNavegador(navegador);
+}
+
+// busqueda por palabra clave
+void Controladora::control5_2()
+{
+    Interfaz::busquedaPalabraClave(navegador);
 }
 

@@ -1,10 +1,12 @@
 #include "Historial.h"
 #include <sstream>
 
-Historial::Historial() : posicionActual(historial.end()) {}
+Historial::Historial() : posicionActual(historial.end()), configuraciones(new ConfigHistorial){
+}
 
 Historial::~Historial() {
     limpiarHistorial();
+
 }
 
 int Historial::size() const {
@@ -38,6 +40,16 @@ void Historial::limpiarHistorial() {
     posicionActual = historial.end();
 }
 
+ConfigHistorial* Historial::getConfiguraciones() const
+{
+    return configuraciones;
+}
+
+void Historial::setConfiguraciones(ConfigHistorial* configuraciones)
+{
+	this->configuraciones = configuraciones;
+}
+
 void Historial::importarHistorial(std::ifstream& in) {
     limpiarHistorial();
 
@@ -58,6 +70,22 @@ void Historial::exportarHistorial(std::ofstream& out) {
     //    out << sitio->getDominio() << '\n';
 
     //}
+}
+
+std::list<SitioWeb*> Historial::filtrarPaginasPorNombre(const std::string& nombre) const
+{
+    std::list<SitioWeb*> paginasFiltradas;
+
+    for (SitioWeb* sitio : historial) {
+        if (sitio != nullptr) {
+            if (sitio->getTitulo().find(nombre) != std::string::npos) {
+                paginasFiltradas.push_back(sitio);
+            }
+        }
+    }
+
+    return paginasFiltradas;
+    
 }
 
 std::list<SitioWeb*> Historial::getHistorial() const {
@@ -83,14 +111,12 @@ std::string Historial::toString() const {
 }
 
 void Historial::ajustarTamanoHistorial() {
-    // Mientras el tamaño del historial sea mayor que el límite configurado
+   
     while (historial.size() > configuraciones->getMaxEntradas()) {
-        // Eliminar la primera entrada (la más antigua)
-        delete historial.front();  // Liberar la memoria si es necesario
-        historial.pop_front();     // Eliminar del historial
+ 
+        delete historial.front();  
+        historial.pop_front();  
     }
-
-    // Después de eliminar, actualizar la posición actual si es necesario
     if (posicionActual == historial.end()) {
         posicionActual = --historial.end();
     }

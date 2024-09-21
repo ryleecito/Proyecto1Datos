@@ -32,5 +32,11 @@ public:
 
 	//funciones de menu navegador
 
+	void control8_1(); // modificar cantidad de entradas
+	void control8_2(); // modificar cantidad de bookmarks
+
+	void control5_1(); // filtro al navegador
+	void control5_2(); // busqueda por fecha
+
 };
 

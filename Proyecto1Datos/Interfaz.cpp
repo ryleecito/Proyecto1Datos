@@ -1,8 +1,10 @@
 
 #pragma once
+#define NOMINMAX
 #include "Interfaz.h"
 #include "Excepciones.h"
 #include "Navegador.h"
+#include <limits>
 #include <sstream>
 #include <iostream>
 #include <windows.h>
@@ -199,9 +201,57 @@ void Interfaz::cambiarModoIncognito(Navegador* navegador)
 	navegador->cambiarModoIncognito();
 }
 
-
-void Interfaz::menuConfiguraciones()
+void Interfaz::agregarCantidadEntradas(Navegador* navegador)
 {
+    int opc;
+	std::cout << " Ingrese la cantidad de entradas: ";
+    std::cin >> opc;
+	if (opc < 0) {
+		throw ExcepcionGenerica("La cantidad de entradas no puede ser negativa");
+	}
+    if (std::cin.fail()) { 
+        std::cin.clear(); 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        throw ExcepcionGenerica("Entrada invalida. Debe ingresar un numero entero.");
+    }
+	navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->getConfiguraciones()->setMaxEntradas(opc);
+	std::cout << " Se ha configurado la cantidad de entradas a: " << opc << std::endl;
+    system("pause");
+
+}
+
+void Interfaz::agregarCantidadTiempo(Navegador* navegador)
+{
+    int opc;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << " 6 horas = 360 minutos" << std::endl;
+    std::cout << " 12 horas = 720 minutos" << std::endl;
+    std::cout << " 24 horas = 1440 minutos" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << " Ingrese la cantidad de minutos para el tiempo de entrada del navegador: ";
+
+    std::cin >> opc;
+    if (opc < 0) {
+        throw ExcepcionGenerica("La cantidad de entradas no puede ser negativa");
+    }
+    if (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        throw ExcepcionGenerica("Entrada invalida. Debe ingresar un numero entero.");
+    }
+    system("pause");
+    /* navegador->getListaPestanias()->getPestaniaActual()->getHistorial()*/
+    std::cout << " Se ha agregado la cantidad de tiempo a: " << opc << std::endl;
+    system("pause");
+}
+
+
+void Interfaz::menuConfiguraciones(Navegador* navegador)
+{
+    if (navegador->getListaPestanias()->getPestaniaActual() == NULL) {
+        throw ExcepcionGenerica("Error: Cree una pestania primero para configurar su historial");
+    
+    }
     system("cls");
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "|         MENU DE CONFIGURACION         | " << std::endl;
@@ -211,6 +261,46 @@ void Interfaz::menuConfiguraciones()
     std::cout << "| 3. Regresar                           |" << std::endl;
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Toque tecla para realizar accion: " << std::endl << std::endl;
+}
+
+void Interfaz::busquedaYFiltros(Navegador* navegador)
+{
+    if (navegador->getListaPestanias()->getPestaniaActual() == NULL) {
+        throw ExcepcionGenerica("Error: Cree una pestania primero para configurar su historial");
+    }
+    system("cls");
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "|       MENU BUSQUEDA Y FILTROS         | " << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "| 1. Anadir un filtro al navegador      |" << std::endl;
+    std::cout << "| 2. Buscar paginas web por nombre      |" << std::endl;
+    std::cout << "| 3. Regresar                           |" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "Toque tecla para realizar accion: " << std::endl << std::endl;
+}
+
+void Interfaz::busquedaPalabraClave(Navegador* navegador)
+{
+    std::string opc;
+    int contador = 1;
+    std::cout << " Ingrese la palabra clave para hacer su busqueda:";
+    std::cin >> opc;
+    for (SitioWeb* sitio : navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->filtrarPaginasPorNombre(opc)) {
+        std::cout << "------------------------------------------------------" << std::endl;
+		std::cout << " COINCIDENCIA # " << contador << std::endl;
+        std::cout << sitio->toString() << std::endl;
+        contador++;
+        std::cout << "------------------------------------------------------" << std::endl;
+    }
+    system("pause");
+}
+
+void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
+{
+    std::string opc;
+    std::cout << " Ingrese la palabra clave para aplicarle el filtro al navegador:";
+    std::cin >> opc;
+
 }
 
 void Interfaz::mensajeSalida()

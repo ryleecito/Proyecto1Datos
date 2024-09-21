@@ -30,8 +30,18 @@ class Interfaz
         static void mostrarBookmarks(Navegador* navegador);
 
 		static void cambiarModoIncognito(Navegador* navegador);
+        
+		static void agregarCantidadEntradas(Navegador* navegador);
 
-        static void menuConfiguraciones();
+		static void agregarCantidadTiempo(Navegador* navegador);
+
+        static void menuConfiguraciones(Navegador* navegador);
+
+		static void busquedaYFiltros(Navegador* navegador);
+
+		static void busquedaPalabraClave(Navegador* navegador); 
+
+		static void aplicarFiltroNavegador(Navegador* navegador);
    
         static void mensajeSalida();
 

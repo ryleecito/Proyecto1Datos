@@ -2,7 +2,7 @@
 
 ConfigHistorial::ConfigHistorial()
 {
-	maxEntradas = 0;
+	maxEntradas = -1;
 }
 
 ConfigHistorial::ConfigHistorial(int maxEntradas)

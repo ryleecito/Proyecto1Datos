@@ -229,6 +229,17 @@ void Navegador::paginaSiguiente()
 
 int Navegador::cantidadPaginas()
 {
+
+	if (listaPestanias == nullptr) {
+		return 0;
+	}
+	if (listaPestanias->getPestaniaActual() == nullptr) {
+		return 0;
+	}
+	if (listaPestanias->getPestaniaActual()->getHistorial() == nullptr) {
+		return 0;
+	}
+
 	return listaPestanias->getPestaniaActual()->getHistorial()->size();
 }
 
