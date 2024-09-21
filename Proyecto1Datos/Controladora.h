@@ -20,14 +20,15 @@ public:
 	void control5(); // busqueda y filtros
 	void control6(); // activar/desactivar modo incognito
 	void control7(); // nueva pestaña
+	void control8(); //configuracion de historial
+	void control9();  // mensaje de salida
 
 	// logica pestañas - paginas
 
-
-	void control8(); // pagina anterior
-	void control9(); // pagina siguiente
-	void control10(); // pestaña anterior
-	void control11(); // pestaña siguiente
+	void control10(); // pagina anterior
+	void control11(); // pagina siguiente
+	void control12();// pestaña anterior
+	void control13();// pestaña siguiente
 
 	//funciones de menu navegador
 

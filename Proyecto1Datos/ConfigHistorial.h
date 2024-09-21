@@ -1,8 +1,7 @@
 #pragma once
 #include <sstream>
 #include <iostream>
-#include "Historial.h"
-#include "SitioWeb.h"
+
 
 class ConfigHistorial
 {

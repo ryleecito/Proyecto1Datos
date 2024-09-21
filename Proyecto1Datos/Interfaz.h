@@ -30,7 +30,10 @@ class Interfaz
         static void mostrarBookmarks(Navegador* navegador);
 
 		static void cambiarModoIncognito(Navegador* navegador);
+
+        static void menuConfiguraciones();
    
+        static void mensajeSalida();
 
 };
 

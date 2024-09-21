@@ -56,7 +56,8 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
     std::cout << "| 5. Busqueda y filtros                 |" << std::endl;
     std::cout << "| 6. Activar / desactivar modo incognito|" << std::endl;
     std::cout << "| 7. Nueva pestaña                      |" << std::endl;
-    std::cout << "| 8. Salir                              |" << std::endl;
+    std::cout << "| 8. Configuracion de historial         |" << std::endl;
+    std::cout << "| 9. Salir                              |" << std::endl;
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Toque tecla para realizar accion: "<<std::endl<<std::endl;
 
@@ -75,20 +76,20 @@ int Interfaz::detectarTecla() {
         if (irInBuf.EventType == KEY_EVENT && irInBuf.Event.KeyEvent.bKeyDown) {
             switch (irInBuf.Event.KeyEvent.wVirtualKeyCode) {
             case VK_LEFT:
-                tecla = 9; // Código para la tecla de flecha izquierda
+                tecla = 10; // Código para la tecla de flecha izquierda
                 break;
             case VK_RIGHT:
-                tecla = 10; // Código para la tecla de flecha derecha
+                tecla = 11; // Código para la tecla de flecha derecha
                 break;
             case VK_UP:
-                tecla = 11; // Código para la tecla de flecha arriba
+                tecla = 12; // Código para la tecla de flecha arriba
                 break;
             case VK_DOWN:
-                tecla = 12; // Código para la tecla de flecha abajo
+                tecla = 13; // Código para la tecla de flecha abajo
                 break;
             default:
                 if (irInBuf.Event.KeyEvent.uChar.AsciiChar >= '1' &&
-                    irInBuf.Event.KeyEvent.uChar.AsciiChar <= '8') {
+                    irInBuf.Event.KeyEvent.uChar.AsciiChar <= '9') {
                     tecla = irInBuf.Event.KeyEvent.uChar.AsciiChar - '0'; // Convertir ASCII a número
                 }
                 break;
@@ -196,6 +197,27 @@ void Interfaz::mostrarBookmarks(Navegador* navegador)
 void Interfaz::cambiarModoIncognito(Navegador* navegador)
 {
 	navegador->cambiarModoIncognito();
+}
+
+
+void Interfaz::menuConfiguraciones()
+{
+    system("cls");
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "|         MENU DE CONFIGURACION         | " << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "| 1. Configurar cantidad de entradas    |" << std::endl;
+    std::cout << "| 2. Configurar tiempo de entradas      |" << std::endl;
+    std::cout << "| 3. Regresar                           |" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "Toque tecla para realizar accion: " << std::endl << std::endl;
+}
+
+void Interfaz::mensajeSalida()
+{
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "|  GRACIAS POR NAVEGAR CON NOSOTROS :)  | " << std::endl;
+    std::cout << "----------------------------------------" << std::endl << std::endl;
 }
 
 

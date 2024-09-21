@@ -14,7 +14,6 @@ Controladora::~Controladora() {
 
 void Controladora::control0() {
    
-    
     int opcion = 0;
     do {
         try {
@@ -41,20 +40,26 @@ void Controladora::control0() {
             case 7: // Nueva pestaña
                 control7();
                 break;
-            case 9: //Ir a pagina anterior
+            case 8: // Nueva pestaña
                 control8();
                 break;
-            case 10: //Ir a pagina siguiente
+            case 9: // salir
                 control9();
                 break;
-            case 11: //Ir a pestania anterior
+            case 10: //Ir a pagina anterior
                 control10();
                 break;
-            case 12: //Ir a pestania siguiente
+            case 11: //Ir a pagina siguiente
                 control11();
                 break;
+            case 12: //Ir a pestania anterior
+                control12();
+                break;
+            case 13: //Ir a pestania siguiente
+                control13();
+                break;
             default:
-                throw ExcepcionGenerica("Opción no válida, por favor elige otra opción.");
+                throw ExcepcionGenerica("Opcion no valida, por favor elige otra opcion.");
             }
         }
         catch (const ExcepcionGenerica& ex) {
@@ -62,7 +67,7 @@ void Controladora::control0() {
             std::cout << "Error: " << ex.what() << std::endl;
             system("pause");
         }
-    } while (opcion != 8);
+    } while (opcion != 9);
 }
 
 void Controladora::control1()
@@ -99,24 +104,60 @@ void Controladora::control7()
 {
     Interfaz::agregarPestania(navegador);
 }
+//Configuracion de Historial
+void Controladora::control8()
+{
+    int opcion = 0;
+    do {
+        try {
+            Interfaz::menuConfiguraciones();
+            Sleep(300);
+            opcion = Interfaz::detectarTecla();
+            switch (opcion) {
+            case 1: // Agregar a un sitio web
+
+                break;
+            case 2: // Agregar un bookmark
+
+                break;
+            case 3: // Importar / Exportar historial
+                break;
+            default:
+                throw ExcepcionGenerica("Opcion no valida, por favor elige otra opcion.");
+            }
+        }
+        catch (const ExcepcionGenerica& ex) {
+
+            std::cout << "Error: " << ex.what() << std::endl;
+            system("pause");
+        }
+    } while (opcion != 3);
+}
+
+//Mensaje de salida
+void Controladora::control9()
+{
+    Interfaz::mensajeSalida();
+}
 
 // pagina anterior
-void Controladora::control8()
+void Controladora::control10()
 {
     Interfaz::paginaAnterior(navegador);
 }
 // pagina siguiente
-void Controladora::control9()
+void Controladora::control11()
 {
     Interfaz::paginaSiguiente(navegador);
 }
 // pestaña anterior
-void Controladora::control10()
+void Controladora::control12()
 {
     Interfaz::pestaniaAnterior(navegador);
 }
 // pestaña siguiente
-void Controladora::control11()
+void Controladora::control13()
 {
     Interfaz::pestaniaSiguiente(navegador);
 }
+
