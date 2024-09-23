@@ -1,6 +1,6 @@
 #include "Historial.h"
 #include <sstream>
-
+#include <algorithm>
 Historial::Historial() : posicionActual(historial.end()), configuraciones(new ConfigHistorial){
 }
 
@@ -76,9 +76,15 @@ std::list<SitioWeb*> Historial::filtrarPaginasPorNombre(const std::string& nombr
 {
     std::list<SitioWeb*> paginasFiltradas;
 
+   
+    std::string nombreFiltrado = nombre;
+    transform(nombreFiltrado.begin(), nombreFiltrado.end(), nombreFiltrado.begin(), ::tolower);
+
     for (SitioWeb* sitio : historial) {
         if (sitio != nullptr) {
-            if (sitio->getTitulo().find(nombre) != std::string::npos) {
+            std::string tituloSitio = sitio->getTitulo();
+            transform(tituloSitio.begin(), tituloSitio.end(), tituloSitio.begin(), ::tolower);
+            if (tituloSitio.find(nombreFiltrado) != std::string::npos) {
                 paginasFiltradas.push_back(sitio);
             }
         }
