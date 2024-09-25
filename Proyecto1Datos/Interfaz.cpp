@@ -75,16 +75,16 @@ int Interfaz::detectarTecla() {
         if (irInBuf.EventType == KEY_EVENT && irInBuf.Event.KeyEvent.bKeyDown) {
             switch (irInBuf.Event.KeyEvent.wVirtualKeyCode) {
             case VK_LEFT:
-                tecla = 10; // Código para la tecla de flecha izquierda
+                tecla = 10; 
                 break;
             case VK_RIGHT:
-                tecla = 11; // Código para la tecla de flecha derecha
+                tecla = 11;
                 break;
             case VK_UP:
-                tecla = 12; // Código para la tecla de flecha arriba
+                tecla = 12;
                 break;
             case VK_DOWN:
-                tecla = 13; // Código para la tecla de flecha abajo
+                tecla = 13; 
                 break;
             default:
                 if (irInBuf.Event.KeyEvent.uChar.AsciiChar >= '1' &&
