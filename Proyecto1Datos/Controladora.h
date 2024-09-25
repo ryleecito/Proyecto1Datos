@@ -35,8 +35,11 @@ public:
 	void control8_1(); // modificar cantidad de entradas
 	void control8_2(); // modificar cantidad de bookmarks
 
-	void control5_1(); // filtro al navegador
-	void control5_2(); // busqueda por fecha
+	void control5_1(); // busqueda por filtro
+	void control5_2(); // busqueda por palabra especifica
+
+	void control3_1(); // exportar historial
+	void control3_2(); // importar historial
 
 };
 

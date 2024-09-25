@@ -83,7 +83,31 @@ void Controladora::control2()
 // historial importar exportar
 void Controladora::control3()
 {
-	Interfaz::exportarImportarHistorial(navegador);
+    int opcion = 0;
+    try {
+        do {
+            Interfaz::menuImportarExportar(navegador);
+            Sleep(300);
+            opcion = Interfaz::detectarTecla();
+            switch (opcion) {
+			case 1: // exportar historial
+                control3_1();
+                break;
+            case 2: // importar historial
+                control3_2();
+                break;
+            case 3:
+                break;
+            default:
+                throw ExcepcionGenerica("Opcion no valida, por favor elige otra opcion.");
+            }
+        } while (opcion != 3);
+    }
+    catch (const ExcepcionGenerica& ex) {
+
+        std::cout << "Error: " << ex.what() << std::endl;
+        system("pause");
+    }
 }
 //mostrar bookmarks
 void Controladora::control4()
@@ -100,10 +124,10 @@ void Controladora::control5()
             Sleep(300);
             opcion = Interfaz::detectarTecla();
             switch (opcion) {
-            case 1: // aplicar filtro navegador
+            case 1: // busqueda por filtro
 				control5_1();
                 break;
-            case 2: // cantidad de bookmarks
+			case 2: // busqueda por palabra clave
                 control5_2();
                 break;
             case 3:
@@ -196,7 +220,7 @@ void Controladora::control8_2()
 {
     Interfaz::agregarCantidadTiempo(navegador);
 }
-// filtro al navegador
+// busqueda por filtro
 void Controladora::control5_1()
 {
     Interfaz::aplicarFiltroNavegador(navegador);
@@ -206,5 +230,17 @@ void Controladora::control5_1()
 void Controladora::control5_2()
 {
     Interfaz::busquedaPalabraClave(navegador);
+}
+
+// exportar historial
+void Controladora::control3_1()
+{
+	Interfaz::exportarHistorial(navegador);
+}
+
+// importar historial
+void Controladora::control3_2()
+{
+	Interfaz::importarHistorial(navegador);
 }
 
