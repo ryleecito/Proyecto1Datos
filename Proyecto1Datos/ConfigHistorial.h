@@ -1,7 +1,7 @@
 #pragma once
 #include <sstream>
 #include <iostream>
-
+#include <fstream>
 
 class ConfigHistorial
 {
@@ -13,6 +13,9 @@ public:
 	virtual ~ConfigHistorial();
 	void setMaxEntradas(int maxEntradas);
 	int getMaxEntradas();
+
+	void guardarArchivoConfigHistorial(std::ofstream& out);
+	static ConfigHistorial* cargarArchivoConfigHistorial(std::ifstream& in);
 
 };
 

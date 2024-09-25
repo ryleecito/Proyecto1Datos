@@ -11,7 +11,6 @@ Controladora::~Controladora() {
     }
 }
 
-
 void Controladora::control0() {
    
     int opcion = 0;
@@ -28,6 +27,7 @@ void Controladora::control0() {
                 control2();
                 break;
             case 3: // Importar / Exportar historial
+                control3();
                 break;
             case 4: // Mostrar bookmarks
                 control4();
@@ -83,7 +83,7 @@ void Controladora::control2()
 // historial importar exportar
 void Controladora::control3()
 {
-   
+	Interfaz::exportarImportarHistorial(navegador);
 }
 //mostrar bookmarks
 void Controladora::control4()

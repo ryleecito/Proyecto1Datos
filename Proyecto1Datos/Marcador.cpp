@@ -1,11 +1,11 @@
 #include "Marcador.h"
 
-Marcador::Marcador() : sitio(nullptr) // Inicialización de sitio a nullptr
+Marcador::Marcador() : sitio(nullptr)
 {
 }
 
 Marcador::Marcador(SitioWeb* sitio, const std::string eti)
-    : sitio(sitio), etiqueta(eti) // Inicialización de miembro
+    : sitio(sitio), etiqueta(eti) 
 {
 }
 
@@ -37,4 +37,27 @@ std::string Marcador::toString() const
         ss << etiqueta << " ";
 
     return ss.str();
+}
+
+void Marcador::guardarArchivoMarcador(std::ofstream& out)
+{
+	if (sitio != nullptr)
+	{
+		sitio->guardarArchivoSitioWeb(out);
+	}
+    size_t etiquetaTam = etiqueta.size();
+    out.write(reinterpret_cast<const char*>(&etiquetaTam), sizeof(etiquetaTam));
+    out.write(etiqueta.c_str(), etiquetaTam);
+}
+
+Marcador* Marcador::cargarArchivoMarcador(std::ifstream& in)
+{
+    SitioWeb* sitio = SitioWeb::cargarArchivoSitioWeb(in);
+
+	size_t etiquetaTam;
+    in.read(reinterpret_cast<char*>(&etiquetaTam), sizeof(etiquetaTam));
+    std::string etiqueta(etiquetaTam, ' ');
+    in.read(&etiqueta[0], etiquetaTam);
+	
+	return new Marcador(sitio, etiqueta);
 }

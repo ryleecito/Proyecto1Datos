@@ -50,38 +50,19 @@ void Historial::setConfiguraciones(ConfigHistorial* configuraciones)
 	this->configuraciones = configuraciones;
 }
 
-void Historial::importarHistorial(std::ifstream& in) {
-    limpiarHistorial();
 
-    std::string url, titulo, dominio;
-    while (std::getline(in, url)) {
-        if (std::getline(in, titulo) && std::getline(in, dominio)) {
-            SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
-            add(sitio);
-        }
-    }
-}
-
-void Historial::exportarHistorial(std::ofstream& out) {
-
-    //for (const SitioWeb* sitio : historial) {
-    //    out << *sitio->getUrl() << '\n';
-    //    out << sitio->getTitulo() << '\n';
-    //    out << sitio->getDominio() << '\n';
-
-    //}
-}
 
 std::list<SitioWeb*> Historial::filtrarPaginasPorNombre(const std::string& nombre) const
 {
     std::list<SitioWeb*> paginasFiltradas;
-
-   
     std::string nombreFiltrado = nombre;
+    // convertimos todo el string a minusculas
     transform(nombreFiltrado.begin(), nombreFiltrado.end(), nombreFiltrado.begin(), ::tolower);
 
     for (SitioWeb* sitio : historial) {
         if (sitio != nullptr) {
+            // obtenemos el titulo y lo convertimos a minusculas por cada 
+			// sitio web que entramos en el historial
             std::string tituloSitio = sitio->getTitulo();
             transform(tituloSitio.begin(), tituloSitio.end(), tituloSitio.begin(), ::tolower);
             if (tituloSitio.find(nombreFiltrado) != std::string::npos) {
@@ -89,9 +70,7 @@ std::list<SitioWeb*> Historial::filtrarPaginasPorNombre(const std::string& nombr
             }
         }
     }
-
     return paginasFiltradas;
-    
 }
 
 std::list<SitioWeb*> Historial::getHistorial() const {
@@ -126,4 +105,37 @@ void Historial::ajustarTamanoHistorial() {
     if (posicionActual == historial.end()) {
         posicionActual = --historial.end();
     }
+}
+
+void Historial::guardarArchivoHistorial(std::ofstream& out)
+{
+    if (configuraciones != nullptr) {
+        configuraciones->guardarArchivoConfigHistorial(out);
+    }
+
+    size_t size = historial.size();
+    out.write(reinterpret_cast<const char*>(&size), sizeof(size));
+
+    for (SitioWeb* sitio : historial) {
+        sitio->guardarArchivoSitioWeb(out);
+    }
+}
+
+Historial* Historial::cargarArchivoHistorial(std::ifstream& in)
+{
+    Historial* historialCargado = new Historial(); 
+    ConfigHistorial* configuracionCargado = ConfigHistorial::cargarArchivoConfigHistorial(in);
+    historialCargado->setConfiguraciones(configuracionCargado);
+
+    size_t size;
+    in.read(reinterpret_cast<char*>(&size), sizeof(size));
+    for (size_t i = 0; i < size; ++i) {
+        SitioWeb* sitio = SitioWeb::cargarArchivoSitioWeb(in);
+        if (sitio) {
+            historialCargado->historial.push_back(sitio);
+        }
+    }
+    historialCargado->posicionActual = historialCargado->historial.end();
+
+    return historialCargado; 
 }

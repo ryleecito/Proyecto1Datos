@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <fstream>
 
 class SitioWeb
 {
@@ -24,5 +25,15 @@ public:
     void setTitulo(std::string titulo);
     void setDominio(std::string dominio);
     std::string toString();
+
+	// metodos de guardar y cargar archivo
+	void guardarArchivoSitioWeb(std::ofstream& out);
+	static SitioWeb* cargarArchivoSitioWeb(std::ifstream& in);
+
+    // metodos para guardar y cargar con csv 
+	void guardarArchivoSitioWebCSV(std::ofstream& out);
+	SitioWeb* cargarArchivoSitioWebCSV(std::string &nombre);
+    
+
 };
 

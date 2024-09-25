@@ -8,71 +8,12 @@ Navegador::Navegador()
     listaPestanias = new ListPestanias();
 	marcadoresGuardados = std::list<Marcador*>();
 	sitios = std::list<SitioWeb*>();
-	sitios.push_back(new SitioWeb("www.google.com", "Google","Pedro"));
-	sitios.push_back(new SitioWeb("www.youtube.com", "Youtube", "Juan"));
-
-
-	/*
-	std::list<std::string> listaEtiquetas;
-	listaEtiquetas.push_back("videos");
-	SitioWeb* sitio = new SitioWeb("www.youtube.com", "YouTube", "carlos");
-
-	Marcador* marcador = new Marcador(sitio, listaEtiquetas);
-	marcadoresGuardados.push_back(marcador);*/
-
+	cargarArchivoSitiosWebCSV("sitiosWeb.csv");
 }
 
 Navegador::~Navegador()
 {
 }
-
-//void Navegador::importarHistorial(const string& nombreHistorial)
-//{
-//    std::ifstream inputFile(nombreHistorial);
-//    if (!inputFile.is_open()) {
-//        std::cerr << "Error abriendo el archivo para importar el historial.\n";
-//        return;
-//    }
-//
-//
-//    for (auto& pest : listaPestanias) {
-//        if (pest->getHistorial()) {
-//            pest->getHistorial()->limpiarHistorial();
-//            pest->getHistorial()->importarHistorial(inputFile);
-//        }
-//    }
-//
-//    inputFile.close();
-//}
-//
-//void Navegador::exportarHistorial(const std::string& nombreHistorial)
-//{
-//    std::ofstream outputFile(nombreHistorial);
-//    if (!outputFile.is_open()) {
-//        std::cerr << "Error abriendo el archivo para exportar el historial.\n";
-//        return;
-//    }
-//    for (auto& pest : listaPestanias) {
-//        if (pest->getHistorial()) {
-//            pest->getHistorial()->exportarHistorial(outputFile);
-//        }
-//    }
-//
-//    outputFile.close();
-//}
-
-//Sesion* Navegador::getSesion()
-//{
-//    return sesionActual;
-//}
-//
-//void Navegador::setSesion(Sesion* sesion)
-//{
-//    if (sesionActual != nullptr) {
-//        delete sesionActual;
-//    }
-//    sesionActual = sesion;
-//}
 
 std::string Navegador::toString()
 {
@@ -243,6 +184,63 @@ int Navegador::cantidadPaginas()
 	return listaPestanias->getPestaniaActual()->getHistorial()->size();
 }
 
+void Navegador::guardarArchivoNavegador(std::ofstream& out)
+{
+	// guardamos el incognito
+	out.write(reinterpret_cast<const char*>(&modoIncognito), sizeof(modoIncognito));
+
+	// se guardan las listas
+	listaPestanias->guardarArchivoListaPestanias(out);
+	listaPestaniasIncognito->guardarArchivoListaPestanias(out);
+
+	// guardamos marcadores
+	size_t size = marcadoresGuardados.size();
+	out.write(reinterpret_cast<const char*>(&size), sizeof(size));
+	for (const auto& marcador : marcadoresGuardados) {
+		marcador->guardarArchivoMarcador(out); 
+	}
+}
+
+Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
+{
+	Navegador* navegadorCargado = new Navegador();
+
+	in.read(reinterpret_cast<char*>(&navegadorCargado->modoIncognito), sizeof(navegadorCargado->modoIncognito));
+
+	navegadorCargado->listaPestanias = ListPestanias::cargarArchivoListaPestanias(in);
+	navegadorCargado->listaPestaniasIncognito = ListPestanias::cargarArchivoListaPestanias(in);
+
+	size_t size;
+	in.read(reinterpret_cast<char*>(&size), sizeof(size));
+	for (size_t i = 0; i < size; ++i) {
+		Marcador* marcador = Marcador::cargarArchivoMarcador(in); 
+		if (marcador) {
+			navegadorCargado->agregarMarcador(marcador);
+		}
+	}
+
+	return navegadorCargado;
+}
+
+void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
+	std::ifstream in(rutaArchivo); 
+
+	if (!in.is_open()) {
+		std::cerr << "Error al abrir el archivo CSV: " << rutaArchivo << std::endl;
+		return;
+	}
+
+	std::string linea, url, titulo, dominio;
+	while (std::getline(in, linea)) {
+		std::stringstream ss(linea);
+		if (std::getline(ss, url, ',') && std::getline(ss, titulo, ',') && std::getline(ss, dominio, ',')) {
+			
+			SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
+			sitios.push_back(sitio);
+		}
+	}
+	in.close(); 
+}
 
 
 

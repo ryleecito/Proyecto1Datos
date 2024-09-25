@@ -21,4 +21,7 @@ public:
     SitioWeb* getSitio() const;
     std::string toString() const;
 
+	void guardarArchivoMarcador(std::ofstream& out);
+	static Marcador* cargarArchivoMarcador(std::ifstream& in);
+
 };

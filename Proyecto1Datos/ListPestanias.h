@@ -26,7 +26,7 @@ public:
     Pestania* getPestaniaActual() const;
     void agregarPaginaWeb(SitioWeb* sitio);
 
-    void importarPestanias(std::ifstream& in);
-    void exportarPestanias(std::ofstream& out);
+	void guardarArchivoListaPestanias(std::ofstream& out);
+    static ListPestanias* cargarArchivoListaPestanias(std::ifstream& in);
 };
 

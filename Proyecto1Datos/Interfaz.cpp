@@ -9,9 +9,6 @@
 #include <iostream>
 #include <windows.h>
 
-
-
-
 void Interfaz::mostrarNavegador(Navegador* navegador) {
 
     system("cls");
@@ -57,7 +54,7 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
     std::cout << "| 4. Mostrar bookmarks                  |" << std::endl;
     std::cout << "| 5. Busqueda y filtros                 |" << std::endl;
     std::cout << "| 6. Activar / desactivar modo incognito|" << std::endl;
-    std::cout << "| 7. Nueva pestaña                      |" << std::endl;
+    std::cout << "| 7. Nueva pestania                     |" << std::endl;
     std::cout << "| 8. Configuracion de historial         |" << std::endl;
     std::cout << "| 9. Salir                              |" << std::endl;
     std::cout << "----------------------------------------" << std::endl;
@@ -301,6 +298,10 @@ void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
     std::cout << " Ingrese la palabra clave para aplicarle el filtro al navegador:";
     std::cin >> opc;
 
+}
+
+void Interfaz::exportarImportarHistorial(Navegador* navegador)
+{
 }
 
 void Interfaz::mensajeSalida()

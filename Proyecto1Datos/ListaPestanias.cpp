@@ -69,16 +69,28 @@ void ListPestanias::agregarPaginaWeb(SitioWeb* sitio) {
     }
 }
 
-void ListPestanias::importarPestanias(std::ifstream& in) {
-    limpiarPestanias();
-    std::string nombre;
-    while (std::getline(in, nombre)) {
-        // Implementar la lógica para agregar pestañas desde un archivo
+void ListPestanias::guardarArchivoListaPestanias(std::ofstream& out)
+{
+    size_t size = pestanias.size();
+    out.write(reinterpret_cast<const char*>(&size), sizeof(size)); 
+
+    for (Pestania* pestania : pestanias) {
+        pestania->guardarArchivoPestania(out);
     }
 }
 
-void ListPestanias::exportarPestanias(std::ofstream& out) {
-    for (const auto& pestania : pestanias) {
-        // Implementar la lógica para exportar pestañas a un archivo
+ListPestanias* ListPestanias::cargarArchivoListaPestanias(std::ifstream& in)
+{
+    ListPestanias* listaCargada = new ListPestanias(); 
+    size_t size;
+    in.read(reinterpret_cast<char*>(&size), sizeof(size)); 
+
+    for (size_t i = 0; i < size; ++i) {
+        Pestania* pestania = Pestania::cargarArchivoPestania(in); 
+        if (pestania) {
+            listaCargada->add(pestania);
+        }
     }
+    return listaCargada; 
 }
+

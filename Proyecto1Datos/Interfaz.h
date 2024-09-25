@@ -4,7 +4,6 @@
 #include <sstream>
 #include <iostream>
 
-
 class Interfaz
 {
     public:
@@ -42,6 +41,8 @@ class Interfaz
 		static void busquedaPalabraClave(Navegador* navegador); 
 
 		static void aplicarFiltroNavegador(Navegador* navegador);
+
+		static void exportarImportarHistorial(Navegador* navegador);
    
         static void mensajeSalida();
 

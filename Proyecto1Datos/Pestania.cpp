@@ -1,18 +1,18 @@
 #include "Pestania.h"
 
 Pestania::Pestania()
-    : historial(new Historial()) // Usa lista de inicialización
+    : historial(new Historial())
 {
 }
 
 Pestania::Pestania(Historial* historial)
-    : historial(historial) // Usa lista de inicialización
+    : historial(historial) 
 {
 }
 
 Pestania::~Pestania()
 {
-    delete historial; // No es necesario verificar si es nullptr
+    delete historial; 
 }
 
 void Pestania::irAtras()
@@ -31,28 +31,12 @@ void Pestania::setHistorial(Historial* historial1)
     {
         delete this->historial;
     }
-    this->historial = historial1; // No usamos `new`, simplemente reasignamos el puntero
+    this->historial = historial1; 
 }
 
 Historial* Pestania::getHistorial() const
 {
     return historial;
-}
-
-void Pestania::importarHistorial(std::ifstream& input)
-{
-    if (historial)
-    {
-        historial->importarHistorial(input);
-    }
-}
-
-void Pestania::exportarHistorial(std::ofstream& output)
-{
-    if (historial)
-    {
-        historial->exportarHistorial(output);
-    }
 }
 
 void Pestania::agregarPaginaWeb(SitioWeb* sitio)
@@ -83,11 +67,24 @@ std::string Pestania::toString() const
         s << "              NAVEGADOR WEB          " << std::endl;
         s << border << std::endl;
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
-        s << "[ No hay sitio actual disponible       ]" << std::endl; // Mensaje si no hay sitio actual
+        s << "[ No hay sitio actual disponible       ]" << std::endl; 
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
         s << border << std::endl;
         s << std::endl;
     }
 
     return s.str();
+}
+
+// la pestania siempre tendra un historia asignado entonces no hay
+// necesidad de verificar si es nullptr
+void Pestania::guardarArchivoPestania(std::ofstream& out)
+{
+    historial->guardarArchivoHistorial(out); 
+}
+
+Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)
+{
+    Historial* historialCargado = Historial::cargarArchivoHistorial(in);
+    return new Pestania(historialCargado);
 }

@@ -1,11 +1,10 @@
 #pragma once
 #include <deque>
 #include <list>
-#include <fstream>
 #include <string>
 #include "ConfigHistorial.h"
 #include "SitioWeb.h"
-
+#include <fstream>
 class Historial
 {
 private:
@@ -21,13 +20,17 @@ public:
     void retroceder();
     void avanzar();
     void limpiarHistorial();
-	ConfigHistorial* getConfiguraciones() const;
-	void setConfiguraciones(ConfigHistorial* configuraciones);
-    void importarHistorial(std::ifstream& in);
-    void exportarHistorial(std::ofstream& out);
-	std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
+    ConfigHistorial* getConfiguraciones() const;
+    void setConfiguraciones(ConfigHistorial* configuraciones);
+    std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
     std::list<SitioWeb*> getHistorial() const;
     SitioWeb* getSitioActual() const;
     std::string toString() const;
     void ajustarTamanoHistorial();
+
+    // metodos de guardar y cargar archivo
+    void guardarArchivoHistorial(std::ofstream& out);
+    static Historial* cargarArchivoHistorial(std::ifstream& in);
+
+
 };

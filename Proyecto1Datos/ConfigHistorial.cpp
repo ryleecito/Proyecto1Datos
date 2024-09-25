@@ -36,3 +36,15 @@ int ConfigHistorial::getMaxEntradas()
 {
 	return maxEntradas;
 }
+
+void ConfigHistorial::guardarArchivoConfigHistorial(std::ofstream& out)
+{
+	out.write(reinterpret_cast<const char*>(&maxEntradas), sizeof(maxEntradas));
+}
+
+ConfigHistorial* ConfigHistorial::cargarArchivoConfigHistorial(std::ifstream& in)
+{
+	ConfigHistorial* config = new ConfigHistorial();
+	in.read(reinterpret_cast<char*>(&config->maxEntradas), sizeof(config->maxEntradas)); 
+	return config; 
+}
