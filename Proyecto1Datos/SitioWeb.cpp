@@ -1,15 +1,18 @@
 #include "SitioWeb.h"
+const size_t MAX_LENGTH = 2048;
 
 SitioWeb::SitioWeb() : url(""), titulo(""), dominio("") {}
 
 SitioWeb::SitioWeb(std::string url, std::string titulo, std::string dominio)
-    : url(url), titulo(titulo), dominio(dominio) {}
+    : url(url), titulo(titulo), dominio(dominio) {
+}
 
 SitioWeb::SitioWeb(const SitioWeb& other)
     : url(other.url), titulo(other.titulo), dominio(other.dominio) {}
 
 SitioWeb::~SitioWeb()
 {
+    std::cout << "Yo me estoy borrando: " << titulo << this <<std::endl ;
 }
 
 std::string SitioWeb::getUrl()

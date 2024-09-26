@@ -40,7 +40,7 @@ public:
 
 
 	//bookmarks
-	void agregarMarcador(Marcador* );
+	void agregarMarcador(Marcador*);
 	std:: string MostrarMarcadoresGuardados() const;
 	
 
@@ -53,7 +53,7 @@ public:
 
 	// metodos de guardar y cargar archivo
 	void guardarArchivoNavegador(std::ofstream& out);
-	Navegador* cargarArchivoNavegador(std::ifstream& in);
+	static Navegador* cargarArchivoNavegador(std::ifstream& in);
 
 	void cargarArchivoSitiosWebCSV(const std::string& rutaArchivo);
 

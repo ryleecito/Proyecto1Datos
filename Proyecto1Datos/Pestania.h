@@ -11,6 +11,7 @@
 class Pestania
 {
 private:
+
     Historial* historial; 
 
 public:

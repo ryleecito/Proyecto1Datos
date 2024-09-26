@@ -42,7 +42,11 @@ class Interfaz
 
 		static void aplicarFiltroNavegador(Navegador* navegador);
 
-		static void exportarImportarHistorial(Navegador* navegador);
+		static void menuImportarExportar(Navegador* navegador);
+
+		static void importarHistorial(Navegador* navegador);
+
+		static void exportarHistorial(Navegador* navegador);
    
         static void mensajeSalida();
 
