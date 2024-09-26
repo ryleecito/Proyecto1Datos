@@ -10,7 +10,6 @@ class Historial
 private:
     std::list<SitioWeb*> historial;
     std::list<SitioWeb*>::iterator posicionActual;
-    ConfigHistorial* configuraciones;
 
 public:
     Historial();
@@ -20,8 +19,6 @@ public:
     void retroceder();
     void avanzar();
     void limpiarHistorial();
-    ConfigHistorial* getConfiguraciones() const;
-    void setConfiguraciones(ConfigHistorial* configuraciones);
     std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
     std::list<SitioWeb*> getHistorial() const;
     SitioWeb* getSitioActual() const;
@@ -29,8 +26,16 @@ public:
     void ajustarTamanoHistorial();
 
     // metodos de guardar y cargar archivo
-    void guardarArchivoHistorial(std::ofstream& out);
+    void serializarHistorial(std::ofstream& out);
     static Historial* cargarArchivoHistorial(std::ifstream& in);
+
+    //Metodos de SitioWeb
+
+    std::string getUrlActual() const;
+    std::string getTituloActual() const;
+    std::string getDominioActual()const;
+
+
 
 
 };

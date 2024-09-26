@@ -2,7 +2,6 @@
 
 Navegador::Navegador()
 {
-  /*  sesionActual = NULL;*/
 	modoIncognito = false;
 	listaPestaniasIncognito = new ListPestanias();
     listaPestanias = new ListPestanias();
@@ -104,10 +103,10 @@ void Navegador::pestaniaSiguiente()
 void Navegador::agregarPaginaWeb(SitioWeb* sitio)
 {
 	if (modoIncognito) {
-		listaPestaniasIncognito->getPestaniaActual()->agregarPaginaWeb(sitio);
+		listaPestaniasIncognito->agregarPaginaWeb(sitio);
 		return;
 	}
-	listaPestanias->getPestaniaActual()->agregarPaginaWeb(sitio);
+	listaPestanias->agregarPaginaWeb(sitio);
 }
 
 std::string Navegador::mostrarPestaniaActual()
@@ -115,9 +114,9 @@ std::string Navegador::mostrarPestaniaActual()
 {
 	if (modoIncognito)
 	{
-		return listaPestaniasIncognito->getPestaniaActual()->toString();
+		return listaPestaniasIncognito->mostrarPestaniaActual();
 	}
-	return listaPestanias->getPestaniaActual()->toString();
+	return listaPestanias->mostrarPestaniaActual();
 }
 
 
@@ -154,10 +153,10 @@ std::string Navegador::MostrarMarcadoresGuardados() const
 SitioWeb* Navegador::getSitioActual()
 {
 	if (modoIncognito) {
-		return listaPestaniasIncognito->getPestaniaActual()->getHistorial()->getSitioActual();
+		return listaPestaniasIncognito->getSitioActual();
 
 	}
-	return listaPestanias->getPestaniaActual()->getHistorial()->getSitioActual();
+	return listaPestanias->getSitioActual();
 }
 
 SitioWeb* Navegador::buscarPaginaWeb(const std::string url)
@@ -174,12 +173,12 @@ SitioWeb* Navegador::buscarPaginaWeb(const std::string url)
 
 void Navegador::paginaAnterior()
 {
-	listaPestanias->getPestaniaActual()->getHistorial()->retroceder();
+	listaPestanias->irAtras();
 }
 
 void Navegador::paginaSiguiente()
 {
-	listaPestanias->getPestaniaActual()->getHistorial()->avanzar();
+	listaPestanias->irAdelante();
 }
 
 int Navegador::cantidadPaginas()
@@ -191,11 +190,11 @@ int Navegador::cantidadPaginas()
 	if (listaPestanias->getPestaniaActual() == nullptr) {
 		return 0;
 	}
-	if (listaPestanias->getPestaniaActual()->getHistorial() == nullptr) {
+	if (listaPestanias->getHistorial() == nullptr) {
 		return 0;
 	}
 
-	return listaPestanias->getPestaniaActual()->getHistorial()->size();
+	return listaPestanias->sizeHistorial();
 }
 
 void Navegador::guardarArchivoNavegador(std::ofstream& out)
@@ -265,7 +264,6 @@ void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 					titulo = atributo; 
 					atributo.clear();
 				}
-
 
 			}
 			else if (c == '\n') {

@@ -14,17 +14,17 @@ SitioWeb::~SitioWeb()
 {
 }
 
-std::string SitioWeb::getUrl()
+std::string SitioWeb::getUrl() const
 {
     return url;
 }
 
-std::string SitioWeb::getTitulo()
+std::string SitioWeb::getTitulo()const
 {
     return titulo;
 }
 
-std::string SitioWeb::getDominio()
+std::string SitioWeb::getDominio()const
 {
     return dominio;
 }
@@ -44,7 +44,7 @@ void SitioWeb::setDominio(std::string dominio)
     this->dominio = dominio;
 }
 
-std::string SitioWeb::toString()
+std::string SitioWeb::toString() const
 {
     std::stringstream s;
     s << "URL: " << url << " Titulo: " << titulo << " Dominio: " << dominio;

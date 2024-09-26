@@ -15,6 +15,12 @@ Pestania::~Pestania()
     delete historial; 
 }
 
+int Pestania::sizeHistorial() const
+{
+    return historial->size();
+}
+
+
 void Pestania::irAtras()
 {
     historial->retroceder();
@@ -24,6 +30,38 @@ void Pestania::irAdelante()
 {
     historial->avanzar();
 }
+
+
+std::list<SitioWeb*> Pestania::filtrarPaginasPorNombre(const std::string& nombre) const
+{
+    return historial->filtrarPaginasPorNombre(nombre);
+}
+
+SitioWeb* Pestania::getSitioActual() const
+{
+    return historial->getSitioActual();
+}
+
+void Pestania::ajustarTamanoHistorial()
+{
+    historial->ajustarTamanoHistorial();
+}
+
+std::string Pestania::getUrlActual() const
+{
+    return historial->getUrlActual();
+}
+
+std::string Pestania::getTituloActual() const
+{
+    return  historial->getTituloActual();
+}
+
+std::string Pestania::getDominioActual() const
+{
+    return historial->getDominioActual();
+}
+
 
 void Pestania::setHistorial(Historial* historial1)
 {
@@ -55,17 +93,16 @@ std::string Pestania::toString() const
         s << "              NAVEGADOR WEB          " << std::endl;
         s << border << std::endl;
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
-        s << "[ " << "URL: " << historial->getSitioActual()->getUrl()
-            << std::string(contentWidth - ("URL: " + historial->getSitioActual()->getUrl()).length(), ' ') << " ]" << std::endl;
-        s << "[ " << "Titulo: " << historial->getSitioActual()->getTitulo()
-            << std::string(contentWidth - ("Titulo: " + historial->getSitioActual()->getTitulo()).length(), ' ') << " ]" << std::endl;
-        s << "[ " << "Dominio: " << historial->getSitioActual()->getDominio()
-            << std::string(contentWidth - ("Dominio: " + historial->getSitioActual()->getDominio()).length(), ' ') << " ]" << std::endl;
+        s << "[ " << "URL: " << getUrlActual()
+            << std::string(contentWidth - ("URL: " + getUrlActual()).length(), ' ') << " ]" << std::endl;
+        s << "[ " << "Titulo: " << getTituloActual()
+            << std::string(contentWidth - ("Titulo: " + getTituloActual()).length(), ' ') << " ]" << std::endl;
+        s << "[ " << "Dominio: " << getDominioActual()
+            << std::string(contentWidth - ("Dominio: " + getDominioActual()).length(), ' ') << " ]" << std::endl;
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
         s << border << std::endl;
         s << std::endl;
         
-
     }
     else {
         s << "              NAVEGADOR WEB          " << std::endl;
@@ -84,7 +121,7 @@ std::string Pestania::toString() const
 // necesidad de verificar si es nullptr
 void Pestania::guardarArchivoPestania(std::ofstream& out)
 {
-    historial->guardarArchivoHistorial(out); 
+    historial->serializarHistorial(out); 
 }
 
 Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)

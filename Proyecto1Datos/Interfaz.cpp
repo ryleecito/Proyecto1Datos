@@ -213,7 +213,7 @@ void Interfaz::agregarCantidadEntradas(Navegador* navegador)
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         throw ExcepcionGenerica("Entrada invalida. Debe ingresar un numero entero.");
     }
-	navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->getConfiguraciones()->setMaxEntradas(opc);
+	//navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->getConfiguraciones()->setMaxEntradas(opc);
 	std::cout << " Se ha configurado la cantidad de entradas a: " << opc << std::endl;
     system("pause");
 

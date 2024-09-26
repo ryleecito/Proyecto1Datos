@@ -1,7 +1,7 @@
 #pragma once
 #include "Pestania.h"
 #include "Sesion.h"
-#include "ListPestanias.h"
+#include "ListaPestanias.h"
 #include <fstream>
 class Navegador
 {

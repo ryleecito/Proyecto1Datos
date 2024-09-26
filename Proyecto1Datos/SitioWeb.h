@@ -18,13 +18,13 @@ public:
     SitioWeb(const SitioWeb& other);
     virtual ~SitioWeb();
 
-    std::string getUrl();
-    std::string getTitulo();
-    std::string getDominio();
+    std::string getUrl() const;
+    std::string getTitulo() const;
+    std::string getDominio() const;
     void setUrl(std::string url);
     void setTitulo(std::string titulo);
     void setDominio(std::string dominio);
-    std::string toString();
+    std::string toString() const;
 
 	// metodos de guardar y cargar archivo
 	void guardarArchivoSitioWeb(std::ofstream& out);

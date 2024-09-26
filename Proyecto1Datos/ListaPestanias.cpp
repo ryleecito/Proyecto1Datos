@@ -1,4 +1,4 @@
-#include "ListPestanias.h"
+#include "ListaPestanias.h"
 
 ListPestanias::ListPestanias()
     : posicionActual(pestanias.end()), posicionActualIdx(-1) {}
@@ -63,10 +63,23 @@ Pestania* ListPestanias::getPestaniaActual() const {
     return nullptr;
 }
 
+Historial* ListPestanias::getHistorial() const
+{
+    return (*posicionActual)->getHistorial();
+}
+
 void ListPestanias::agregarPaginaWeb(SitioWeb* sitio) {
     if (posicionActual != pestanias.end()) {
         (*posicionActual)->agregarPaginaWeb(sitio);
     }
+}
+
+std::string ListPestanias::mostrarPestaniaActual() const
+{
+    if (posicionActual != pestanias.end()) {
+        return (*posicionActual)->toString();
+    }
+    return "";
 }
 
 void ListPestanias::guardarArchivoListaPestanias(std::ofstream& out)
@@ -94,3 +107,26 @@ ListPestanias* ListPestanias::cargarArchivoListaPestanias(std::ifstream& in)
     return listaCargada; 
 }
 
+SitioWeb* ListPestanias::getSitioActual() const
+{
+    return (*posicionActual)->getSitioActual();
+}
+
+int ListPestanias::sizeHistorial() const
+{
+    return (*posicionActual)->sizeHistorial();
+}
+
+void ListPestanias::irAtras()
+{
+    if (posicionActual != pestanias.end()) {
+		(*posicionActual)->irAtras();
+	}
+}
+
+void ListPestanias::irAdelante()
+{
+    if (posicionActual != pestanias.end()) {
+		(*posicionActual)->irAdelante();
+	}
+}

@@ -51,7 +51,7 @@
     <ClInclude Include="Excepciones.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListPestanias.h">
+    <ClInclude Include="ListaPestanias.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

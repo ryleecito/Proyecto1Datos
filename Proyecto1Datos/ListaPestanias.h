@@ -24,9 +24,28 @@ public:
     std::string toString() const;
     std::list<Pestania*> getPestanias() const;
     Pestania* getPestaniaActual() const;
-    void agregarPaginaWeb(SitioWeb* sitio);
 
 	void guardarArchivoListaPestanias(std::ofstream& out);
     static ListPestanias* cargarArchivoListaPestanias(std::ifstream& in);
+
+    //Metodos Pestania
+
+    Historial* getHistorial() const;
+    void agregarPaginaWeb(SitioWeb* sitio);
+    std::string mostrarPestaniaActual() const;
+
+    //Metodos de historial
+
+    int sizeHistorial() const;
+    void irAtras();
+    void irAdelante();
+    ConfigHistorial* getConfiguraciones() const;
+    void setConfiguraciones(ConfigHistorial* configuraciones);
+    std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
+    SitioWeb* getSitioActual() const;
+    void ajustarTamanoHistorial();
+
+
+
 };
 

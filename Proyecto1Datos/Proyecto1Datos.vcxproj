@@ -132,7 +132,7 @@
     <ClInclude Include="Excepciones.h" />
     <ClInclude Include="Historial.h" />
     <ClInclude Include="Interfaz.h" />
-    <ClInclude Include="ListPestanias.h" />
+    <ClInclude Include="ListaPestanias.h" />
     <ClInclude Include="Marcador.h" />
     <ClInclude Include="Navegador.h" />
     <ClInclude Include="Pestania.h" />

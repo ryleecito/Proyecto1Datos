@@ -19,17 +19,29 @@ public:
     Pestania();
     Pestania(Historial* historial);
     virtual ~Pestania();
-
- 
-    void irAtras();
-    void irAdelante();
     void setHistorial(Historial* historial);
     Historial* getHistorial() const; 
-    bool operator==(const Pestania& other) const;
-    void agregarPaginaWeb(SitioWeb* sitio);
+    //bool operator==(const Pestania& other) const;
+
     std::string toString() const; 
 
 	void guardarArchivoPestania(std::ofstream& out);
 	static Pestania* cargarArchivoPestania(std::ifstream& in);
+
+    //Metodos de historial
+
+    int sizeHistorial() const;
+    void agregarPaginaWeb(SitioWeb* sitio);
+    void irAtras();
+    void irAdelante();
+    std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
+    SitioWeb* getSitioActual() const;
+    void ajustarTamanoHistorial();
+
+    //Metodos de SitioWeb
+
+    std::string getUrlActual() const;
+    std::string getTituloActual() const;
+    std::string getDominioActual() const;
 };
 
