@@ -21,7 +21,9 @@ public:
 	std::string toString();
 	ListPestanias* getListaPestanias();
 	std::list<Marcador*> getMarcadoresGuardados();
-
+	ListPestanias* getListaPestaniasIncognito();
+	std::list<SitioWeb*>* getListaSitiosW();
+	
 	// metodos incognito
 	void cambiarModoIncognito();
 	bool getModoIncognito();

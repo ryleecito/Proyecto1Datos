@@ -7,6 +7,7 @@
 #include "Marcador.h"
 #include "SitioWeb.h"
 #include "Historial.h"
+#include "pch.h"
 
 class Pestania
 {

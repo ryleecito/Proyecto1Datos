@@ -32,6 +32,16 @@ std::list<Marcador*> Navegador::getMarcadoresGuardados()
     return marcadoresGuardados;
 }
 
+ListPestanias* Navegador::getListaPestaniasIncognito()
+{
+	return listaPestaniasIncognito;
+}
+
+std::list<SitioWeb*>* Navegador::getListaSitiosW()
+{
+	return &sitios;
+}
+
 void Navegador::cambiarModoIncognito()
 {
 	if (modoIncognito == true) {
@@ -143,6 +153,10 @@ std::string Navegador::MostrarMarcadoresGuardados() const
 
 SitioWeb* Navegador::getSitioActual()
 {
+	if (modoIncognito) {
+		return listaPestaniasIncognito->getPestaniaActual()->getHistorial()->getSitioActual();
+
+	}
 	return listaPestanias->getPestaniaActual()->getHistorial()->getSitioActual();
 }
 
