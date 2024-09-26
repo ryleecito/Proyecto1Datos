@@ -109,6 +109,11 @@ void Navegador::agregarPaginaWeb(SitioWeb* sitio)
 	listaPestanias->agregarPaginaWeb(sitio);
 }
 
+Pestania* Navegador::getPestaniaActual()
+{
+	return listaPestanias->getPestaniaActual();
+}
+
 std::string Navegador::mostrarPestaniaActual()
 
 {

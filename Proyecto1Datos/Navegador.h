@@ -36,6 +36,7 @@ public:
 	void pestaniaAnterior();
 	void pestaniaSiguiente();
 	void agregarPaginaWeb(SitioWeb* sitio);
+	Pestania* getPestaniaActual();
 	std::string mostrarPestaniaActual();
 
 

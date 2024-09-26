@@ -247,9 +247,9 @@ void Interfaz::agregarCantidadTiempo(Navegador* navegador)
 
 void Interfaz::menuConfiguraciones(Navegador* navegador)
 {
-    if (navegador->getListaPestanias()->getPestaniaActual() == NULL) {
-        throw ExcepcionGenerica("Error: Cree una pestania primero para configurar su historial");
-    }
+    //if (navegador->getPestaniaActual() == nullptr) {
+    //    throw ExcepcionGenerica("Error: Cree una pestania primero para configurar su historial");
+    //}
     system("cls");
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "|         MENU DE CONFIGURACION         | " << std::endl;
@@ -263,9 +263,9 @@ void Interfaz::menuConfiguraciones(Navegador* navegador)
 
 void Interfaz::busquedaYFiltros(Navegador* navegador)
 {
-    if (navegador->getListaPestanias()->getPestaniaActual() == NULL) {
-        throw ExcepcionGenerica("Error: Cree una pestania primero para configurar su historial");
-    }
+    //if (navegador->getListaPestanias()->getPestaniaActual() == nullptr) {
+    //    throw ExcepcionGenerica("Error: Cree una pestania primero para configurar su historial");
+    //}
     system("cls");
     std::cout << "-----------------------------------------------" << std::endl;
     std::cout << "|       MENU BUSQUEDA Y FILTROS               | " << std::endl;

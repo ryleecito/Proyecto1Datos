@@ -23,7 +23,7 @@ public:
     int getPosicionActualIndex() const;
     std::string toString() const;
     std::list<Pestania*> getPestanias() const;
-    Pestania* getPestaniaActual() const;
+
 
 	void guardarArchivoListaPestanias(std::ofstream& out);
     static ListPestanias* cargarArchivoListaPestanias(std::ifstream& in);
@@ -32,6 +32,7 @@ public:
 
     Historial* getHistorial() const;
     void agregarPaginaWeb(SitioWeb* sitio);
+    Pestania* getPestaniaActual() const;
     std::string mostrarPestaniaActual() const;
 
     //Metodos de historial
