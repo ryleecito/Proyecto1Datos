@@ -59,10 +59,13 @@ std::string Pestania::toString() const
             << std::string(contentWidth - ("URL: " + historial->getSitioActual()->getUrl()).length(), ' ') << " ]" << std::endl;
         s << "[ " << "Titulo: " << historial->getSitioActual()->getTitulo()
             << std::string(contentWidth - ("Titulo: " + historial->getSitioActual()->getTitulo()).length(), ' ') << " ]" << std::endl;
+        s << "[ " << "Dominio: " << historial->getSitioActual()->getDominio()
+            << std::string(contentWidth - ("Dominio: " + historial->getSitioActual()->getDominio()).length(), ' ') << " ]" << std::endl;
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
         s << border << std::endl;
         s << std::endl;
         
+
     }
     else {
         s << "              NAVEGADOR WEB          " << std::endl;

@@ -163,8 +163,6 @@ SitioWeb* Navegador::getSitioActual()
 SitioWeb* Navegador::buscarPaginaWeb(const std::string url)
 {
 	auto it = std::find_if(sitios.begin(), sitios.end(), [&](SitioWeb* sitio) {
-		// Agregar una impresión para ver qué sitio se está comparando
-		std::cout << "Comparando con sitio: " << sitio->getUrl() << std::endl;
 		return sitio->getUrl() == url;
 		});
 
@@ -240,16 +238,17 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 
 void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 
-	std::string url, titulo, atributo;
 	const size_t tamanioBuffer = 2048;
 	char buffer[tamanioBuffer];
-
 	std::ifstream archivo(rutaArchivo);
 
 	if (!archivo.is_open()) {
 		std::cerr << "Error al abrir el archivo CSV: " << rutaArchivo << std::endl;
 		return;
 	}
+
+	std::string url, titulo, dominio;
+	std::string atributo;
 
 	while (archivo.read(buffer, tamanioBuffer) || archivo.gcount() > 0) {
 		size_t bytes = archivo.gcount();
@@ -259,32 +258,36 @@ void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 			if (c == ',') {
 
 				if (url.empty()) {
-					url = atributo;
+					url = atributo;  
+					atributo.clear();
 				}
-				else {
-					titulo = atributo;
+				if (titulo.empty() && !url.empty()) {
+					titulo = atributo; 
+					atributo.clear();
 				}
-				atributo.clear();  
+
+
 			}
 			else if (c == '\n') {
-
-				if (!url.empty() && !titulo.empty()) {
-					SitioWeb* sitio = new SitioWeb(url, titulo, "");
+				dominio = atributo;
+				if (!url.empty() && !titulo.empty() && !dominio.empty()) {
+					SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
 					sitios.push_back(sitio);
 				}
 
 				url.clear();
 				titulo.clear();
+				dominio.clear();
 				atributo.clear();
 			}
 			else {
-				atributo += c;
+				atributo += c; 
 			}
 		}
 	}
 
-	if (!url.empty() && !titulo.empty()) {
-		SitioWeb* sitio = new SitioWeb(url, titulo, "");
+	if (!url.empty() && !titulo.empty() && !dominio.empty()) {
+		SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
 		sitios.push_back(sitio);
 	}
 
