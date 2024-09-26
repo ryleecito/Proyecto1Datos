@@ -15,7 +15,7 @@ int Historial::size() const {
 }
 
 void Historial::add(SitioWeb* sitioWeb) {
-    historial.push_back(new SitioWeb(*sitioWeb));
+    historial.push_back(sitioWeb);
     posicionActual = std::prev(historial.end());
 
 }

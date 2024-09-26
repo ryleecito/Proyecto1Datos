@@ -12,7 +12,6 @@ SitioWeb::SitioWeb(const SitioWeb& other)
 
 SitioWeb::~SitioWeb()
 {
-    std::cout << "Yo me estoy borrando: " << titulo << this <<std::endl ;
 }
 
 std::string SitioWeb::getUrl()

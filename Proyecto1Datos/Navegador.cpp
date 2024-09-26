@@ -163,6 +163,8 @@ SitioWeb* Navegador::getSitioActual()
 SitioWeb* Navegador::buscarPaginaWeb(const std::string url)
 {
 	auto it = std::find_if(sitios.begin(), sitios.end(), [&](SitioWeb* sitio) {
+		// Agregar una impresión para ver qué sitio se está comparando
+		std::cout << "Comparando con sitio: " << sitio->getUrl() << std::endl;
 		return sitio->getUrl() == url;
 		});
 
@@ -237,6 +239,7 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 }
 
 void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
+
 	std::string url, titulo, atributo;
 	const size_t tamanioBuffer = 2048;
 	char buffer[tamanioBuffer];
@@ -254,14 +257,21 @@ void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 			char c = buffer[i];
 
 			if (c == ',') {
-				url = atributo;
-				atributo.clear();
+
+				if (url.empty()) {
+					url = atributo;
+				}
+				else {
+					titulo = atributo;
+				}
+				atributo.clear();  
 			}
 			else if (c == '\n') {
-				titulo = atributo;
 
-				SitioWeb* sitio = new SitioWeb(url, titulo, "");
-				sitios.push_back(sitio);
+				if (!url.empty() && !titulo.empty()) {
+					SitioWeb* sitio = new SitioWeb(url, titulo, "");
+					sitios.push_back(sitio);
+				}
 
 				url.clear();
 				titulo.clear();
@@ -272,6 +282,12 @@ void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 			}
 		}
 	}
+
+	if (!url.empty() && !titulo.empty()) {
+		SitioWeb* sitio = new SitioWeb(url, titulo, "");
+		sitios.push_back(sitio);
+	}
+
 	archivo.close();
 }
 

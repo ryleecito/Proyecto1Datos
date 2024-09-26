@@ -136,9 +136,11 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
 
     std::cin >> url;
 
+    SitioWeb* sitio = new SitioWeb(*navegador->buscarPaginaWeb(url));
 
-    if (navegador->buscarPaginaWeb(url) != nullptr) {
-        navegador->agregarPaginaWeb(navegador->buscarPaginaWeb(url));
+
+    if (sitio != nullptr) {
+        navegador->agregarPaginaWeb(sitio);
 	}
 	else {
         throw ExcepcionGenerica("404-NotFound");

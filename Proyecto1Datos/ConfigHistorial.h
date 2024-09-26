@@ -9,6 +9,7 @@ private:
 	int maxEntradas;
 public:
 	ConfigHistorial();
+	ConfigHistorial(const ConfigHistorial&);
 	ConfigHistorial(int maxEntradas);
 	virtual ~ConfigHistorial();
 	void setMaxEntradas(int maxEntradas);
