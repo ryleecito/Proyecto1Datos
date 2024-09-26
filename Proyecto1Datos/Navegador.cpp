@@ -237,23 +237,42 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 }
 
 void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
-	std::ifstream in(rutaArchivo); 
+	std::string url, titulo, atributo;
+	const size_t tamanioBuffer = 2048;
+	char buffer[tamanioBuffer];
 
-	if (!in.is_open()) {
+	std::ifstream archivo(rutaArchivo);
+
+	if (!archivo.is_open()) {
 		std::cerr << "Error al abrir el archivo CSV: " << rutaArchivo << std::endl;
 		return;
 	}
 
-	std::string linea, url, titulo, dominio;
-	while (std::getline(in, linea)) {
-		std::stringstream ss(linea);
-		if (std::getline(ss, url, ',') && std::getline(ss, titulo, ',') && std::getline(ss, dominio, ',')) {
-			
-			SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
-			sitios.push_back(sitio);
+	while (archivo.read(buffer, tamanioBuffer) || archivo.gcount() > 0) {
+		size_t bytes = archivo.gcount();
+		for (size_t i = 0; i < bytes; ++i) {
+			char c = buffer[i];
+
+			if (c == ',') {
+				url = atributo;
+				atributo.clear();
+			}
+			else if (c == '\n') {
+				titulo = atributo;
+
+				SitioWeb* sitio = new SitioWeb(url, titulo, "");
+				sitios.push_back(sitio);
+
+				url.clear();
+				titulo.clear();
+				atributo.clear();
+			}
+			else {
+				atributo += c;
+			}
 		}
 	}
-	in.close(); 
+	archivo.close();
 }
 
 
