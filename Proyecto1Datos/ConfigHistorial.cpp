@@ -5,6 +5,10 @@ ConfigHistorial::ConfigHistorial()
 	maxEntradas = -1;
 }
 
+ConfigHistorial::ConfigHistorial(const ConfigHistorial&)
+{
+}
+
 ConfigHistorial::ConfigHistorial(int maxEntradas)
 {
 	this->maxEntradas = maxEntradas;

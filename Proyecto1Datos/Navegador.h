@@ -38,7 +38,7 @@ public:
 
 
 	//bookmarks
-	void agregarMarcador(Marcador* );
+	void agregarMarcador(Marcador*);
 	std:: string MostrarMarcadoresGuardados() const;
 	
 
