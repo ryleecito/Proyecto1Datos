@@ -59,9 +59,7 @@ TEST(HistorialTest, FiltrarPorNombre) {
 
 TEST(HistorialTest, AjustarTamanoHistorial) {
     Historial historial;
-    ConfigHistorial configuracion;
-    configuracion.setMaxEntradas(1);
-    historial.setConfiguraciones(&configuracion);
+    ConfigHistorial* config = config->getInstancia();
 
     SitioWeb* sitio1 = new SitioWeb("www.google.com", "Google", "dominio");
     SitioWeb* sitio2 = new SitioWeb("www.youtube.com", "Youtube", "dominio");

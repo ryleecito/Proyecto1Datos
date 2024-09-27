@@ -27,17 +27,16 @@ public:
     void setTitulo(std::string titulo);
     void setDominio(std::string dominio);
     std::string toString() const;
-	std::chrono::time_point<std::chrono::system_clock> getTiempoDeIngreso() const;
-	void setTiempoDeIngreso(std::chrono::time_point<std::chrono::system_clock> tiempoDeIngreso);
+    std::chrono::time_point<std::chrono::system_clock> getTiempoDeIngreso() const;
+    void setTiempoDeIngreso(std::chrono::time_point<std::chrono::system_clock> tiempoDeIngreso);
 
-	// metodos de guardar y cargar archivo
-	void guardarArchivoSitioWeb(std::ofstream& out);
-	static SitioWeb* cargarArchivoSitioWeb(std::ifstream& in);
+    // metodos de guardar y cargar archivo
+    void guardarArchivoSitioWeb(std::ofstream& out);
+    static SitioWeb* cargarArchivoSitioWeb(std::ifstream& in);
 
     // metodos para guardar y cargar con csv 
-	void guardarArchivoSitioWebCSV(std::ofstream& out);
-	SitioWeb* cargarArchivoSitioWebCSV(std::string &nombre);
-    
+    void guardarArchivoSitioWebCSV(std::ofstream& out);
+    SitioWeb* cargarArchivoSitioWebCSV(std::string& nombre);
+
 
 };
-
