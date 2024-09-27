@@ -328,6 +328,7 @@ void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
     std::cout << " Ingrese la palabra clave para aplicarle el filtro al navegador:";
     std::cin >> opc;
     navegador->getListaPestanias()->getHistorial()->setFiltro(opc);
+    navegador->getListaPestanias()->getHistorial()->moverseAPrimeraCoincidencia();
 	system("pause");
 }
 

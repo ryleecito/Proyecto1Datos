@@ -32,6 +32,7 @@ public:
     std::string getFiltro();
 	void setFiltro(std::string filtro);
 
+    void moverseAPrimeraCoincidencia();
 
     // metodos de guardar y cargar archivo
     void serializarHistorial(std::ofstream& out);

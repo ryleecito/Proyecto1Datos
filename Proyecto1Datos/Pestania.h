@@ -41,6 +41,7 @@ public:
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
 	bool limpiarEntradasViejas();
+  
 
     //Metodos de SitioWeb
 
