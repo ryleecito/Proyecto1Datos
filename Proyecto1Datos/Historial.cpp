@@ -185,11 +185,9 @@ std::string Historial::getFiltro()
 void Historial::setFiltro(std::string filtro)
 {
 	this->filtro = filtro;
-	moverseAPrimeraCoincidencia();
+	
 }
 
-// Este metodo lo utilizamos para que cuando agreguemos un filtro,
-// el historial se mueva a la primera coincidencia que encuentre
 void Historial::moverseAPrimeraCoincidencia()
 {
 	if (filtro.empty()) {
