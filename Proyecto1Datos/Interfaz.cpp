@@ -4,7 +4,6 @@
 #include "Interfaz.h"
 #include "Excepciones.h"
 #include "Navegador.h"
-#include <limits>
 #include <sstream>
 #include <iostream>
 #include <windows.h>
