@@ -27,7 +27,7 @@ public:
     SitioWeb* getSitioActual() const;
     std::string toString() const;
     void ajustarTamanoHistorial();
-	void limpiarEntradasViejas();
+	bool limpiarEntradasViejas();
 
     std::string getFiltro();
 	void setFiltro(std::string filtro);

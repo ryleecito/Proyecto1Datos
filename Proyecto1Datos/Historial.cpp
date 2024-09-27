@@ -25,40 +25,53 @@ void Historial::add(SitioWeb* sitioWeb) {
 }
 
 void Historial::retroceder() {
-    if (filtro != "") {
-        while (posicionActual != historial.begin()) {
-            --posicionActual;
+
+    if (historial.empty()) {
+        return; // No hacemos nada si el historial está vacío
+    }
+
+    if (posicionActual == historial.end()) {
+        // Si estamos al final, movemos a la última página
+        --posicionActual;
+    }
+    else if (posicionActual != historial.begin()) {
+        // Solo retrocedemos si no estamos al principio
+        --posicionActual;
+    }
+
+    // Aplicar filtro si es necesario
+    while (!filtro.empty() && posicionActual != historial.begin()) {
+        if ((*posicionActual)->getTitulo().find(filtro) != std::string::npos ||
+            (*posicionActual)->getUrl().find(filtro) != std::string::npos) {
+            break; // Encontramos una página que cumple con el filtro
+        }
+        --posicionActual;
+    }
+}
+
+
+void Historial::avanzar() {
+    if (posicionActual != std::prev(historial.end())) {
+        ++posicionActual;
+
+        // Aplicar filtro si es necesario
+        while (!filtro.empty() && posicionActual != historial.end()) {
             if ((*posicionActual)->getTitulo().find(filtro) != std::string::npos ||
                 (*posicionActual)->getUrl().find(filtro) != std::string::npos) {
-                break;
+                break; // Encontramos una página que cumple con el filtro
             }
-        }
-    }
-    else {
-        if (posicionActual != historial.begin()) {
-            --posicionActual;
+
+            if (posicionActual == std::prev(historial.end())) {
+                break; // Estamos en el último elemento, no avanzamos más
+            }
+
+            ++posicionActual;
         }
     }
 }
 
-void Historial::avanzar() {
-    if (filtro != "") {
-        while (posicionActual != historial.end()) {
-            ++posicionActual;
-            
-            if (posicionActual != historial.end() &&
-                ((*posicionActual)->getTitulo().find(filtro) != std::string::npos ||
-                    (*posicionActual)->getUrl().find(filtro) != std::string::npos)) {
-                break; 
-            }
-        }
-    }
-    else {
-        if (posicionActual != historial.end()) {
-            ++posicionActual;
-        }
-    }
-}
+
+
 void Historial::limpiarHistorial() {
     for (SitioWeb* sitio : historial) {
         delete sitio;
@@ -125,43 +138,38 @@ void Historial::ajustarTamanoHistorial() {
     //}
 }
 
-void Historial::limpiarEntradasViejas() {
-
+bool Historial::limpiarEntradasViejas() {
     int tiempoMaximo = ConfigHistorial::getInstancia()->getTiempoMaximo();
 
+    // Verificar que el tiempo máximo es válido
     if (tiempoMaximo < 0) {
-        return; 
+        return false;
     }
 
     SitioWeb* sitioActual = getSitioActual();
+    bool entradasBorradas = false; // Variable para rastrear si se borraron entradas
 
     for (auto it = historial.begin(); it != historial.end(); ) {
         SitioWeb* sitio = *it;
 
-        double diff = std::chrono::duration_cast<std::chrono::minutes>(
+        // Calcular la diferencia de tiempo
+        double diff = std::chrono::duration_cast<std::chrono::seconds>(
             std::chrono::system_clock::now() - sitio->getTiempoDeIngreso()
-		).count();
+        ).count();
 
-            std::cout << "Evaluando sitio: " << sitio->getUrl()
-            << " | Tiempo desde agregado: " << diff << " minutos." << std::endl;
-
+        // Verificar si la entrada es vieja y eliminarla
         if (diff > tiempoMaximo) {
-
-            if (sitio != sitioActual) {
-
-                it = historial.erase(it); 
-                delete sitio;
-            }
-            else {
-                ++it; 
-            }
+            it = historial.erase(it); // Eliminar la entrada
+            entradasBorradas = true; // Marcar que se borró una entrada
         }
         else {
-            ++it;
+            ++it; // Solo avanzar el iterador si no se borró nada
         }
     }
+
+    
     if (historial.empty()) {
-        posicionActual = historial.end(); 
+        posicionActual = historial.end();
     }
     else if (posicionActual == historial.end()) {
         posicionActual = --historial.end();

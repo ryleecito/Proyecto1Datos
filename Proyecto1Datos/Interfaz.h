@@ -10,7 +10,7 @@ class Interfaz
 
         static void mostrarNavegador(Navegador* navegador);
 
-        static int detectarTecla();
+        static int detectarTecla(Navegador* navegador, bool tipoMenu);
 
         static void agregarPestania(Navegador* navegador);
         
@@ -54,5 +54,8 @@ class Interfaz
    
         static void mensajeSalida();
 
+        static void limpiarConsolaSuave();
+
 };
+
 

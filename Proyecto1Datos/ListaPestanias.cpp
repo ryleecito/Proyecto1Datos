@@ -109,13 +109,16 @@ ListPestanias* ListPestanias::cargarArchivoListaPestanias(std::ifstream& in)
 
 SitioWeb* ListPestanias::getSitioActual() const
 {
-    return (*posicionActual)->getSitioActual();
+    if (posicionActual != pestanias.end()) {
+		return (*posicionActual)->getSitioActual();
+	}
+    return nullptr;
 }
 
-void ListPestanias::limpiarEntradasViejas()
+bool ListPestanias::limpiarEntradasViejas()
 {
-    (*posicionActual)->limpiarEntradasViejas();
 
+	return (*posicionActual)->limpiarEntradasViejas();
 }
 
 int ListPestanias::sizeHistorial() const

@@ -8,6 +8,10 @@
 #include <iostream>
 #include <windows.h>
 
+
+
+
+
 void Interfaz::mostrarNavegador(Navegador* navegador) {
 
     system("cls");
@@ -63,42 +67,57 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
 }
 
 
-int Interfaz::detectarTecla() {
+int Interfaz::detectarTecla(Navegador* navegador, bool mainMenu) {
     HANDLE hConsole = GetStdHandle(STD_INPUT_HANDLE);
+    INPUT_RECORD irInBuf[128];
     DWORD cNumRead;
-    INPUT_RECORD irInBuf;
     int tecla = 0;
 
-    while (true) {
-        ReadConsoleInput(hConsole, &irInBuf, 1, &cNumRead);
-
-        if (irInBuf.EventType == KEY_EVENT && irInBuf.Event.KeyEvent.bKeyDown) {
-            switch (irInBuf.Event.KeyEvent.wVirtualKeyCode) {
-            case VK_LEFT:
-                tecla = 10; 
-                break;
-            case VK_RIGHT:
-                tecla = 11;
-                break;
-            case VK_UP:
-                tecla = 12;
-                break;
-            case VK_DOWN:
-                tecla = 13; 
-                break;
-            default:
-                if (irInBuf.Event.KeyEvent.uChar.AsciiChar >= '1' &&
-                    irInBuf.Event.KeyEvent.uChar.AsciiChar <= '9') {
-                    tecla = irInBuf.Event.KeyEvent.uChar.AsciiChar - '0'; // Convertir ASCII a número
-                }
-                break;
-            }
-            if (tecla != 0) break;
-        }
+    if (mainMenu) {
+        mostrarNavegador(navegador);
     }
-    return tecla;
 
+    while (true) {
+
+        if (navegador->getSitioActual()) {
+            if (navegador->limpiarViejasEntradas() && mainMenu) {
+                mostrarNavegador(navegador);
+            }
+        }
+
+        DWORD numEvents = 0;
+        if (GetNumberOfConsoleInputEvents(hConsole, &numEvents) && numEvents > 0) {
+
+            if (PeekConsoleInput(hConsole, irInBuf, 128, &cNumRead)) {
+                for (DWORD i = 0; i < cNumRead; i++) {
+                    if (irInBuf[i].EventType == KEY_EVENT && irInBuf[i].Event.KeyEvent.bKeyDown) {
+                        switch (irInBuf[i].Event.KeyEvent.wVirtualKeyCode) {
+                        case VK_LEFT: tecla = 10; break;
+                        case VK_RIGHT: tecla = 11; break;
+                        case VK_UP: tecla = 12; break;
+                        case VK_DOWN: tecla = 13; break;
+                        default:
+
+                            if (irInBuf[i].Event.KeyEvent.uChar.AsciiChar >= '1' &&
+                                irInBuf[i].Event.KeyEvent.uChar.AsciiChar <= '9') {
+                                tecla = irInBuf[i].Event.KeyEvent.uChar.AsciiChar - '0';
+                            }
+                            break;
+                        }
+                        if (tecla != 0) {
+                            FlushConsoleInputBuffer(hConsole); 
+                            return tecla; 
+                        }
+                    }
+                }
+            }
+        }
+
+        Sleep(50); 
+    }
 }
+
+     
 
 void Interfaz::agregarPestania(Navegador* navegador )
 {
@@ -134,16 +153,19 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
     std::cout << " Ingrese la url: ";
     std::cin >> url;
 
-    SitioWeb* sitio = new SitioWeb(*navegador->buscarPaginaWeb(url));
+    SitioWeb* sitio = navegador->buscarPaginaWeb(url);
 
     if (sitio != nullptr && navegador->getPestaniaActual()->getHistorial()->existeSitioWeb(url) == false) {
-        navegador->agregarPaginaWeb(sitio);
+        navegador->agregarPaginaWeb(new SitioWeb(*sitio));
 	}
-	else {
+
+    if (sitio == nullptr ) {
         throw ExcepcionGenerica("404-NotFound");
-	}
+    }
+ 
     system("pause");
-	
+
+
 }
 
 void Interfaz::paginaAnterior(Navegador* navegador)
@@ -240,6 +262,10 @@ void Interfaz::agregarCantidadTiempo(Navegador* navegador)
     }
     system("pause");
 	navegador->setTiempoMaximo(opc);
+
+    if (navegador->getSitioActual()) {
+       navegador->limpiarViejasEntradas();
+    }
    
     std::cout << " Se ha agregado la cantidad de tiempo a: " << opc << std::endl;
     system("pause");
@@ -381,6 +407,7 @@ void Interfaz::mensajeSalida()
     std::cout << "|  GRACIAS POR NAVEGAR CON NOSOTROS :)  | " << std::endl;
     std::cout << "----------------------------------------" << std::endl << std::endl;
 }
+
 
 
 

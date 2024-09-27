@@ -30,7 +30,6 @@ public:
 	void guardarArchivoPestania(std::ofstream& out);
 	static Pestania* cargarArchivoPestania(std::ifstream& in);
 
-    std::chrono::duration<double> tiempoTranscurrido() const;
 
     //Metodos de historial
 
@@ -41,7 +40,7 @@ public:
     std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
-	void limpiarEntradasViejas();
+	bool limpiarEntradasViejas();
 
     //Metodos de SitioWeb
 

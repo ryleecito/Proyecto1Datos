@@ -128,10 +128,10 @@ std::string Navegador::mostrarPestaniaActual()
 	return listaPestanias->mostrarPestaniaActual();
 }
 
-void Navegador::limpiarViejasEntradas()
+bool Navegador::limpiarViejasEntradas()
 {
 
-	listaPestanias->limpiarEntradasViejas();
+	return listaPestanias->limpiarEntradasViejas();
 }
 
 
@@ -330,7 +330,7 @@ void Navegador::setMaxEntradas(int max)
 void Navegador::setTiempoMaximo(int time)
 {
 	configuracion->setTiempoMaximo(time);
-	limpiarViejasEntradas();
+
 }
 
 

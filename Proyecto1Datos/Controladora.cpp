@@ -16,9 +16,9 @@ void Controladora::control0() {
     int opcion = 0;
     do {
         try {
-            Interfaz::mostrarNavegador(navegador);
-            Sleep(300);
-            opcion = Interfaz::detectarTecla();
+            //Interfaz::mostrarNavegador(navegador);
+
+            opcion = Interfaz::detectarTecla(navegador,1);
             switch (opcion) {
             case 1: // Agregar a un sitio web
                 control1();
@@ -88,7 +88,7 @@ void Controladora::control3()
         do {
             Interfaz::menuImportarExportar(navegador);
             Sleep(300);
-            opcion = Interfaz::detectarTecla();
+            opcion = Interfaz::detectarTecla(navegador,0);
             switch (opcion) {
 			case 1: // exportar historial
                 control3_1();
@@ -122,7 +122,7 @@ void Controladora::control5()
         do {
             Interfaz::busquedaYFiltros(navegador);
             Sleep(300);
-            opcion = Interfaz::detectarTecla();
+            opcion = Interfaz::detectarTecla(navegador,0);
             switch (opcion) {
             case 1: // busqueda por filtro
 				control5_1();
@@ -165,7 +165,7 @@ void Controladora::control8()
         do {
             Interfaz::menuConfiguraciones(navegador);
             Sleep(300);
-            opcion = Interfaz::detectarTecla();
+            opcion = Interfaz::detectarTecla(navegador,0);
             switch (opcion) {
             case 1: // cantidad de entradas
                 control8_1();
