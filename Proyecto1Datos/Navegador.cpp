@@ -112,6 +112,9 @@ void Navegador::agregarPaginaWeb(SitioWeb* sitio)
 
 Pestania* Navegador::getPestaniaActual()
 {
+	if (modoIncognito) {
+		return listaPestaniasIncognito->getPestaniaActual();
+	}
 	return listaPestanias->getPestaniaActual();
 }
 

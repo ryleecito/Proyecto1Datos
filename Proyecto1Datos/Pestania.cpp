@@ -68,6 +68,7 @@ std::string Pestania::getDominioActual() const
 }
 
 
+
 void Pestania::setHistorial(Historial* historial1)
 {
     if (this->historial != nullptr)

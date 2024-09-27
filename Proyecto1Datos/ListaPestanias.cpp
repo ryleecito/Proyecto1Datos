@@ -114,9 +114,7 @@ SitioWeb* ListPestanias::getSitioActual() const
 
 void ListPestanias::limpiarEntradasViejas()
 {
-
-
-		(*posicionActual)->limpiarEntradasViejas();
+    (*posicionActual)->limpiarEntradasViejas();
 
 }
 

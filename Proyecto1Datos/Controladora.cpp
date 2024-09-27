@@ -130,12 +130,15 @@ void Controladora::control5()
 			case 2: // busqueda por palabra clave
                 control5_2();
                 break;
-            case 3:
+            case 3: // eliminamos filtro
+                control5_3();
+                break;
+            case 4:
                 break;
             default:
                 throw ExcepcionGenerica("Opcion no valida, por favor elige otra opcion.");
             }
-        } while (opcion != 3);
+        } while (opcion != 4);
     }
     catch (const ExcepcionGenerica& ex) {
 
@@ -230,6 +233,11 @@ void Controladora::control5_1()
 void Controladora::control5_2()
 {
     Interfaz::busquedaPalabraClave(navegador);
+}
+
+void Controladora::control5_3()
+{
+    Interfaz::eliminarFiltro(navegador);
 }
 
 // exportar historial

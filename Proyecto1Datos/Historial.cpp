@@ -5,7 +5,7 @@
 
 
 Historial::Historial() : posicionActual(historial.end()){
-   
+    filtro = "";
 }
 
 Historial::~Historial() {
@@ -25,17 +25,40 @@ void Historial::add(SitioWeb* sitioWeb) {
 }
 
 void Historial::retroceder() {
-    if (posicionActual != historial.begin()) {
-        --posicionActual;
+    if (filtro != "") {
+        while (posicionActual != historial.begin()) {
+            --posicionActual;
+            if ((*posicionActual)->getTitulo().find(filtro) != std::string::npos ||
+                (*posicionActual)->getUrl().find(filtro) != std::string::npos) {
+                break;
+            }
+        }
+    }
+    else {
+        if (posicionActual != historial.begin()) {
+            --posicionActual;
+        }
     }
 }
 
 void Historial::avanzar() {
-    if (posicionActual != std::prev(historial.end())) {
-        ++posicionActual;
+    if (filtro != "") {
+        while (posicionActual != historial.end()) {
+            ++posicionActual;
+            
+            if (posicionActual != historial.end() &&
+                ((*posicionActual)->getTitulo().find(filtro) != std::string::npos ||
+                    (*posicionActual)->getUrl().find(filtro) != std::string::npos)) {
+                break; 
+            }
+        }
+    }
+    else {
+        if (posicionActual != historial.end()) {
+            ++posicionActual;
+        }
     }
 }
-
 void Historial::limpiarHistorial() {
     for (SitioWeb* sitio : historial) {
         delete sitio;
@@ -137,14 +160,22 @@ void Historial::limpiarEntradasViejas() {
             ++it;
         }
     }
-
-    
     if (historial.empty()) {
         posicionActual = historial.end(); 
     }
     else if (posicionActual == historial.end()) {
         posicionActual = --historial.end();
     }
+}
+
+std::string Historial::getFiltro()
+{
+    return filtro;
+}
+
+void Historial::setFiltro(std::string filtro)
+{
+	this->filtro = filtro;
 }
 
 
@@ -204,5 +235,16 @@ std::string Historial::getDominioActual() const
 		return (*posicionActual)->getDominio();
 	}
 	return "";
+}
+
+bool Historial::existeSitioWeb(const std::string url)
+{
+
+    for (const auto& sitio : historial) {
+        if (sitio->getUrl() == url) {
+            return true;  
+        }
+    }
+    return false; 
 }
 

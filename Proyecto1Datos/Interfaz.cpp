@@ -133,21 +133,17 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
     }
     std::string url;
     std::cout << " Ingrese la url: ";
-
-
     std::cin >> url;
 
     SitioWeb* sitio = new SitioWeb(*navegador->buscarPaginaWeb(url));
 
-
-    if (sitio != nullptr) {
+    if (sitio != nullptr && navegador->getPestaniaActual()->getHistorial()->existeSitioWeb(url) == false) {
         navegador->agregarPaginaWeb(sitio);
 	}
 	else {
         throw ExcepcionGenerica("404-NotFound");
 	}
     system("pause");
- 
 	
 }
 
@@ -227,11 +223,12 @@ void Interfaz::agregarCantidadTiempo(Navegador* navegador)
 {
     int opc;
     std::cout << "----------------------------------------" << std::endl;
-    std::cout << " 6 horas = 360 minutos" << std::endl;
-    std::cout << " 12 horas = 720 minutos" << std::endl;
-    std::cout << " 24 horas = 1440 minutos" << std::endl;
+    std::cout << " 5 minutos = 300 segundos" << std::endl;
+    std::cout << " 10 minutos = 600 segundos" << std::endl;
+    std::cout << " 30 minutos = 1800 segundos  " << std::endl;
+
     std::cout << "----------------------------------------" << std::endl;
-    std::cout << " Ingrese la cantidad de minutos para el tiempo de entrada del navegador: ";
+    std::cout << " Ingrese la cantidad de segundos para el timeStamp del navegador: ";
 
     std::cin >> opc;
     if (opc < 0) {
@@ -275,9 +272,10 @@ void Interfaz::busquedaYFiltros(Navegador* navegador)
     std::cout << "-----------------------------------------------" << std::endl;
     std::cout << "|       MENU BUSQUEDA Y FILTROS               | " << std::endl;
     std::cout << "-----------------------------------------------" << std::endl;
-    std::cout << "| 1. Buscar paginas web por filtro             |" << std::endl;
+    std::cout << "| 1. Buscar paginas web por filtro            |" << std::endl;
     std::cout << "| 2. Buscar paginas web por nombre exacto     |" << std::endl;
-    std::cout << "| 3. Regresar                                 |" << std::endl;
+    std::cout << "| 3. Eliminar filtro anadido                  |" << std::endl;
+    std::cout << "| 4. Regresar                                 |" << std::endl;
     std::cout << "-----------------------------------------------" << std::endl;
     std::cout << "Toque tecla para realizar accion: " << std::endl << std::endl;
 }
@@ -285,16 +283,8 @@ void Interfaz::busquedaYFiltros(Navegador* navegador)
 void Interfaz::busquedaPalabraClave(Navegador* navegador)
 {
     std::string opc;
-    std::cout << " Ingrese la palabra clave para aplicarle el filtro al navegador:";
-    std::cin >> opc;
-
-}
-
-void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
-{
-    std::string opc;
     int contador = 1;
-    std::cout << " Ingrese el filtro para hacer su busqueda:";
+    std::cout << " Ingrese la palabra clave para hacer la busqueda:";
     std::cin >> opc;
     for (SitioWeb* sitio : navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->filtrarPaginasPorNombre(opc)) {
         std::cout << "------------------------------------------------------" << std::endl;
@@ -304,6 +294,16 @@ void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
         std::cout << "------------------------------------------------------" << std::endl;
     }
     system("pause");
+
+}
+
+void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
+{
+    std::string opc;
+    std::cout << " Ingrese la palabra clave para aplicarle el filtro al navegador:";
+    std::cin >> opc;
+    navegador->getListaPestanias()->getHistorial()->setFiltro(opc);
+	system("pause");
 }
 
 
@@ -369,6 +369,11 @@ void Interfaz::limpiarViejasEntradas(Navegador* navegador)
 	navegador->limpiarViejasEntradas();
 	std::cout << "Se han limpiado las entradas antiguas con exito." << std::endl;
 	system("pause");
+}
+
+void Interfaz::eliminarFiltro(Navegador* navegador)
+{
+	navegador->getListaPestanias()->getHistorial()->setFiltro("");
 }
 
 void Interfaz::mensajeSalida()

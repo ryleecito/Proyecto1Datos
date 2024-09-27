@@ -12,8 +12,8 @@ class Historial
 private:
     std::list<SitioWeb*> historial;
     std::list<SitioWeb*>::iterator posicionActual;
+    std::string filtro;
     
-
 public:
     Historial();
     virtual ~Historial();
@@ -29,6 +29,9 @@ public:
     void ajustarTamanoHistorial();
 	void limpiarEntradasViejas();
 
+    std::string getFiltro();
+	void setFiltro(std::string filtro);
+
 
     // metodos de guardar y cargar archivo
     void serializarHistorial(std::ofstream& out);
@@ -39,6 +42,8 @@ public:
     std::string getUrlActual() const;
     std::string getTituloActual() const;
     std::string getDominioActual()const;
+
+	bool existeSitioWeb(const std::string url);
 
 
 

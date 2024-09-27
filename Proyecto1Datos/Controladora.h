@@ -37,6 +37,7 @@ public:
 
 	void control5_1(); // busqueda por filtro
 	void control5_2(); // busqueda por palabra especifica
+	void control5_3(); // eliminar fitro
 
 	void control3_1(); // exportar historial
 	void control3_2(); // importar historial
