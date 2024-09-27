@@ -4,6 +4,7 @@
 #include <deque>
 #include <fstream>  
 #include <string>   
+#include <chrono>
 #include "Marcador.h"
 #include "SitioWeb.h"
 #include "Historial.h"
@@ -12,7 +13,8 @@ class Pestania
 {
 private:
 
-    Historial* historial; 
+    Historial* historial;
+    
 
 public:
   
@@ -28,6 +30,8 @@ public:
 	void guardarArchivoPestania(std::ofstream& out);
 	static Pestania* cargarArchivoPestania(std::ifstream& in);
 
+    std::chrono::duration<double> tiempoTranscurrido() const;
+
     //Metodos de historial
 
     int sizeHistorial() const;
@@ -37,6 +41,7 @@ public:
     std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
+	void limpiarEntradasViejas();
 
     //Metodos de SitioWeb
 

@@ -1,7 +1,9 @@
 #include "SitioWeb.h"
 const size_t MAX_LENGTH = 2048;
 
-SitioWeb::SitioWeb() : url(""), titulo(""), dominio("") {}
+SitioWeb::SitioWeb() : url(""), titulo(""), dominio("") {
+    tiempoDeIngreso = std::chrono::system_clock::now();
+}
 
 SitioWeb::SitioWeb(std::string url, std::string titulo, std::string dominio)
     : url(url), titulo(titulo), dominio(dominio) {
@@ -49,6 +51,16 @@ std::string SitioWeb::toString() const
     std::stringstream s;
     s << "URL: " << url << " Titulo: " << titulo << " Dominio: " << dominio;
     return s.str();
+}
+
+std::chrono::time_point<std::chrono::system_clock> SitioWeb::getTiempoDeIngreso() const
+{
+    return tiempoDeIngreso;
+}
+
+void SitioWeb::setTiempoDeIngreso(std::chrono::time_point<std::chrono::system_clock> tiempoDeIngreso)
+{
+	this->tiempoDeIngreso = tiempoDeIngreso;
 }
 
 void SitioWeb::guardarArchivoSitioWeb(std::ofstream& out)

@@ -33,7 +33,7 @@ public:
 	//funciones de menu navegador
 
 	void control8_1(); // modificar cantidad de entradas
-	void control8_2(); // modificar cantidad de bookmarks
+	void control8_2(); // modificar cantidad de tiempo entradas
 
 	void control5_1(); // busqueda por filtro
 	void control5_2(); // busqueda por palabra especifica

@@ -112,6 +112,14 @@ SitioWeb* ListPestanias::getSitioActual() const
     return (*posicionActual)->getSitioActual();
 }
 
+void ListPestanias::limpiarEntradasViejas()
+{
+
+
+		(*posicionActual)->limpiarEntradasViejas();
+
+}
+
 int ListPestanias::sizeHistorial() const
 {
     return (*posicionActual)->sizeHistorial();

@@ -12,7 +12,7 @@ private:
 	std::list<SitioWeb*> sitios;
 	std::list<Marcador*> marcadoresGuardados;
 	bool modoIncognito;
-
+	ConfigHistorial* configuracion;
 
 public:
 
@@ -23,12 +23,12 @@ public:
 	std::list<Marcador*> getMarcadoresGuardados();
 	ListPestanias* getListaPestaniasIncognito();
 	std::list<SitioWeb*>* getListaSitiosW();
-	
+
 	// metodos incognito
 	void cambiarModoIncognito();
 	bool getModoIncognito();
-	
-	
+
+
 	//metodos de lista pestanias
 	int cantidadPestanias();
 	void agregarPestania(Pestania* pest);
@@ -38,12 +38,13 @@ public:
 	void agregarPaginaWeb(SitioWeb* sitio);
 	Pestania* getPestaniaActual();
 	std::string mostrarPestaniaActual();
+	void limpiarViejasEntradas();
 
 
 	//bookmarks
 	void agregarMarcador(Marcador*);
-	std:: string MostrarMarcadoresGuardados() const;
-	
+	std::string MostrarMarcadoresGuardados() const;
+
 
 	// metodos sitios web
 	SitioWeb* getSitioActual();
@@ -57,13 +58,15 @@ public:
 	static Navegador* cargarArchivoNavegador(std::ifstream& in);
 
 	void cargarArchivoSitiosWebCSV(const std::string& rutaArchivo);
-
-	
-	
+	void limpiarPestanias();
 
 
 
-	
+	//Metodos de configuracion
+	ConfigHistorial* getConfiguraciones() const;
+	void setMaxEntradas(int max);
+	void setTiempoMaximo(int time);
+
 
 };
 

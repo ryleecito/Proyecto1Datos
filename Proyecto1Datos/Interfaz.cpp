@@ -34,6 +34,7 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
         std::cout << "Pestania " << navegador->posicionDelIndex() + 1 << std::endl;
         std::cout << navegador->mostrarPestaniaActual() << std::endl;
 
+
         //std::cout << navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->toString() << std::endl;
     }
 
@@ -152,6 +153,7 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
 
 void Interfaz::paginaAnterior(Navegador* navegador)
 {
+    navegador->limpiarViejasEntradas();
     if (navegador->cantidadPestanias() == 0) {
         throw ExcepcionGenerica("Cree una pestania para navegar");
     }
@@ -159,11 +161,13 @@ void Interfaz::paginaAnterior(Navegador* navegador)
         throw ExcepcionGenerica("Realice una busqueda para navegar");
     }
     navegador->paginaAnterior();
+
     
 }
 
 void Interfaz::paginaSiguiente(Navegador* navegador)
 {
+    navegador->limpiarViejasEntradas();
     if (navegador->cantidadPestanias() == 0) {
         throw ExcepcionGenerica("Cree una pestania para navegar");
     }
@@ -171,6 +175,7 @@ void Interfaz::paginaSiguiente(Navegador* navegador)
         throw ExcepcionGenerica("Realice una busqueda para navegar");
     }
     navegador->paginaSiguiente();
+
 }
 
 void Interfaz::agregarBookmark(Navegador* navegador)
@@ -213,10 +218,9 @@ void Interfaz::agregarCantidadEntradas(Navegador* navegador)
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         throw ExcepcionGenerica("Entrada invalida. Debe ingresar un numero entero.");
     }
-	//navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->getConfiguraciones()->setMaxEntradas(opc);
+	navegador->setMaxEntradas(opc);
 	std::cout << " Se ha configurado la cantidad de entradas a: " << opc << std::endl;
     system("pause");
-
 }
 
 void Interfaz::agregarCantidadTiempo(Navegador* navegador)
@@ -239,7 +243,8 @@ void Interfaz::agregarCantidadTiempo(Navegador* navegador)
         throw ExcepcionGenerica("Entrada invalida. Debe ingresar un numero entero.");
     }
     system("pause");
-    /* navegador->getListaPestanias()->getPestaniaActual()->getHistorial()*/
+	navegador->setTiempoMaximo(opc);
+   
     std::cout << " Se ha agregado la cantidad de tiempo a: " << opc << std::endl;
     system("pause");
 }
@@ -357,6 +362,13 @@ void Interfaz::exportarHistorial(Navegador* navegador)
 	system("pause");
     archivo.close(); 
    
+}
+
+void Interfaz::limpiarViejasEntradas(Navegador* navegador)
+{
+	navegador->limpiarViejasEntradas();
+	std::cout << "Se han limpiado las entradas antiguas con exito." << std::endl;
+	system("pause");
 }
 
 void Interfaz::mensajeSalida()

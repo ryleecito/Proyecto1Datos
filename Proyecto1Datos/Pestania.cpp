@@ -47,6 +47,11 @@ void Pestania::ajustarTamanoHistorial()
     historial->ajustarTamanoHistorial();
 }
 
+void Pestania::limpiarEntradasViejas()
+{
+    historial->limpiarEntradasViejas();
+}
+
 std::string Pestania::getUrlActual() const
 {
     return historial->getUrlActual();
@@ -129,3 +134,4 @@ Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)
     Historial* historialCargado = Historial::cargarArchivoHistorial(in);
     return new Pestania(historialCargado);
 }
+

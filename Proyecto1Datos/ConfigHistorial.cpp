@@ -1,54 +1,73 @@
 #include "ConfigHistorial.h"
 
+
+ConfigHistorial* ConfigHistorial::instancia = nullptr;
+
 ConfigHistorial::ConfigHistorial()
 {
-	maxEntradas = -1;
+    maxEntradas = -1;
+    tiempoMaximo = -1;  
 }
 
-ConfigHistorial::ConfigHistorial(const ConfigHistorial&)
+void ConfigHistorial::destruirInstancia()
 {
+	if (instancia != nullptr)
+	{
+		delete instancia;
+		instancia = nullptr;
+	}
 }
 
-ConfigHistorial::ConfigHistorial(int maxEntradas)
+ConfigHistorial* ConfigHistorial::getInstancia()
+{
+    if (!instancia){
+		instancia = new ConfigHistorial();
+		atexit(&destruirInstancia);
+    }
+    return instancia;
+ 
+}
+
+ConfigHistorial::ConfigHistorial(int maxEntradas, int tiempoMax)
 {
 	this->maxEntradas = maxEntradas;
+	this->tiempoMaximo = tiempoMax;
 }
 
 ConfigHistorial::~ConfigHistorial()
 {
 }
 
-//void AdminHistorial::limpiarEntradasAntiguas(Historial* historial)
-//{
-//    while (historial->getHistorial().size() > maxEntradas) {
-//      
-//        std::list<SitioWeb*> historialList = historial->getHistorial();
-//        while (historialList.size() > maxEntradas) {
-//            SitioWeb* sitioAntiguo = historialList.front();  
-//            historialList.pop_front();
-//            delete sitioAntiguo; 
-//        }
-//    }
-//}
-
 void ConfigHistorial::setMaxEntradas(int maxEntradas)
 {
-	this->maxEntradas = maxEntradas;
+    this->maxEntradas = maxEntradas;
 }
 
 int ConfigHistorial::getMaxEntradas()
 {
-	return maxEntradas;
+    return maxEntradas;
+}
+
+void ConfigHistorial::setTiempoMaximo(int tiempoMaximo)
+{
+    this->tiempoMaximo = tiempoMaximo;
+}
+
+int ConfigHistorial::getTiempoMaximo()
+{
+    return tiempoMaximo;
 }
 
 void ConfigHistorial::guardarArchivoConfigHistorial(std::ofstream& out)
 {
-	out.write(reinterpret_cast<const char*>(&maxEntradas), sizeof(maxEntradas));
+    out.write(reinterpret_cast<const char*>(&maxEntradas), sizeof(maxEntradas));
+    out.write(reinterpret_cast<const char*>(&tiempoMaximo), sizeof(tiempoMaximo));  
 }
 
 ConfigHistorial* ConfigHistorial::cargarArchivoConfigHistorial(std::ifstream& in)
 {
-	ConfigHistorial* config = new ConfigHistorial();
-	in.read(reinterpret_cast<char*>(&config->maxEntradas), sizeof(config->maxEntradas)); 
-	return config; 
+    ConfigHistorial* config = new ConfigHistorial();
+    in.read(reinterpret_cast<char*>(&config->maxEntradas), sizeof(config->maxEntradas));
+    in.read(reinterpret_cast<char*>(&config->tiempoMaximo), sizeof(config->tiempoMaximo));  
+    return config;
 }

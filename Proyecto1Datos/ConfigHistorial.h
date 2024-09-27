@@ -7,16 +7,21 @@ class ConfigHistorial
 {
 private:
 	int maxEntradas;
-public:
+	int tiempoMaximo;
+	static ConfigHistorial* instancia;
 	ConfigHistorial();
-	ConfigHistorial(const ConfigHistorial&);
-	ConfigHistorial(int maxEntradas);
+	static void destruirInstancia();
+
+public:
+	static ConfigHistorial* getInstancia();
+	ConfigHistorial(int maxEntradas,int tiempoMax);
 	virtual ~ConfigHistorial();
 	void setMaxEntradas(int maxEntradas);
+	void setTiempoMaximo(int tiempoMaximo);
+	int getTiempoMaximo();
 	int getMaxEntradas();
 
 	void guardarArchivoConfigHistorial(std::ofstream& out);
 	static ConfigHistorial* cargarArchivoConfigHistorial(std::ifstream& in);
-
 };
 

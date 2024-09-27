@@ -3,6 +3,7 @@
 Navegador::Navegador()
 {
 	modoIncognito = false;
+	configuracion = ConfigHistorial::getInstancia();
 	listaPestaniasIncognito = new ListPestanias();
     listaPestanias = new ListPestanias();
 	marcadoresGuardados = std::list<Marcador*>();
@@ -122,6 +123,12 @@ std::string Navegador::mostrarPestaniaActual()
 		return listaPestaniasIncognito->mostrarPestaniaActual();
 	}
 	return listaPestanias->mostrarPestaniaActual();
+}
+
+void Navegador::limpiarViejasEntradas()
+{
+
+	listaPestanias->limpiarEntradasViejas();
 }
 
 
@@ -296,6 +303,34 @@ void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 
 	archivo.close();
 }
+
+void Navegador::limpiarPestanias()
+{
+	if (modoIncognito) {
+		listaPestaniasIncognito->limpiarPestanias();
+	}
+	else {
+		listaPestanias->limpiarPestanias();
+	}
+}
+
+ConfigHistorial* Navegador::getConfiguraciones() const
+{
+	return configuracion->getInstancia();
+}
+
+void Navegador::setMaxEntradas(int max)
+{
+	configuracion->setMaxEntradas(max);
+}
+
+void Navegador::setTiempoMaximo(int time)
+{
+	configuracion->setTiempoMaximo(time);
+	limpiarViejasEntradas();
+}
+
+
 
 
 

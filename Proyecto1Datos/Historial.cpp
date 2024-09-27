@@ -1,7 +1,11 @@
 #include "Historial.h"
+#include "ConfigHistorial.h"
 #include <sstream>
 #include <algorithm>
+
+
 Historial::Historial() : posicionActual(historial.end()){
+   
 }
 
 Historial::~Historial() {
@@ -97,6 +101,52 @@ void Historial::ajustarTamanoHistorial() {
     //    posicionActual = --historial.end();
     //}
 }
+
+void Historial::limpiarEntradasViejas() {
+
+    int tiempoMaximo = ConfigHistorial::getInstancia()->getTiempoMaximo();
+
+    if (tiempoMaximo < 0) {
+        return; 
+    }
+
+    SitioWeb* sitioActual = getSitioActual();
+
+    for (auto it = historial.begin(); it != historial.end(); ) {
+        SitioWeb* sitio = *it;
+
+        double diff = std::chrono::duration_cast<std::chrono::minutes>(
+            std::chrono::system_clock::now() - sitio->getTiempoDeIngreso()
+		).count();
+
+            std::cout << "Evaluando sitio: " << sitio->getUrl()
+            << " | Tiempo desde agregado: " << diff << " minutos." << std::endl;
+
+        if (diff > tiempoMaximo) {
+
+            if (sitio != sitioActual) {
+
+                it = historial.erase(it); 
+                delete sitio;
+            }
+            else {
+                ++it; 
+            }
+        }
+        else {
+            ++it;
+        }
+    }
+
+    
+    if (historial.empty()) {
+        posicionActual = historial.end(); 
+    }
+    else if (posicionActual == historial.end()) {
+        posicionActual = --historial.end();
+    }
+}
+
 
 void Historial::serializarHistorial(std::ofstream& out)
 {

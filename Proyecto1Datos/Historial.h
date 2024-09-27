@@ -5,11 +5,14 @@
 #include "ConfigHistorial.h"
 #include "SitioWeb.h"
 #include <fstream>
+
+
 class Historial
 {
 private:
     std::list<SitioWeb*> historial;
     std::list<SitioWeb*>::iterator posicionActual;
+    
 
 public:
     Historial();
@@ -24,6 +27,8 @@ public:
     SitioWeb* getSitioActual() const;
     std::string toString() const;
     void ajustarTamanoHistorial();
+	void limpiarEntradasViejas();
+
 
     // metodos de guardar y cargar archivo
     void serializarHistorial(std::ofstream& out);
@@ -34,6 +39,8 @@ public:
     std::string getUrlActual() const;
     std::string getTituloActual() const;
     std::string getDominioActual()const;
+
+
 
 
 

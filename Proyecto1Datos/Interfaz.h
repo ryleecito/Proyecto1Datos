@@ -47,6 +47,8 @@ class Interfaz
 		static void importarHistorial(Navegador* navegador);
 
 		static void exportarHistorial(Navegador* navegador);
+
+		static void limpiarViejasEntradas(Navegador* navegador);
    
         static void mensajeSalida();
 

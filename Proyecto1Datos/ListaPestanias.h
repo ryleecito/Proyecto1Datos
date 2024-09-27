@@ -45,6 +45,7 @@ public:
     std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
+	void limpiarEntradasViejas();
 
 
 

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <fstream>
+#include <chrono>
 
 class SitioWeb
 {
@@ -10,6 +11,7 @@ private:
     std::string url;
     std::string titulo;
     std::string dominio;
+    std::chrono::time_point<std::chrono::system_clock> tiempoDeIngreso;
 
 public:
     SitioWeb();
@@ -25,6 +27,8 @@ public:
     void setTitulo(std::string titulo);
     void setDominio(std::string dominio);
     std::string toString() const;
+	std::chrono::time_point<std::chrono::system_clock> getTiempoDeIngreso() const;
+	void setTiempoDeIngreso(std::chrono::time_point<std::chrono::system_clock> tiempoDeIngreso);
 
 	// metodos de guardar y cargar archivo
 	void guardarArchivoSitioWeb(std::ofstream& out);
