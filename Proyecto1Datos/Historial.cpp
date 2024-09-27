@@ -62,14 +62,33 @@ void Historial::avanzar() {
         return;
     }
 
+    if (std::distance(historial.begin(), historial.end()) == 2) {
+
+        if (posicionActual == historial.begin()) {
+
+            ++posicionActual;
+
+            if ((*posicionActual)->getTitulo().find(filtro) == std::string::npos &&
+                (*posicionActual)->getUrl().find(filtro) == std::string::npos) {
+
+                posicionActual = historial.begin(); 
+            }
+        }
+        return; 
+    }
+
     while (posicionActual != std::prev(historial.end())) {
         ++posicionActual;
+
 
         if ((*posicionActual)->getTitulo().find(filtro) != std::string::npos ||
             (*posicionActual)->getUrl().find(filtro) != std::string::npos) {
             break;
         }
     }
+
+
+
 }
 
 
