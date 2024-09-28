@@ -101,29 +101,3 @@ SitioWeb* SitioWeb::cargarArchivoSitioWeb(std::ifstream& in)
     return new SitioWeb(url, titulo, dominio);
 }
 
-void SitioWeb::guardarArchivoSitioWebCSV(std::ofstream& out)
-{
-    out << url << "," << "\"" << titulo << "\"," << dominio << "\n";
-}
-
-SitioWeb* SitioWeb::cargarArchivoSitioWebCSV(std::string& nombre)
-{
-    std::ifstream in(nombre);
-    std::string linea, url_, titulo_, dominio_;
-
-    if (in.is_open()) {
-        if (std::getline(in, linea)) {
-            std::stringstream ss(linea);
-            std::getline(ss, url_, ',');
-            std::getline(ss, titulo_, ',');
-            std::getline(ss, dominio_, ',');
-            return new SitioWeb(url_, titulo_, dominio_);
-        }
-        in.close();
-    }
-    else {
-        std::cerr << "Error al abrir el archivo: " << nombre << std::endl;
-    }
-    return nullptr;
-
-}

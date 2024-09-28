@@ -117,8 +117,16 @@ SitioWeb* ListPestanias::getSitioActual() const
 
 bool ListPestanias::limpiarEntradasViejas()
 {
+    bool entradasBorradas = false; 
 
-	return (*posicionActual)->limpiarEntradasViejas();
+    for (auto& pestania : pestanias) { 
+
+        if (pestania->limpiarEntradasViejas()) {
+            entradasBorradas = true;
+        }
+    }
+
+    return entradasBorradas;
 }
 
 std::string ListPestanias::busquedaPalabraClave(const std::string& palabraClave)
