@@ -44,6 +44,8 @@ public:
 	//bookmarks
 	void agregarMarcador(Marcador*);
 	std::string MostrarMarcadoresGuardados() const;
+	Marcador* buscarMarcadorPorSitio(SitioWeb* sitio);
+
 
 
 	// metodos sitios web

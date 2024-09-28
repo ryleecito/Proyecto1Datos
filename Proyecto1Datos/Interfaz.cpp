@@ -142,30 +142,39 @@ void Interfaz::pestaniaSiguiente(Navegador* navegador)
 
 void Interfaz::agregarPaginaWeb(Navegador* navegador)
 {
+  
     if (navegador->cantidadPestanias() == 0) {
         navegador->agregarPestania(new Pestania());
     }
 
+
     if (navegador->cantidadPestanias() == 0) {
         throw ExcepcionGenerica("Cree una pestania para navegar");
     }
+
     std::string url;
-    std::cout << " Ingrese la url: ";
+    std::cout << " Ingrese la URL: ";
     std::cin >> url;
 
     SitioWeb* sitio = navegador->buscarPaginaWeb(url);
 
-    if (sitio != nullptr && navegador->getPestaniaActual()->getHistorial()->existeSitioWeb(url) == false) {
-        navegador->agregarPaginaWeb(new SitioWeb(*sitio));
-	}
-
-    if (sitio == nullptr ) {
-        throw ExcepcionGenerica("404-NotFound");
+    if (sitio != nullptr) {
+        Pestania* pestaniaActual = navegador->getPestaniaActual();
+        Historial* historial = pestaniaActual->getHistorial();
+        if (!historial->existeSitioWeb(url) &&
+            (navegador->getConfiguraciones()->getMaxEntradas() == -1 ||
+                historial->size() < navegador->getConfiguraciones()->getMaxEntradas())) {
+            navegador->agregarPaginaWeb(new SitioWeb(*sitio));
+        }
+        else {
+            throw ExcepcionGenerica("404 - Not Found");
+        }
     }
- 
+    else {
+        throw ExcepcionGenerica("404 - Not Found");
+    }
+
     system("pause");
-
-
 }
 
 void Interfaz::paginaAnterior(Navegador* navegador)
@@ -206,9 +215,15 @@ void Interfaz::agregarBookmark(Navegador* navegador)
     std::string tag;
     std::cout << " Ingrese un tag: ";
     std::cin >> tag;
-
-
-    navegador->agregarMarcador(new Marcador(new SitioWeb(*navegador->getSitioActual()), tag));
+    
+    Marcador* marcadorExistente = navegador->buscarMarcadorPorSitio(navegador->getSitioActual());
+    if (marcadorExistente) {
+        marcadorExistente->anadirEtiqueta(tag);
+    }
+    else {
+        navegador->agregarMarcador(new Marcador(new SitioWeb(*navegador->getSitioActual()), tag));
+    }
+    
 }
 
 void Interfaz::mostrarBookmarks(Navegador* navegador)
@@ -236,7 +251,16 @@ void Interfaz::agregarCantidadEntradas(Navegador* navegador)
         throw ExcepcionGenerica("Entrada invalida. Debe ingresar un numero entero.");
     }
 	navegador->setMaxEntradas(opc);
+
+    auto pestanias = navegador->getListaPestanias(); 
+
+    for (auto& pestania : navegador->getListaPestanias()->getPestanias()) {
+        if (pestania->sizeHistorial() > opc) {
+            pestania->getHistorial()->eliminarPrimerasXEntradas(opc); 
+        }
+    }
 	std::cout << " Se ha configurado la cantidad de entradas a: " << opc << std::endl;
+	std::cout << " Si hay mas entradas de las configuradas, se eliminaran las mas antiguas" << std::endl;
     system("pause");
 }
 

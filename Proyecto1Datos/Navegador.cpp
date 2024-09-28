@@ -103,6 +103,7 @@ void Navegador::pestaniaSiguiente()
 
 void Navegador::agregarPaginaWeb(SitioWeb* sitio)
 {
+	
 	if (modoIncognito) {
 		listaPestaniasIncognito->agregarPaginaWeb(sitio);
 		return;
@@ -163,6 +164,18 @@ std::string Navegador::MostrarMarcadoresGuardados() const
 		}
 	}
 	return ss.str();
+}
+
+Marcador* Navegador::buscarMarcadorPorSitio(SitioWeb* sitio)
+{
+	auto it = std::find_if(marcadoresGuardados.begin(), marcadoresGuardados.end(), [&](Marcador* marcador) {
+		return marcador->getSitio()->getUrl() == sitio->getUrl();
+		});
+
+	if (it != marcadoresGuardados.end()) {
+		return *it;
+	}
+	return nullptr;
 }
 
 SitioWeb* Navegador::getSitioActual()

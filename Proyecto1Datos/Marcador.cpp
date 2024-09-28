@@ -1,19 +1,34 @@
 #include "Marcador.h"
+#include <sstream>
+#include <algorithm> 
 
 Marcador::Marcador() : sitio(nullptr)
 {
 }
 
-Marcador::Marcador(SitioWeb* sitio, const std::string eti)
-    : sitio(sitio), etiqueta(eti) 
+Marcador::Marcador(SitioWeb* sitio, const std::list<std::string*>& etis)
+    : sitio(sitio), etiquetas(etis) 
 {
+}
+
+Marcador::Marcador(SitioWeb* sitio, const std::string& etiqueta)
+{
+	this->sitio = sitio;
+	etiquetas.push_back(new std::string(etiqueta));
+
 }
 
 Marcador::~Marcador()
 {
-    // Si el puntero 'sitio' apunta a un objeto que debe ser eliminado aquí, hazlo.
-    // Pero normalmente, el puntero 'sitio' debería ser manejado por otro objeto o clase.
-    // Por ahora, dejaremos esto vacío.
+   
+    std::for_each(etiquetas.begin(), etiquetas.end(), [](std::string* et) {
+        delete et;
+        });
+}
+
+void Marcador::anadirEtiqueta(const std::string& etiqueta)
+{
+	etiquetas.push_back(new std::string(etiqueta));
 }
 
 SitioWeb* Marcador::getSitio() const
@@ -33,31 +48,61 @@ std::string Marcador::toString() const
         ss << "  Sitio Web: (sin sitio asignado)\n";
     }
 
-    ss << "  Etiqueta: ";
-        ss << etiqueta << " ";
+    ss << "  Etiquetas: ";
+    for (const auto& etiqueta : etiquetas) {
+        if (etiqueta != nullptr) {
+            ss << *etiqueta << " "; 
+        }
+    }
 
     return ss.str();
 }
 
 void Marcador::guardarArchivoMarcador(std::ofstream& out)
 {
-	if (sitio != nullptr)
-	{
-		sitio->guardarArchivoSitioWeb(out);
-	}
-    size_t etiquetaTam = etiqueta.size();
-    out.write(reinterpret_cast<const char*>(&etiquetaTam), sizeof(etiquetaTam));
-    out.write(etiqueta.c_str(), etiquetaTam);
+    if (sitio != nullptr) {
+        sitio->guardarArchivoSitioWeb(out);
+    }
+
+    size_t numEtiquetas = etiquetas.size();
+    out.write(reinterpret_cast<const char*>(&numEtiquetas), sizeof(numEtiquetas));
+
+
+    for (const auto& etiqueta : etiquetas) {
+        if (etiqueta != nullptr) {
+            size_t etiquetaTam = etiqueta->size();
+            out.write(reinterpret_cast<const char*>(&etiquetaTam), sizeof(etiquetaTam));
+            out.write(etiqueta->c_str(), etiquetaTam);
+        }
+    }
 }
 
 Marcador* Marcador::cargarArchivoMarcador(std::ifstream& in)
 {
     SitioWeb* sitio = SitioWeb::cargarArchivoSitioWeb(in);
 
-	size_t etiquetaTam;
-    in.read(reinterpret_cast<char*>(&etiquetaTam), sizeof(etiquetaTam));
-    std::string etiqueta(etiquetaTam, ' ');
-    in.read(&etiqueta[0], etiquetaTam);
-	
-	return new Marcador(sitio, etiqueta);
+    size_t numEtiquetas;
+    in.read(reinterpret_cast<char*>(&numEtiquetas), sizeof(numEtiquetas));
+
+ 
+    std::list<std::string*> etiquetasCargadas;
+    for (size_t i = 0; i < numEtiquetas; ++i) {
+        size_t etiquetaTam;
+        in.read(reinterpret_cast<char*>(&etiquetaTam), sizeof(etiquetaTam));
+        std::string* etiqueta = new std::string(etiquetaTam, ' ');
+        in.read(&(*etiqueta)[0], etiquetaTam);
+        etiquetasCargadas.push_back(etiqueta);
+    }
+
+    return new Marcador(sitio, etiquetasCargadas);
+}
+
+const std::list<std::string*>& Marcador::getEtiquetas() const
+{
+	return etiquetas;
+}
+
+void Marcador::setEtiquetas(const std::list<std::string*>& nuevasEtiquetas)
+{
+	etiquetas = nuevasEtiquetas;
 }

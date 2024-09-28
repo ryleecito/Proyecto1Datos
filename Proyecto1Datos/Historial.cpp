@@ -10,7 +10,6 @@ Historial::Historial() : posicionActual(historial.end()){
 
 Historial::~Historial() {
     limpiarHistorial();
-
 }
 
 int Historial::size() const {
@@ -26,9 +25,8 @@ void Historial::add(SitioWeb* sitioWeb) {
 }
 
 void Historial::retroceder() {
-
     if (historial.empty()) {
-        return;
+        return;  
     }
 
     if (filtro.empty()) {
@@ -38,13 +36,23 @@ void Historial::retroceder() {
         return;
     }
 
-    while (posicionActual != historial.begin()) {
-        --posicionActual;
+    auto it = posicionActual; 
 
-        if ((*posicionActual)->getTitulo().find(filtro) != std::string::npos ||
-            (*posicionActual)->getUrl().find(filtro) != std::string::npos) {
-            break; 
+    while (it != historial.begin()) {
+        --it;  
+
+   
+        if ((*it)->getTitulo().find(filtro) != std::string::npos ||
+            (*it)->getUrl().find(filtro) != std::string::npos) {
+            posicionActual = it;  
+            return;  
         }
+    }
+
+    
+    if ((*historial.begin())->getTitulo().find(filtro) != std::string::npos ||
+        (*historial.begin())->getUrl().find(filtro) != std::string::npos) {
+        posicionActual = historial.begin();  
     }
 }
 
@@ -290,5 +298,21 @@ bool Historial::existeSitioWeb(const std::string url)
         }
     }
     return false; 
+}
+
+void Historial::eliminarPrimerasXEntradas(int x)
+{
+    if (x < 0) return;
+
+    while (historial.size() > x) {
+        auto it = historial.begin(); 
+        historial.erase(it);        
+        if (posicionActual != historial.begin()) {
+            --posicionActual; 
+        }
+        else {
+            posicionActual = historial.begin();
+        }
+    }
 }
 

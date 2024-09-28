@@ -46,6 +46,8 @@ public:
 
 	bool existeSitioWeb(const std::string url);
 
+	void eliminarPrimerasXEntradas(int x);
+
 
 
 
