@@ -14,6 +14,15 @@ Navegador::Navegador()
 
 Navegador::~Navegador()
 {
+	delete listaPestaniasIncognito;  
+	delete listaPestanias;    
+
+	for (auto marcador : marcadoresGuardados) {
+		delete marcador;               
+	}
+	for (auto sitio : sitios) {
+		delete sitio;                
+	}
 }
 
 std::string Navegador::toString()
@@ -311,16 +320,14 @@ void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 			char c = buffer[i];
 
 			if (c == ',') {
-
 				if (url.empty()) {
-					url = atributo;  
+					url = atributo;
 					atributo.clear();
 				}
-				if (titulo.empty() && !url.empty()) {
-					titulo = atributo; 
+				else if (titulo.empty()) {
+					titulo = atributo;
 					atributo.clear();
 				}
-
 			}
 			else if (c == '\n') {
 				dominio = atributo;
@@ -335,17 +342,19 @@ void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 				atributo.clear();
 			}
 			else {
-				atributo += c; 
+				atributo += c;
 			}
 		}
 	}
 
-	if (!url.empty() && !titulo.empty() && !dominio.empty()) {
+	if (!url.empty() && !titulo.empty() && !atributo.empty()) {
+		dominio = atributo;  
 		SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
 		sitios.push_back(sitio);
 	}
 
 	archivo.close();
+
 }
 
 void Navegador::limpiarPestanias()

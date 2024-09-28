@@ -56,6 +56,8 @@ int ListPestanias::getPosicionActualIndex() const {
 }
 
 std::string ListPestanias::toString() const {
+
+
     std::stringstream s;
     for (const auto& pestania : pestanias) {
         s << pestania->toString() << std::endl;
@@ -76,7 +78,10 @@ Pestania* ListPestanias::getPestaniaActual() const {
 
 Historial* ListPestanias::getHistorial() const
 {
-    return (*posicionActual)->getHistorial();
+    if (posicionActual != pestanias.end()) {
+        return (*posicionActual)->getHistorial();
+    }
+    return nullptr;
 }
 
 void ListPestanias::agregarPaginaWeb(SitioWeb* sitio) {
@@ -128,6 +133,8 @@ SitioWeb* ListPestanias::getSitioActual() const
 
 bool ListPestanias::limpiarEntradasViejas()
 {
+
+
     bool entradasBorradas = false; 
 
     for (auto& pestania : pestanias) { 
@@ -142,7 +149,9 @@ bool ListPestanias::limpiarEntradasViejas()
 
 void ListPestanias::setFiltro(const std::string& filtro)
 {
-    (*posicionActual)->setFiltro(filtro);
+    if (posicionActual != pestanias.end()) {
+        (*posicionActual)->setFiltro(filtro);
+    }
 }
 
 void ListPestanias::ajustarTamanoHistorial()
@@ -154,18 +163,25 @@ void ListPestanias::ajustarTamanoHistorial()
 
 std::string ListPestanias::busquedaPalabraClave(const std::string& palabraClave)
 {
-	return (*posicionActual)->busquedaPalabraClave(palabraClave);
+    if (posicionActual != pestanias.end()) {
+        return (*posicionActual)->busquedaPalabraClave(palabraClave);
+    }
+    return "";
 }
 
 void ListPestanias::moverseAPrimeraCoincidencia()
 {
-	(*posicionActual)->moverseAPrimeraCoincidencia();
-
+    if (posicionActual != pestanias.end()) {
+	    (*posicionActual)->moverseAPrimeraCoincidencia();
+    }
 }
 
 int ListPestanias::sizeHistorial() const
 {
-    return (*posicionActual)->sizeHistorial();
+    if (posicionActual != pestanias.end()) {
+        return (*posicionActual)->sizeHistorial();
+    }
+    return 0;
 }
 
 void ListPestanias::irAtras()

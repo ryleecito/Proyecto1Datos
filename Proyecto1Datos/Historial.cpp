@@ -208,46 +208,48 @@ void Historial::ajustarTamanoHistorial() {
 }
 
 bool Historial::limpiarEntradasViejas() {
-
     if (historial.empty()) {
-        return;
+        return false; // Si el historial está vacío, no hay entradas que limpiar
     }
 
     int tiempoMaximo = ConfigHistorial::getInstancia()->getTiempoMaximo();
-
     if (tiempoMaximo <= 0) {
-        return false;
+        return false; // Si el tiempo máximo es cero o negativo, no se eliminan entradas
     }
 
     bool entradasBorradas = false;
 
-    for (auto it = historial.begin(); it != historial.end(); ) {
+    // Guardamos la posición original de posicionActual
+    auto posicionOriginal = posicionActual;
 
+    // Iterador para recorrer el historial
+    for (auto it = historial.begin(); it != historial.end(); ) {
         SitioWeb* sitio = *it;
 
+        // Calcular la diferencia de tiempo
         double diff = std::chrono::duration_cast<std::chrono::seconds>(
             std::chrono::system_clock::now() - sitio->getTiempoDeIngreso()
         ).count();
 
         if (diff > tiempoMaximo) {
-            delete sitio;
-            it = historial.erase(it); 
-            entradasBorradas = true; 
+            delete sitio;         // Eliminar el sitio web
+            it = historial.erase(it); // Borrar el sitio del historial
+            entradasBorradas = true;  // Marcar que se borró una entrada
         }
         else {
-            ++it; 
+            ++it; // Solo avanzar si no se borró nada
         }
     }
 
+    // Actualizar posicionActual
     if (historial.empty()) {
-        posicionActual = historial.end();
+        posicionActual = historial.end(); // Si el historial está vacío, se ajusta la posición
     }
-    
-    if (posicionActual == historial.end()) {
-        posicionActual = --historial.end();
+    else if (posicionActual == historial.end() || posicionActual == posicionOriginal) {
+        posicionActual = --historial.end(); // Si estaba en el final o fue borrada, ajustamos a la última entrada
     }
 
-    return entradasBorradas;
+    return entradasBorradas; // Retornar si se borraron entradas
 }
 
 std::string Historial::getFiltro()
