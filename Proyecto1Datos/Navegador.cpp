@@ -68,7 +68,10 @@ void Navegador::agregarPestania(Pestania* pest)
 {
 	if (modoIncognito)
 	{
-		return listaPestaniasIncognito->add(pest);
+		if (listaPestaniasIncognito->size() == 0) {
+			return listaPestaniasIncognito->add(pest);
+		}
+		return;
 	}
 	listaPestanias->add(pest);
 }

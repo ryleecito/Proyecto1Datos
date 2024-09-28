@@ -195,6 +195,9 @@ void Interfaz::paginaSiguiente(Navegador* navegador)
 
 void Interfaz::agregarBookmark(Navegador* navegador)
 {
+	if (navegador->getModoIncognito() == true) {
+		throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+	}
     if (navegador->cantidadPaginas() == 0) {
         throw ExcepcionGenerica("Realice una busqueda para agregar bookmark");
     }
@@ -217,6 +220,9 @@ void Interfaz::agregarBookmark(Navegador* navegador)
 
 void Interfaz::mostrarBookmarks(Navegador* navegador)
 {
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     std::cout << navegador->MostrarMarcadoresGuardados();
     system("pause");
 }
@@ -228,6 +234,9 @@ void Interfaz::cambiarModoIncognito(Navegador* navegador)
 
 void Interfaz::agregarCantidadEntradas(Navegador* navegador)
 {
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     int opc;
 	std::cout << " Ingrese la cantidad de entradas: ";
     std::cin >> opc;
@@ -247,6 +256,9 @@ void Interfaz::agregarCantidadEntradas(Navegador* navegador)
 
 void Interfaz::agregarCantidadTiempo(Navegador* navegador)
 {
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     int opc;
     std::cout << "----------------------------------------" << std::endl;
     std::cout << " 5 minutos = 300 segundos" << std::endl;
@@ -279,7 +291,9 @@ void Interfaz::agregarCantidadTiempo(Navegador* navegador)
 
 void Interfaz::menuConfiguraciones(Navegador* navegador)
 {
-
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     system("cls");
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "|         MENU DE CONFIGURACION         | " << std::endl;
@@ -293,7 +307,9 @@ void Interfaz::menuConfiguraciones(Navegador* navegador)
 
 void Interfaz::busquedaYFiltros(Navegador* navegador)
 {
-
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     system("cls");
     std::cout << "-----------------------------------------------" << std::endl;
     std::cout << "|       MENU BUSQUEDA Y FILTROS               | " << std::endl;
@@ -308,7 +324,9 @@ void Interfaz::busquedaYFiltros(Navegador* navegador)
 
 void Interfaz::busquedaPalabraClave(Navegador* navegador)
 {
-
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     std::string opc;
     int contador = 1;
     std::cout << " Ingrese la palabra clave para hacer la busqueda:";
@@ -320,6 +338,9 @@ void Interfaz::busquedaPalabraClave(Navegador* navegador)
 
 void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
 {
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     std::string opc;
     std::cout << " Ingrese la palabra clave para aplicarle el filtro al navegador:";
     std::cin >> opc;
@@ -331,7 +352,9 @@ void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
 
 void Interfaz::menuImportarExportar(Navegador* navegador)
 {
-
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     system("cls");
     std::cout << "---------------------------------------------" << std::endl;
     std::cout << "| 1. Exportar historial (con sus bookmarks) |" << std::endl;
@@ -344,6 +367,9 @@ void Interfaz::menuImportarExportar(Navegador* navegador)
 
 void Interfaz::importarHistorial(Navegador* navegador)
 {
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     std::string opc;
     std::cout << "Ingrese el nombre de la sesion que quiere importar al navegador: ";
     std::cin >> opc;
@@ -371,6 +397,9 @@ void Interfaz::importarHistorial(Navegador* navegador)
 
 void Interfaz::exportarHistorial(Navegador* navegador)
 {
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
     std::string opc;
     std::cout << "Ingrese el nombre con el que quiere guardar la sesion: ";
     std::cin >> opc;
@@ -389,7 +418,10 @@ void Interfaz::exportarHistorial(Navegador* navegador)
 
 void Interfaz::limpiarViejasEntradas(Navegador* navegador)
 {
-	navegador->limpiarViejasEntradas();
+    if (navegador->getModoIncognito() == true) {
+        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+    }
+    navegador->limpiarViejasEntradas();
 	std::cout << "Se han limpiado las entradas antiguas con exito." << std::endl;
 	system("pause");
 }
