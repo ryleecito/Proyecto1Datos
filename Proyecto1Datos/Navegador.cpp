@@ -238,6 +238,16 @@ std::string Navegador::busquedaPalabraClave(const std::string& palabraClave)
 	return listaPestanias->busquedaPalabraClave(palabraClave);
 }
 
+void Navegador::setFiltro(const std::string& filtro)
+{
+	listaPestanias->setFiltro(filtro);
+}
+
+void Navegador::moverseAPrimeraCoincidencia()
+{
+	listaPestanias->moverseAPrimeraCoincidencia();
+}
+
 void Navegador::guardarArchivoNavegador(std::ofstream& out)
 {
 	// guardamos el incognito

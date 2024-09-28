@@ -56,6 +56,8 @@ public:
 	void paginaSiguiente();
 	int cantidadPaginas();
 	std::string busquedaPalabraClave(const std::string& palabraClave);
+	void setFiltro(const std::string& filtro);
+	void moverseAPrimeraCoincidencia();
 
 	// metodos de guardar y cargar archivo
 	void guardarArchivoNavegador(std::ofstream& out);

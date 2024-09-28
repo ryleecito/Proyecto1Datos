@@ -129,6 +129,13 @@ bool ListPestanias::limpiarEntradasViejas()
     return entradasBorradas;
 }
 
+void ListPestanias::setFiltro(const std::string& filtro)
+{
+    for (auto& pestania : pestanias) {
+        pestania->getHistorial()->setFiltro(filtro);
+    }
+}
+
 void ListPestanias::ajustarTamanoHistorial()
 {
     for (auto& pestania : pestanias) {
@@ -139,6 +146,12 @@ void ListPestanias::ajustarTamanoHistorial()
 std::string ListPestanias::busquedaPalabraClave(const std::string& palabraClave)
 {
 	return (*posicionActual)->busquedaPalabraClave(palabraClave);
+}
+
+void ListPestanias::moverseAPrimeraCoincidencia()
+{
+	(*posicionActual)->moverseAPrimeraCoincidencia();
+
 }
 
 int ListPestanias::sizeHistorial() const

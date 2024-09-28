@@ -53,6 +53,11 @@ std::string Pestania::busquedaPalabraClave(const std::string& palabraClave)
 	return historial->busquedaPalabraClave(palabraClave);
 }
 
+void Pestania::moverseAPrimeraCoincidencia()
+{
+	historial->moverseAPrimeraCoincidencia();
+}
+
 std::string Pestania::getUrlActual() const
 {
     return historial->getUrlActual();

@@ -41,6 +41,7 @@ public:
     void ajustarTamanoHistorial();
 	bool limpiarEntradasViejas();
     std::string busquedaPalabraClave(const std::string& palabraClave);
+	void moverseAPrimeraCoincidencia();
   
 
     //Metodos de SitioWeb

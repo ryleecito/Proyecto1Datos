@@ -46,7 +46,9 @@ public:
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
 	bool limpiarEntradasViejas();
+	void setFiltro(const std::string& filtro);
 	std::string busquedaPalabraClave(const std::string& palabraClave);
+	void moverseAPrimeraCoincidencia();
 
 
 
