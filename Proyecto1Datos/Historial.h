@@ -19,6 +19,8 @@ public:
     virtual ~Historial();
     int size() const;
     void add(SitioWeb* sitioWeb);
+    bool existeSitio(SitioWeb* site);
+    void eliminarSitioSiExiste(SitioWeb* site);
     void retroceder();
     void avanzar();
     void limpiarHistorial();
