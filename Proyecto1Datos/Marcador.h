@@ -8,11 +8,12 @@ class Marcador
 {
 private:
     SitioWeb* sitio;
-    std::list<std::string*> etiquetas;
+    std::list<std::string> etiquetas;
 
 public:
     Marcador();
-    Marcador(SitioWeb* sitio, const std::list<std::string*>& etiquetas);
+    Marcador(SitioWeb* sitio, const std::list<std::string>& etiquetas = std::list<std::string>());
+
 	Marcador(SitioWeb* sitio, const std::string& etiqueta);
     virtual ~Marcador();
 
@@ -24,8 +25,8 @@ public:
     void guardarArchivoMarcador(std::ofstream& out);
     static Marcador* cargarArchivoMarcador(std::ifstream& in);
 
-    const std::list<std::string*>& getEtiquetas() const; 
-    void setEtiquetas(const std::list<std::string*>& nuevasEtiquetas); 
+    const std::list<std::string> getEtiquetas() const; 
+    void setEtiquetas(const std::list<std::string> nuevasEtiquetas); 
 
     
 };

@@ -189,7 +189,7 @@ TEST(NavegadorTest, AgregarYMostrarMarcadores) {
 
     EXPECT_EQ(navegador.getMarcadoresGuardados().size(), marcadoresInicial + 1);
 
-    std::string output = navegador.MostrarMarcadoresGuardados();
+    std::string output = navegador.mostrarMarcadoresGuardados();
     EXPECT_NE(output.find("Google"), std::string::npos); 
 }
 

@@ -27,7 +27,7 @@ void Historial::add(SitioWeb* sitioWeb) {
         historial.pop_front();    
     }
 
-    historial.push_back(sitioWeb);
+    historial.push_back(new SitioWeb(*sitioWeb));
     posicionActual = std::prev(historial.end());
     filtro = ""; 
 }
@@ -170,6 +170,10 @@ std::string Historial::toString() const {
 
 void Historial::ajustarTamanoHistorial() {
 
+    if (historial.empty()) {
+        return;
+    }
+
     int maxEntradas = ConfigHistorial::getInstancia()->getMaxEntradas();
     bool posicionActualEliminada = false;
 
@@ -204,6 +208,11 @@ void Historial::ajustarTamanoHistorial() {
 }
 
 bool Historial::limpiarEntradasViejas() {
+
+    if (historial.empty()) {
+        return;
+    }
+
     int tiempoMaximo = ConfigHistorial::getInstancia()->getTiempoMaximo();
 
     if (tiempoMaximo <= 0) {

@@ -1,4 +1,5 @@
 #include "Navegador.h"
+#include "Excepciones.h"
 
 Navegador::Navegador()
 {
@@ -153,7 +154,7 @@ void Navegador::agregarMarcador(Marcador* marcador)
    // posicionActual = std::prev(marcadoresGuardados.end());
 }
 
-std::string Navegador::MostrarMarcadoresGuardados() const
+std::string Navegador::mostrarMarcadoresGuardados() const
 {
 	std::stringstream ss;
 
@@ -204,6 +205,9 @@ SitioWeb* Navegador::buscarPaginaWeb(const std::string url)
 	if (it != sitios.end()) {
 		return *it;  
 	}
+
+	throw ExcepcionGenerica("404 - Not Found");
+
 	return nullptr;
 }
 
@@ -361,12 +365,13 @@ ConfigHistorial* Navegador::getConfiguraciones() const
 void Navegador::setMaxEntradas(int max)
 {
 	configuracion->setMaxEntradas(max);
+	ajustarTamanoHistorial();
 }
 
 void Navegador::setTiempoMaximo(int time)
 {
 	configuracion->setTiempoMaximo(time);
-
+	limpiarViejasEntradas();
 }
 
 

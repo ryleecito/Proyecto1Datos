@@ -40,9 +40,6 @@ public:
     int sizeHistorial() const;
     void irAtras();
     void irAdelante();
-    ConfigHistorial* getConfiguraciones() const;
-    void setConfiguraciones(ConfigHistorial* configuraciones);
-    std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
 	bool limpiarEntradasViejas();

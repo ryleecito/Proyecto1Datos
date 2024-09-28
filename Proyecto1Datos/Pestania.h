@@ -23,7 +23,6 @@ public:
     virtual ~Pestania();
     void setHistorial(Historial* historial);
     Historial* getHistorial() const; 
-    //bool operator==(const Pestania& other) const;
 
     std::string toString() const; 
 

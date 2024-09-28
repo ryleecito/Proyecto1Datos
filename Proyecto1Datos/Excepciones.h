@@ -9,9 +9,7 @@ private:
 
 public:
  
-    explicit ExcepcionGenerica(const std::string& msg) noexcept : mensaje(msg) {}
+    explicit ExcepcionGenerica(const std::string& msg) noexcept;
 
-    virtual const char* what() const noexcept override {
-        return mensaje.c_str();
-    }
+    virtual const char* what() const noexcept override;
 };

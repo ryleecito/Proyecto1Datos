@@ -36,9 +36,6 @@
     <ClInclude Include="ConfigHistorial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sesion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Navegador.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,9 +66,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConfigHistorial.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sesion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Navegador.cpp">

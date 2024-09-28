@@ -1,6 +1,5 @@
 #pragma once
 #include "Pestania.h"
-#include "Sesion.h"
 #include "ListaPestanias.h"
 #include <fstream>
 class Navegador
@@ -44,7 +43,7 @@ public:
 
 	//bookmarks
 	void agregarMarcador(Marcador*);
-	std::string MostrarMarcadoresGuardados() const;
+	std::string mostrarMarcadoresGuardados() const;
 	Marcador* buscarMarcadorPorSitio(SitioWeb* sitio);
 
 

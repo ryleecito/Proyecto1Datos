@@ -12,12 +12,18 @@ int ListPestanias::size() const {
 }
 
 void ListPestanias::add(Pestania* pestania) {
+
     pestanias.push_back(pestania);
     posicionActual = std::prev(pestanias.end());  
     posicionActualIdx = (int)pestanias.size() - 1;
 }
 
 void ListPestanias::retroceder() {
+
+    if (pestanias.empty() || posicionActual == pestanias.begin()) {
+        return;
+    }
+
     if (posicionActual != pestanias.begin()) {
         --posicionActual;
         --posicionActualIdx;  
@@ -25,6 +31,11 @@ void ListPestanias::retroceder() {
 }
 
 void ListPestanias::avanzar() {
+
+    if (pestanias.empty() || posicionActual == pestanias.end()) {
+        return;
+    }
+
     if (posicionActual != std::prev(pestanias.end())) {
         ++posicionActual;
         ++posicionActualIdx;
