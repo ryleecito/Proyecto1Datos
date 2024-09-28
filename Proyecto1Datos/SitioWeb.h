@@ -34,7 +34,9 @@ public:
     void guardarArchivoSitioWeb(std::ofstream& out);
     static SitioWeb* cargarArchivoSitioWeb(std::ifstream& in);
 
-
+    // metodos para guardar y cargar con csv 
+    void guardarArchivoSitioWebCSV(std::ofstream& out);
+    SitioWeb* cargarArchivoSitioWebCSV(std::string& nombre);
 
 
 };
