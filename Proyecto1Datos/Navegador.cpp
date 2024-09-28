@@ -16,6 +16,7 @@ Navegador::~Navegador()
 {
 	delete listaPestaniasIncognito;  
 	delete listaPestanias;    
+	ConfigHistorial::destruirInstancia();
 
 	for (auto marcador : marcadoresGuardados) {
 		delete marcador;               

@@ -10,9 +10,10 @@ private:
 	int tiempoMaximo;
 	static ConfigHistorial* instancia;
 	ConfigHistorial();
-	static void destruirInstancia();
+
 
 public:
+	static void destruirInstancia();
 	static ConfigHistorial* getInstancia();
 	ConfigHistorial(int maxEntradas,int tiempoMax);
 	virtual ~ConfigHistorial();
