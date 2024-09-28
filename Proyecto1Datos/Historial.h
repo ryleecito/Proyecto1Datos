@@ -22,7 +22,7 @@ public:
     void retroceder();
     void avanzar();
     void limpiarHistorial();
-    std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
+    std::string busquedaPalabraClave(const std::string& palabraClave) const;
     std::list<SitioWeb*> getHistorial() const;
     SitioWeb* getSitioActual() const;
     std::string toString() const;
@@ -45,7 +45,6 @@ public:
     std::string getDominioActual()const;
 
 	bool existeSitioWeb(const std::string url);
-
 	void eliminarPrimerasXEntradas(int x);
 
 

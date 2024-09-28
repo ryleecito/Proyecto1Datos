@@ -37,10 +37,10 @@ public:
     void agregarPaginaWeb(SitioWeb* sitio);
     void irAtras();
     void irAdelante();
-    std::list<SitioWeb*> filtrarPaginasPorNombre(const std::string& nombre) const;
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
 	bool limpiarEntradasViejas();
+    std::string busquedaPalabraClave(const std::string& palabraClave);
   
 
     //Metodos de SitioWeb

@@ -109,30 +109,32 @@ void Historial::limpiarHistorial() {
     posicionActual = historial.end();
 }
 
-
-
-
-std::list<SitioWeb*> Historial::filtrarPaginasPorNombre(const std::string& nombre) const
+std::string Historial::busquedaPalabraClave(const std::string& palabraClave) const
 {
-    std::list<SitioWeb*> paginasFiltradas;
-    std::string nombreFiltrado = nombre;
-    // convertimos todo el string a minusculas
-    transform(nombreFiltrado.begin(), nombreFiltrado.end(), nombreFiltrado.begin(), ::tolower);
+    std::stringstream s;
+    int contador = 1;
+    std::string palabraFiltrada = palabraClave;
+
+    transform(palabraFiltrada.begin(), palabraFiltrada.end(), palabraFiltrada.begin(), ::tolower);
 
     for (SitioWeb* sitio : historial) {
         if (sitio != nullptr) {
-            // obtenemos el titulo y lo convertimos a minusculas por cada 
-			// sitio web que entramos en el historial
+ 
             std::string tituloSitio = sitio->getTitulo();
             transform(tituloSitio.begin(), tituloSitio.end(), tituloSitio.begin(), ::tolower);
-            if (tituloSitio.find(nombreFiltrado) != std::string::npos) {
-                paginasFiltradas.push_back(sitio);
+
+            if (tituloSitio.find(palabraFiltrada) != std::string::npos) {
+                s << "------------------------------------------------------" << std::endl;
+                s << " COINCIDENCIA # " << contador << std::endl;
+                s << sitio->toString() << std::endl;
+                contador++;
+                s << "------------------------------------------------------" << std::endl;
             }
         }
     }
-    return paginasFiltradas;
-}
 
+    return s.str(); // Retornamos las coincidencias como un string
+}
 std::list<SitioWeb*> Historial::getHistorial() const {
     return historial;
 }
@@ -299,6 +301,8 @@ bool Historial::existeSitioWeb(const std::string url)
     }
     return false; 
 }
+
+
 
 void Historial::eliminarPrimerasXEntradas(int x)
 {

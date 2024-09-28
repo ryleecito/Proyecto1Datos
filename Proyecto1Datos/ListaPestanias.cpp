@@ -121,6 +121,11 @@ bool ListPestanias::limpiarEntradasViejas()
 	return (*posicionActual)->limpiarEntradasViejas();
 }
 
+std::string ListPestanias::busquedaPalabraClave(const std::string& palabraClave)
+{
+	return (*posicionActual)->busquedaPalabraClave(palabraClave);
+}
+
 int ListPestanias::sizeHistorial() const
 {
     return (*posicionActual)->sizeHistorial();

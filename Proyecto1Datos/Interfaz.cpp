@@ -147,7 +147,6 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
         navegador->agregarPestania(new Pestania());
     }
 
-
     if (navegador->cantidadPestanias() == 0) {
         throw ExcepcionGenerica("Cree una pestania para navegar");
     }
@@ -180,15 +179,15 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
 void Interfaz::paginaAnterior(Navegador* navegador)
 {
     navegador->limpiarViejasEntradas();
+
     if (navegador->cantidadPestanias() == 0) {
         throw ExcepcionGenerica("Cree una pestania para navegar");
     }
+
     if ( navegador->cantidadPaginas() == 0) {
         throw ExcepcionGenerica("Realice una busqueda para navegar");
     }
     navegador->paginaAnterior();
-
-    
 }
 
 void Interfaz::paginaSiguiente(Navegador* navegador)
@@ -331,19 +330,14 @@ void Interfaz::busquedaYFiltros(Navegador* navegador)
 
 void Interfaz::busquedaPalabraClave(Navegador* navegador)
 {
+
     std::string opc;
     int contador = 1;
     std::cout << " Ingrese la palabra clave para hacer la busqueda:";
     std::cin >> opc;
-    for (SitioWeb* sitio : navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->filtrarPaginasPorNombre(opc)) {
-        std::cout << "------------------------------------------------------" << std::endl;
-        std::cout << " COINCIDENCIA # " << contador << std::endl;
-        std::cout << sitio->toString() << std::endl;
-        contador++;
-        std::cout << "------------------------------------------------------" << std::endl;
-    }
+    std::cout<<navegador->busquedaPalabraClave(opc);
     system("pause");
-
+    
 }
 
 void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
@@ -359,6 +353,7 @@ void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
 
 void Interfaz::menuImportarExportar(Navegador* navegador)
 {
+
     system("cls");
     std::cout << "---------------------------------------------" << std::endl;
     std::cout << "| 1. Exportar historial (con sus bookmarks) |" << std::endl;

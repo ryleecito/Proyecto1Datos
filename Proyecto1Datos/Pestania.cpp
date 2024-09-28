@@ -32,10 +32,6 @@ void Pestania::irAdelante()
 }
 
 
-std::list<SitioWeb*> Pestania::filtrarPaginasPorNombre(const std::string& nombre) const
-{
-    return historial->filtrarPaginasPorNombre(nombre);
-}
 
 SitioWeb* Pestania::getSitioActual() const
 {
@@ -50,6 +46,11 @@ void Pestania::ajustarTamanoHistorial()
 bool Pestania::limpiarEntradasViejas()
 {
     return historial->limpiarEntradasViejas();
+}
+
+std::string Pestania::busquedaPalabraClave(const std::string& palabraClave)
+{
+	return historial->busquedaPalabraClave(palabraClave);
 }
 
 std::string Pestania::getUrlActual() const

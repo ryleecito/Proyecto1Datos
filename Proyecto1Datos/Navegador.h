@@ -54,6 +54,7 @@ public:
 	void paginaAnterior();
 	void paginaSiguiente();
 	int cantidadPaginas();
+	std::string busquedaPalabraClave(const std::string& palabraClave);
 
 	// metodos de guardar y cargar archivo
 	void guardarArchivoNavegador(std::ofstream& out);

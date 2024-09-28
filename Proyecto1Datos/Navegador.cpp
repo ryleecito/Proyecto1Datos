@@ -225,6 +225,11 @@ int Navegador::cantidadPaginas()
 	return listaPestanias->sizeHistorial();
 }
 
+std::string Navegador::busquedaPalabraClave(const std::string& palabraClave)
+{
+	return listaPestanias->busquedaPalabraClave(palabraClave);
+}
+
 void Navegador::guardarArchivoNavegador(std::ofstream& out)
 {
 	// guardamos el incognito
