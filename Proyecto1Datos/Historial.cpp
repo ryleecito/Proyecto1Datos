@@ -18,18 +18,25 @@ int Historial::size() const {
 
 void Historial::add(SitioWeb* sitioWeb) {
 
+    if (historial.empty()) {
+        historial.push_back(new SitioWeb(*sitioWeb));
+        posicionActual = std::prev(historial.end());
+        filtro = "";
+        return;
+    }
+
     eliminarSitioSiExiste(sitioWeb);
 
     int maxEntradas = ConfigHistorial::getInstancia()->getMaxEntradas();
 
     if (historial.size() >= maxEntradas) {
-        delete historial.front(); 
-        historial.pop_front();    
+        delete historial.front();
+        historial.pop_front();
     }
 
     historial.push_back(new SitioWeb(*sitioWeb));
     posicionActual = std::prev(historial.end());
-    filtro = ""; 
+    filtro = "";
 }
 
 bool Historial::existeSitio(SitioWeb* site) {

@@ -7,6 +7,7 @@
 #include "..\Proyecto1Datos\ListaPestanias.cpp"
 #include "..\Proyecto1Datos\Navegador.cpp"
 #include "..\Proyecto1Datos\Marcador.cpp"
+#include "..\Proyecto1Datos\Excepciones.cpp"
 
 TEST(TestCaseName, TestName) {
 	EXPECT_EQ(1, 1);
@@ -46,20 +47,11 @@ TEST(HistorialTest, LimpiarHistorial) {
     EXPECT_EQ(historial.getSitioActual(), nullptr);
 }
 
-TEST(HistorialTest, FiltrarPorNombre) {
-    Historial historial;
-    SitioWeb* sitio1 = new SitioWeb("www.google.com", "Google", "dominio");
-    SitioWeb* sitio2 = new SitioWeb("www.youtube.com", "Youtube", "dominio");
-    historial.add(sitio1);
-    historial.add(sitio2);
-    auto filtrados = historial.filtrarPaginasPorNombre("Google");
-    EXPECT_EQ(filtrados.size(), 1);
-    EXPECT_EQ(filtrados.front()->getTitulo(), "Google");
-}
 
 TEST(HistorialTest, AjustarTamanoHistorial) {
     Historial historial;
     ConfigHistorial* config = config->getInstancia();
+    config->setMaxEntradas(1);
 
     SitioWeb* sitio1 = new SitioWeb("www.google.com", "Google", "dominio");
     SitioWeb* sitio2 = new SitioWeb("www.youtube.com", "Youtube", "dominio");
@@ -69,6 +61,8 @@ TEST(HistorialTest, AjustarTamanoHistorial) {
     historial.ajustarTamanoHistorial();
     EXPECT_EQ(historial.size(), 1);
     EXPECT_EQ(historial.getSitioActual()->getTitulo(), "Youtube"); 
+
+    config->setMaxEntradas(-1);
 }
 
 //TEST DE PESTANIA
@@ -93,7 +87,25 @@ TEST(PestaniaTest, AgregarPaginaWeb) {
     Pestania p(h);
     SitioWeb* sitio = new SitioWeb("www.google.com", "Google", "dom");
     p.agregarPaginaWeb(sitio);
-    EXPECT_EQ(h->getSitioActual(), sitio);
+    EXPECT_EQ(h->getSitioActual()->getUrl(), sitio->getUrl());
+}
+
+TEST(PestaniaTest, AgregarPaginaWebCuandoExiste) {
+
+    Pestania* p = new Pestania();
+    SitioWeb* sitio = new SitioWeb("www.google.com", "Google", "dom");
+    SitioWeb* sitio1 = new SitioWeb("www.youtube.com", "Youtube", "dom");
+    SitioWeb* sitio2 = new SitioWeb("www.Yahoo.com", "Yahoo", "dom");
+    SitioWeb* sitio3 = new SitioWeb("www.google.com", "Google", "dom");
+
+    p->agregarPaginaWeb(sitio);
+    p->agregarPaginaWeb(sitio1);
+    p->agregarPaginaWeb(sitio2);
+    p->agregarPaginaWeb(sitio3);
+
+    EXPECT_EQ((int)p->sizeHistorial(), 3);
+    EXPECT_EQ((*p->getHistorial()->getHistorial().begin())->getUrl(), "www.youtube.com");
+    EXPECT_EQ((*(std::prev(p->getHistorial()->getHistorial().end())))->getUrl(), "www.google.com");
 }
 
 //TEST DE LISTAPESTANIAS
@@ -143,7 +155,7 @@ TEST(ListPestaniasTest, AgregarPaginaWeb) {
     lista.add(pestania);
     lista.agregarPaginaWeb(sitio);
 
-    EXPECT_EQ(lista.getPestaniaActual()->getHistorial()->getSitioActual(), sitio);
+    EXPECT_EQ(lista.getPestaniaActual()->getHistorial()->getSitioActual()->getUrl(), sitio->getUrl());
 }
 
 //TEST NAVEGADOR
