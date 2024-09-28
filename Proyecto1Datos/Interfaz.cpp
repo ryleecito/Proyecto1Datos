@@ -303,7 +303,6 @@ void Interfaz::aplicarFiltroNavegador(Navegador* navegador)
     std::cout << " Ingrese la palabra clave para aplicarle el filtro al navegador:";
     std::cin >> opc;
     navegador->setFiltro(opc);
-    navegador->moverseAPrimeraCoincidencia();
 	system("pause");
 }
 

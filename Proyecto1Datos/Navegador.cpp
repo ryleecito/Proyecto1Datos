@@ -245,6 +245,7 @@ std::string Navegador::busquedaPalabraClave(const std::string& palabraClave)
 void Navegador::setFiltro(const std::string& filtro)
 {
 	listaPestanias->setFiltro(filtro);
+	moverseAPrimeraCoincidencia();
 }
 
 void Navegador::moverseAPrimeraCoincidencia()

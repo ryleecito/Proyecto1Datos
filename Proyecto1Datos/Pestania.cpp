@@ -58,6 +58,11 @@ void Pestania::moverseAPrimeraCoincidencia()
 	historial->moverseAPrimeraCoincidencia();
 }
 
+void Pestania::setFiltro(const std::string& filtro)
+{
+    historial->setFiltro(filtro);
+}
+
 std::string Pestania::getUrlActual() const
 {
     return historial->getUrlActual();

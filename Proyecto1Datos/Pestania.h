@@ -41,6 +41,7 @@ public:
 	bool limpiarEntradasViejas();
     std::string busquedaPalabraClave(const std::string& palabraClave);
 	void moverseAPrimeraCoincidencia();
+    void setFiltro(const std::string& filtro);
   
 
     //Metodos de SitioWeb

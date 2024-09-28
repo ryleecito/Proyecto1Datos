@@ -142,9 +142,7 @@ bool ListPestanias::limpiarEntradasViejas()
 
 void ListPestanias::setFiltro(const std::string& filtro)
 {
-    for (auto& pestania : pestanias) {
-        pestania->getHistorial()->setFiltro(filtro);
-    }
+    (*posicionActual)->setFiltro(filtro);
 }
 
 void ListPestanias::ajustarTamanoHistorial()

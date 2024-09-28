@@ -263,6 +263,10 @@ void Historial::setFiltro(std::string filtro)
 
 void Historial::moverseAPrimeraCoincidencia() {
     
+    if (historial.empty()) {
+        return;
+    }
+
     if (filtro.empty()) {
         return;  
     }
