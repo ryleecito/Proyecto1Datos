@@ -37,8 +37,6 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
         std::cout << "Pestania " << navegador->posicionDelIndex() + 1 << std::endl;
         std::cout << navegador->mostrarPestaniaActual() << std::endl;
 
-
-        //std::cout << navegador->getListaPestanias()->getPestaniaActual()->getHistorial()->toString() << std::endl;
     }
 
     std::cout << "----------------------------------------" << std::endl;
@@ -158,16 +156,9 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
     SitioWeb* sitio = navegador->buscarPaginaWeb(url);
 
     if (sitio != nullptr) {
-        Pestania* pestaniaActual = navegador->getPestaniaActual();
-        Historial* historial = pestaniaActual->getHistorial();
-        if (!historial->existeSitioWeb(url) &&
-            (navegador->getConfiguraciones()->getMaxEntradas() == -1 ||
-                historial->size() < navegador->getConfiguraciones()->getMaxEntradas())) {
-            navegador->agregarPaginaWeb(new SitioWeb(*sitio));
-        }
-        else {
-            throw ExcepcionGenerica("404 - Not Found");
-        }
+
+       navegador->agregarPaginaWeb(new SitioWeb(*sitio));
+       
     }
     else {
         throw ExcepcionGenerica("404 - Not Found");
@@ -178,7 +169,7 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
 
 void Interfaz::paginaAnterior(Navegador* navegador)
 {
-    navegador->limpiarViejasEntradas();
+
 
     if (navegador->cantidadPestanias() == 0) {
         throw ExcepcionGenerica("Cree una pestania para navegar");
@@ -192,7 +183,6 @@ void Interfaz::paginaAnterior(Navegador* navegador)
 
 void Interfaz::paginaSiguiente(Navegador* navegador)
 {
-    navegador->limpiarViejasEntradas();
     if (navegador->cantidadPestanias() == 0) {
         throw ExcepcionGenerica("Cree una pestania para navegar");
     }
@@ -250,16 +240,8 @@ void Interfaz::agregarCantidadEntradas(Navegador* navegador)
         throw ExcepcionGenerica("Entrada invalida. Debe ingresar un numero entero.");
     }
 	navegador->setMaxEntradas(opc);
+    navegador->ajustarTamanoHistorial();
 
-    auto pestanias = navegador->getListaPestanias(); 
-
-    for (auto& pestania : navegador->getListaPestanias()->getPestanias()) {
-        if (pestania->sizeHistorial() > opc) {
-            pestania->getHistorial()->eliminarPrimerasXEntradas(opc); 
-        }
-    }
-	std::cout << " Se ha configurado la cantidad de entradas a: " << opc << std::endl;
-	std::cout << " Si hay mas entradas de las configuradas, se eliminaran las mas antiguas" << std::endl;
     system("pause");
 }
 
@@ -297,9 +279,7 @@ void Interfaz::agregarCantidadTiempo(Navegador* navegador)
 
 void Interfaz::menuConfiguraciones(Navegador* navegador)
 {
-    //if (navegador->getPestaniaActual() == nullptr) {
-    //    throw ExcepcionGenerica("Error: Cree una pestania primero para configurar su historial");
-    //}
+
     system("cls");
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "|         MENU DE CONFIGURACION         | " << std::endl;
@@ -313,9 +293,7 @@ void Interfaz::menuConfiguraciones(Navegador* navegador)
 
 void Interfaz::busquedaYFiltros(Navegador* navegador)
 {
-    //if (navegador->getListaPestanias()->getPestaniaActual() == nullptr) {
-    //    throw ExcepcionGenerica("Error: Cree una pestania primero para configurar su historial");
-    //}
+
     system("cls");
     std::cout << "-----------------------------------------------" << std::endl;
     std::cout << "|       MENU BUSQUEDA Y FILTROS               | " << std::endl;

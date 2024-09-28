@@ -36,16 +36,13 @@ public:
 
     // metodos de guardar y cargar archivo
     void serializarHistorial(std::ofstream& out);
-    static Historial* cargarArchivoHistorial(std::ifstream& in);
+    static Historial* deserializar(std::ifstream& in);
 
     //Metodos de SitioWeb
 
     std::string getUrlActual() const;
     std::string getTituloActual() const;
     std::string getDominioActual()const;
-
-	bool existeSitioWeb(const std::string url);
-	void eliminarPrimerasXEntradas(int x);
 
 
 

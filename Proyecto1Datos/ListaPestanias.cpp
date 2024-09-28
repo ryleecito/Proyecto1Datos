@@ -95,7 +95,7 @@ void ListPestanias::guardarArchivoListaPestanias(std::ofstream& out)
 ListPestanias* ListPestanias::cargarArchivoListaPestanias(std::ifstream& in)
 {
     ListPestanias* listaCargada = new ListPestanias(); 
-    size_t size;
+    size_t size = 0;
     in.read(reinterpret_cast<char*>(&size), sizeof(size)); 
 
     for (size_t i = 0; i < size; ++i) {
@@ -127,6 +127,13 @@ bool ListPestanias::limpiarEntradasViejas()
     }
 
     return entradasBorradas;
+}
+
+void ListPestanias::ajustarTamanoHistorial()
+{
+    for (auto& pestania : pestanias) {
+		pestania->ajustarTamanoHistorial();
+	}
 }
 
 std::string ListPestanias::busquedaPalabraClave(const std::string& palabraClave)

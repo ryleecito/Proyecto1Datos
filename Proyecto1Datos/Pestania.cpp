@@ -133,7 +133,7 @@ void Pestania::guardarArchivoPestania(std::ofstream& out)
 
 Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)
 {
-    Historial* historialCargado = Historial::cargarArchivoHistorial(in);
+    Historial* historialCargado = Historial::deserializar(in);
     return new Pestania(historialCargado);
 }
 

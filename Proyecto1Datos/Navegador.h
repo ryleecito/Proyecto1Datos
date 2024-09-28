@@ -26,7 +26,7 @@ public:
 
 	// metodos incognito
 	void cambiarModoIncognito();
-	bool getModoIncognito();
+	bool getModoIncognito() const;
 
 
 	//metodos de lista pestanias
@@ -39,6 +39,7 @@ public:
 	Pestania* getPestaniaActual();
 	std::string mostrarPestaniaActual();
 	bool limpiarViejasEntradas();
+	void ajustarTamanoHistorial();
 
 
 	//bookmarks

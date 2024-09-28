@@ -50,7 +50,7 @@ void Navegador::cambiarModoIncognito()
 	modoIncognito = !modoIncognito;
 }
 
-bool Navegador::getModoIncognito()
+bool Navegador::getModoIncognito() const
 {
 	return modoIncognito;
 }
@@ -133,6 +133,11 @@ bool Navegador::limpiarViejasEntradas()
 {
 
 	return listaPestanias->limpiarEntradasViejas();
+}
+
+void Navegador::ajustarTamanoHistorial()
+{
+	listaPestanias->ajustarTamanoHistorial();
 }
 
 
@@ -256,7 +261,7 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 	navegadorCargado->listaPestanias = ListPestanias::cargarArchivoListaPestanias(in);
 	navegadorCargado->listaPestaniasIncognito = ListPestanias::cargarArchivoListaPestanias(in);
 
-	size_t size;
+	size_t size = 0;
 	in.read(reinterpret_cast<char*>(&size), sizeof(size));
 	for (size_t i = 0; i < size; ++i) {
 		Marcador* marcador = Marcador::cargarArchivoMarcador(in); 
