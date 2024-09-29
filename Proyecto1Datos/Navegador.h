@@ -70,6 +70,7 @@ public:
 	ConfigHistorial* getConfiguraciones() const;
 	void setMaxEntradas(int max);
 	void setTiempoMaximo(int time);
+	void reiniciarConfiguraciones();
 
 
 };

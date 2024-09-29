@@ -34,6 +34,7 @@ public:
 
 	void control8_1(); // modificar cantidad de entradas
 	void control8_2(); // modificar cantidad de tiempo entradas
+	void control8_3(); // quitar configs
 
 	void control5_1(); // busqueda por filtro
 	void control5_2(); // busqueda por palabra especifica

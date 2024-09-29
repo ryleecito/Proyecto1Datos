@@ -392,6 +392,14 @@ void Navegador::setTiempoMaximo(int time)
 	limpiarViejasEntradas();
 }
 
+void Navegador::reiniciarConfiguraciones()
+{
+	configuracion->setMaxEntradas(-1);
+	ajustarTamanoHistorial();
+	configuracion->setTiempoMaximo(-1);
+	limpiarViejasEntradas();
+}
+
 
 
 

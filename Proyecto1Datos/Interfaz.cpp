@@ -263,7 +263,8 @@ void Interfaz::menuConfiguraciones(Navegador* navegador)
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "| 1. Configurar cantidad de entradas    |" << std::endl;
     std::cout << "| 2. Configurar tiempo de entradas      |" << std::endl;
-    std::cout << "| 3. Regresar                           |" << std::endl;
+    std::cout << "| 3. Reiniciar configuraciones          |" << std::endl;
+    std::cout << "| 4. Regresar                           |" << std::endl;
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Toque tecla para realizar accion: " << std::endl << std::endl;
 }
@@ -346,7 +347,7 @@ Navegador* Interfaz::importarHistorial(Navegador* navegador)
     }
 
     archivo.close();
-    return navegadorCargado;  // Devolver el nuevo navegador cargado
+    return navegadorCargado;  
 }
 
 void Interfaz::exportarHistorial(Navegador* navegador)
@@ -372,7 +373,14 @@ void Interfaz::exportarHistorial(Navegador* navegador)
 
 void Interfaz::eliminarFiltro(Navegador* navegador)
 {
+	std::cout << " Se ha eliminado el filtro del navegador" << std::endl;
+	system("pause");
     navegador->setFiltro("");
+}
+
+void Interfaz::quitarConfiguraciones(Navegador* navegador)
+{
+    navegador->reiniciarConfiguraciones();
 }
 
 void Interfaz::mensajeSalida()

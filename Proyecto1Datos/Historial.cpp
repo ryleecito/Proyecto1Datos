@@ -354,7 +354,7 @@ void Historial::guardarArchivoHistorial(std::ofstream& out)
 
     size_t filtroLength = filtro.size();
     out.write(reinterpret_cast<const char*>(&filtroLength), sizeof(filtroLength));
-    out.write(filtro.c_str(), filtroLength);  // Guardar el contenido del filtro
+    out.write(filtro.c_str(), filtroLength);  
 }
 
 

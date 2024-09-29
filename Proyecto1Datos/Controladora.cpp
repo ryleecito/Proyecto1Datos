@@ -174,7 +174,10 @@ void Controladora::control8()
             case 2: // cantidad de bookmarks
                 control8_2();
                 break;
-            case 3:
+            case 3: // reiniciar configs
+                control8_3();
+                break;
+            case 4:
                 break;
             default:
                 throw ExcepcionGenerica("Opcion no valida, por favor elige otra opcion.");
@@ -184,7 +187,7 @@ void Controladora::control8()
             std::cout << "Error: " << ex.what() << std::endl;
             system("pause");
         }
-    } while (opcion != 3);
+    } while (opcion != 4);
 
 }
 
@@ -223,6 +226,10 @@ void Controladora::control8_1()
 void Controladora::control8_2()
 {
     Interfaz::agregarCantidadTiempo(navegador);
+}
+void Controladora::control8_3()
+{
+	Interfaz::quitarConfiguraciones(navegador);
 }
 // busqueda por filtro
 void Controladora::control5_1()
