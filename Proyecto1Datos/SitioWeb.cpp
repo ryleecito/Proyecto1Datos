@@ -7,12 +7,13 @@ SitioWeb::SitioWeb() : url(""), titulo(""), dominio("") {
 
 SitioWeb::SitioWeb(std::string url, std::string titulo, std::string dominio)
     : url(url), titulo(titulo), dominio(dominio) {
+
     tiempoDeIngreso = std::chrono::system_clock::now();
 }
 
-SitioWeb::SitioWeb(const SitioWeb& other)
-    : url(other.url), titulo(other.titulo), dominio(other.dominio) {
-    tiempoDeIngreso = std::chrono::system_clock::now();
+SitioWeb::SitioWeb(const SitioWeb& sitio)
+    : url(sitio.url), titulo(sitio.titulo), dominio(sitio.dominio) {
+    tiempoDeIngreso = sitio.tiempoDeIngreso;
 }
 
 SitioWeb::~SitioWeb()

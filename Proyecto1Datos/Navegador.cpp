@@ -312,7 +312,8 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 	return navegador;
 }
 
-void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
+void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) 
+{
 
 	const size_t tamanioBuffer = 2048;
 	char buffer[tamanioBuffer];

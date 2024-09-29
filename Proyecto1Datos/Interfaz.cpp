@@ -142,7 +142,8 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
         navegador->agregarPestania(new Pestania());
     }
 
-   navegador->agregarPaginaWeb(sitio);
+    sitio->setTiempoDeIngreso(std::chrono::system_clock::now());
+    navegador->agregarPaginaWeb(sitio);
        
     system("pause");
 }

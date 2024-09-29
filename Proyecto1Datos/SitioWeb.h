@@ -16,7 +16,6 @@ private:
 public:
     SitioWeb();
     SitioWeb(std::string url, std::string titulo, std::string dominio);
-
     SitioWeb(const SitioWeb& other);
     virtual ~SitioWeb();
 
