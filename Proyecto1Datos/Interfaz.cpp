@@ -323,9 +323,8 @@ void Interfaz::menuImportarExportar(Navegador* navegador)
     
 }
 
-void Interfaz::importarHistorial(Navegador* navegador)
+Navegador* Interfaz::importarHistorial(Navegador* navegador)
 {
-
     std::string opc;
     std::cout << "Ingrese el nombre de la sesion que quiere importar al navegador: ";
     std::cin >> opc;
@@ -335,20 +334,18 @@ void Interfaz::importarHistorial(Navegador* navegador)
         throw ExcepcionGenerica("Error: No se ha podido abrir el archivo, verifique el nombre de la sesion");
     }
 
-
     Navegador* navegadorCargado = Navegador::cargarArchivoNavegador(archivo);
+
     if (navegadorCargado) {
-        delete navegador; 
-        navegador = navegadorCargado; 
-        std::cout << "Se ha importado el historial con exito." << std::endl;
+        std::cout << "Se ha importado el historial con éxito." << std::endl;
         system("pause");
     }
     else {
         throw ExcepcionGenerica("Error: No se ha podido importar el historial correctamente.");
     }
 
-    archivo.close(); 
-    
+    archivo.close();
+    return navegadorCargado;  // Devolver el nuevo navegador cargado
 }
 
 void Interfaz::exportarHistorial(Navegador* navegador)

@@ -17,6 +17,7 @@ SitioWeb::SitioWeb(const SitioWeb& other)
 
 SitioWeb::~SitioWeb()
 {
+    std::cout << "sitioweb borrado"<<titulo << std::endl;
 }
 
 std::string SitioWeb::getUrl() const
@@ -68,18 +69,21 @@ void SitioWeb::setTiempoDeIngreso(std::chrono::time_point<std::chrono::system_cl
 
 void SitioWeb::guardarArchivoSitioWeb(std::ofstream& out)
 {
-    size_t urlTama =url.size();
-    size_t tituloTama = titulo.size();
-    size_t dominioTama = dominio.size();
+    size_t urlLength = url.length();
+    out.write(reinterpret_cast<const char*>(&urlLength), sizeof(urlLength));
+    out.write(url.c_str(), urlLength);
 
-    out.write(reinterpret_cast<const char*>(&urlTama), sizeof(urlTama));
-    out.write(url.c_str(), urlTama);
+    size_t tituloLength = titulo.length();
+    out.write(reinterpret_cast<const char*>(&tituloLength), sizeof(tituloLength));
+    out.write(titulo.c_str(), tituloLength);
 
-    out.write(reinterpret_cast<const char*>(&tituloTama), sizeof(tituloTama));
-    out.write(titulo.c_str(), tituloTama);
+    size_t dominioLength = dominio.length();
+    out.write(reinterpret_cast<const char*>(&dominioLength), sizeof(dominioLength));
+    out.write(dominio.c_str(), dominioLength);
 
-    out.write(reinterpret_cast<const char*>(&dominioTama), sizeof(dominioTama));
-    out.write(dominio.c_str(), dominioTama);
+
+    auto tiempoEpoch = tiempoDeIngreso.time_since_epoch().count();
+    out.write(reinterpret_cast<const char*>(&tiempoEpoch), sizeof(tiempoEpoch));
 
 }
 
@@ -98,7 +102,15 @@ SitioWeb* SitioWeb::cargarArchivoSitioWeb(std::ifstream& in)
     in.read(reinterpret_cast<char*>(&dominioTama), sizeof(dominioTama));
     std::string dominio(dominioTama, ' ');
     in.read(&dominio[0], dominioTama);
-   
-    return new SitioWeb(url, titulo, dominio);
+
+    SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
+
+    decltype(std::chrono::system_clock::now().time_since_epoch().count()) tiempoEpoch;
+    in.read(reinterpret_cast<char*>(&tiempoEpoch), sizeof(tiempoEpoch));
+    sitio->setTiempoDeIngreso(std::chrono::system_clock::time_point(std::chrono::system_clock::duration(tiempoEpoch)));
+
+    return sitio;
+
+
 }
 

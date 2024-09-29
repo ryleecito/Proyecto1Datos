@@ -18,6 +18,7 @@ Pestania::Pestania(const Pestania&)
 Pestania::~Pestania()
 {
     delete historial; 
+    std::cout << "Pestania borrada." << std::endl;
 }
 
 int Pestania::sizeHistorial() const
@@ -111,7 +112,7 @@ std::string Pestania::toString() const
     const int contentWidth = width - 4;
     const std::string border(width, '-');
 
-    if (historial->getSitioActual() != nullptr) {
+    if ( historial->getSitioActual() != nullptr) {
         s << "              NAVEGADOR WEB          " << std::endl;
         s << border << std::endl;
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
@@ -136,9 +137,6 @@ std::string Pestania::toString() const
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
         s << border << std::endl;
         s << std::endl;
-
-        s << "Yo soy esta pestaña: " << this << std::endl;
-        s << std::endl;
     }
 
     return s.str();
@@ -148,7 +146,9 @@ std::string Pestania::toString() const
 // necesidad de verificar si es nullptr
 void Pestania::guardarArchivoPestania(std::ofstream& out)
 {
-    historial->guardarArchivoHistorial(out); 
+
+   historial->guardarArchivoHistorial(out);
+ 
 }
 
 Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)

@@ -15,6 +15,7 @@ Marcador::Marcador(SitioWeb* sitio, const std::string& etiqueta): sitio(new Siti
 Marcador::~Marcador()
 {
     delete sitio;
+    std::cout << "Marcador borrado" << std::endl;
 }
 void Marcador::anadirEtiqueta(const std::string& etiqueta)
 {
@@ -48,15 +49,19 @@ std::string Marcador::toString() const
 
 void Marcador::guardarArchivoMarcador(std::ofstream& out) {
 
-    sitio->guardarArchivoSitioWeb(out);
+   if (sitio) {
+      sitio->guardarArchivoSitioWeb(out); 
+   }
 
-    size_t numEtiquetas = etiquetas.size();
-    out.write(reinterpret_cast<const char*>(&numEtiquetas), sizeof(numEtiquetas));
-    for (const auto& etiqueta : etiquetas) {
-        size_t etiquetaLength = etiqueta.length();
-        out.write(reinterpret_cast<const char*>(&etiquetaLength), sizeof(etiquetaLength));
-        out.write(etiqueta.c_str(), etiquetaLength);
-    }
+   size_t numEtiquetas = etiquetas.size();
+   out.write(reinterpret_cast<const char*>(&numEtiquetas), sizeof(numEtiquetas));
+
+   for (const std::string& etiqueta : etiquetas) {
+      size_t length = etiqueta.length();
+      out.write(reinterpret_cast<const char*>(&length), sizeof(length));
+      out.write(etiqueta.c_str(), length);
+   }
+    
 }
 
 Marcador* Marcador::cargarArchivoMarcador(std::ifstream& in) {

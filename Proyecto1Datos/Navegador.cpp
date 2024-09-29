@@ -24,6 +24,8 @@ Navegador::~Navegador()
 	for (auto sitio : sitios) {
 		delete sitio;                
 	}
+	std::cout << "Navegador borrado." << std::endl;
+
 }
 
 std::string Navegador::toString()
@@ -262,63 +264,47 @@ void Navegador::moverseAPrimeraCoincidencia()
 	listaPestanias->moverseAPrimeraCoincidencia();
 }
 
-void Navegador::guardarArchivoNavegador(std::ofstream& out) {
-
+void Navegador::guardarArchivoNavegador(std::ofstream& out)
+{
 	out.write(reinterpret_cast<const char*>(&modoIncognito), sizeof(modoIncognito));
 
-	// Guardar listaPestanias
-	size_t numPestanias = listaPestanias->size();
-	out.write(reinterpret_cast<const char*>(&numPestanias), sizeof(numPestanias));
-	for (const auto& pestania : listaPestanias->getPestanias()) {
-		pestania->guardarArchivoPestania(out);
-	}
-	// Guardar sitios
-	size_t numSitios = sitios.size();
-	out.write(reinterpret_cast<const char*>(&numSitios), sizeof(numSitios));
-	for (const auto& sitio : sitios) {
-		sitio->guardarArchivoSitioWeb(out);
+
+	if (listaPestanias) {
+		listaPestanias->guardarArchivoListaPestanias(out); 
 	}
 
-	// Guardar marcadoresGuardados
 	size_t numMarcadores = marcadoresGuardados.size();
 	out.write(reinterpret_cast<const char*>(&numMarcadores), sizeof(numMarcadores));
-	for (const auto& marcador : marcadoresGuardados) {
-		marcador->guardarArchivoMarcador(out);
+	for (Marcador* marcador : marcadoresGuardados) {
+		if (marcador) {
+			marcador->guardarArchivoMarcador(out); 
+		}
 	}
 
-	// Guardar configuracion
-	configuracion->guardarArchivoConfigHistorial(out);
+
 }
 
-Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in) {
+Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in) 
+{
 	Navegador* navegador = new Navegador();
 
-	// Cargar modoIncognito
+
 	in.read(reinterpret_cast<char*>(&navegador->modoIncognito), sizeof(navegador->modoIncognito));
 
-	// Cargar listaPestanias
-	size_t numPestanias;
-	in.read(reinterpret_cast<char*>(&numPestanias), sizeof(numPestanias));
-	for (size_t i = 0; i < numPestanias; ++i) {
-		navegador->listaPestanias->getPestanias().push_back(Pestania::cargarArchivoPestania(in));
+	if (navegador->listaPestanias) {
+		navegador->listaPestanias= ListPestanias::cargarArchivoListaPestanias(in);
 	}
 
-	// Cargar sitios
-	size_t numSitios;
-	in.read(reinterpret_cast<char*>(&numSitios), sizeof(numSitios));
-	for (size_t i = 0; i < numSitios; ++i) {
-		navegador->sitios.push_back(SitioWeb::cargarArchivoSitioWeb(in));
-	}
-
-	// Cargar marcadoresGuardados
 	size_t numMarcadores;
 	in.read(reinterpret_cast<char*>(&numMarcadores), sizeof(numMarcadores));
 	for (size_t i = 0; i < numMarcadores; ++i) {
-		navegador->marcadoresGuardados.push_back(Marcador::cargarArchivoMarcador(in));
+		Marcador* marcador = Marcador::cargarArchivoMarcador(in);
+		if (marcador) {
+			navegador->marcadoresGuardados.push_back(marcador);
+		}
 	}
 
-	// Cargar configuracion
-	navegador->configuracion = ConfigHistorial::cargarArchivoConfigHistorial(in);
+	//navegador->configuracion = ConfigHistorial::cargarArchivoConfigHistorial(in);
 
 	return navegador;
 }

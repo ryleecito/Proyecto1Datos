@@ -4,19 +4,24 @@
 #include <algorithm>
 
 
-Historial::Historial() : posicionActual(historial.end()), filtro("") {
+Historial::Historial() : posicionActual(historial.end()), filtro("") 
+{
 }
 
-Historial::~Historial() {
+Historial::~Historial() 
+{
     limpiarHistorial();
+    std::cout << "Historial borrado." << std::endl;
 }
 
-int Historial::size() const {
+int Historial::size() const 
+{
 
     return (int)historial.size();
 }
 
-void Historial::add(SitioWeb* sitioWeb) {
+void Historial::add(SitioWeb* sitioWeb)
+{
 
     if (historial.empty()) {
         historial.push_back(new SitioWeb(*sitioWeb));
@@ -65,7 +70,8 @@ void Historial::eliminarSitioSiExiste(SitioWeb* site) {
 }
 
 
-void Historial::retroceder() {
+void Historial::retroceder()
+{
     if (historial.empty() || posicionActual == historial.begin()) {
         return; 
     }
@@ -119,7 +125,8 @@ void Historial::avanzar() {
 
 }
 
-void Historial::limpiarHistorial() {
+void Historial::limpiarHistorial() 
+{
     for (SitioWeb* sitio : historial) {
         delete sitio;
     }
@@ -153,12 +160,14 @@ std::string Historial::busquedaPalabraClave(const std::string& palabraClave) con
 
     return s.str(); 
 }
-std::list<SitioWeb*> Historial::getHistorial() const {
+std::list<SitioWeb*> Historial::getHistorial() const 
+{
     return historial;
 }
 
-SitioWeb* Historial::getSitioActual() const {
-    if (posicionActual != historial.end()) {
+SitioWeb* Historial::getSitioActual() const
+{
+    if (posicionActual != historial.end() && !historial.empty()) {
         return *posicionActual;
     }
     return nullptr;
@@ -175,7 +184,8 @@ std::string Historial::toString() const {
     return ss.str();
 }
 
-void Historial::ajustarTamanoHistorial() {
+void Historial::ajustarTamanoHistorial() 
+{
 
     if (historial.empty()) {
         return;
@@ -214,49 +224,48 @@ void Historial::ajustarTamanoHistorial() {
     }
 }
 
-bool Historial::limpiarEntradasViejas() {
+bool Historial::limpiarEntradasViejas()
+{
     if (historial.empty()) {
-        return false; // Si el historial está vacío, no hay entradas que limpiar
+        return false; 
     }
 
     int tiempoMaximo = ConfigHistorial::getInstancia()->getTiempoMaximo();
     if (tiempoMaximo <= 0) {
-        return false; // Si el tiempo máximo es cero o negativo, no se eliminan entradas
+        return false; 
     }
 
     bool entradasBorradas = false;
 
-    // Guardamos la posición original de posicionActual
     auto posicionOriginal = posicionActual;
 
-    // Iterador para recorrer el historial
+
     for (auto it = historial.begin(); it != historial.end(); ) {
         SitioWeb* sitio = *it;
 
-        // Calcular la diferencia de tiempo
         double diff = std::chrono::duration_cast<std::chrono::seconds>(
             std::chrono::system_clock::now() - sitio->getTiempoDeIngreso()
         ).count();
 
         if (diff > tiempoMaximo) {
-            delete sitio;         // Eliminar el sitio web
-            it = historial.erase(it); // Borrar el sitio del historial
-            entradasBorradas = true;  // Marcar que se borró una entrada
+            delete sitio;         
+            it = historial.erase(it); 
+            entradasBorradas = true;  
         }
         else {
-            ++it; // Solo avanzar si no se borró nada
+            ++it; 
         }
     }
 
-    // Actualizar posicionActual
+
     if (historial.empty()) {
-        posicionActual = historial.end(); // Si el historial está vacío, se ajusta la posición
+        posicionActual = historial.end(); 
     }
     else if (posicionActual == historial.end() || posicionActual == posicionOriginal) {
-        posicionActual = --historial.end(); // Si estaba en el final o fue borrada, ajustamos a la última entrada
+        posicionActual = --historial.end(); 
     }
 
-    return entradasBorradas; // Retornar si se borraron entradas
+    return entradasBorradas; 
 }
 
 std::string Historial::getFiltro()
@@ -267,10 +276,10 @@ std::string Historial::getFiltro()
 void Historial::setFiltro(std::string filtro)
 {
 	this->filtro = filtro;
-	
 }
 
-void Historial::moverseAPrimeraCoincidencia() {
+void Historial::moverseAPrimeraCoincidencia() 
+{
     
     if (historial.empty()) {
         return;
@@ -296,43 +305,59 @@ void Historial::moverseAPrimeraCoincidencia() {
     }
 }
 
-Historial* Historial::cargarArchivoHistorial(std::ifstream& in) {
-    Historial* historial = new Historial();
+Historial* Historial::cargarArchivoHistorial(std::ifstream& in)
+{
+    Historial* nuevoHistorial = new Historial();
 
-    size_t numSitios;
-    in.read(reinterpret_cast<char*>(&numSitios), sizeof(numSitios));
+    size_t historialSize;
+    in.read(reinterpret_cast<char*>(&historialSize), sizeof(historialSize));
 
-    // Cargar cada sitio web
-    for (size_t i = 0; i < numSitios; ++i) {
-        SitioWeb* sitio = SitioWeb::cargarArchivoSitioWeb(in); // Asumiendo que hay un método para cargar SitioWeb
-        historial->historial.push_back(sitio);
+    for (size_t i = 0; i < historialSize; ++i) {
+        SitioWeb* sitio = SitioWeb::cargarArchivoSitioWeb(in);
+        nuevoHistorial->add(sitio);
+        delete sitio;
     }
 
-    // Cargar la posición relativa
-    int posicionActualIdx;
+    size_t posicionActualIdx;
     in.read(reinterpret_cast<char*>(&posicionActualIdx), sizeof(posicionActualIdx));
 
-    // Reconstruir el iterador
-    historial->posicionActual = std::next(historial->historial.begin(), posicionActualIdx);
-
-    return historial;
-}
-void Historial::guardarArchivoHistorial(std::ofstream& out) {
-    // Calcular la posición relativa del iterador
-    int posicionActualIdx = std::distance(historial.begin(), posicionActual);
-
-    // Guardar el número de sitios web en el historial
-    size_t numSitios = historial.size();
-    out.write(reinterpret_cast<const char*>(&numSitios), sizeof(numSitios));
-
-    // Guardar cada sitio web
-    for (const auto& sitio : historial) {
-        sitio->guardarArchivoSitioWeb(out); // Asumiendo que hay un método para guardar SitioWeb
+    if (posicionActualIdx < nuevoHistorial->historial.size()) {
+        nuevoHistorial->posicionActual = nuevoHistorial->historial.begin();
+        std::advance(nuevoHistorial->posicionActual, posicionActualIdx);
+    }
+    else {
+        nuevoHistorial->posicionActual = nuevoHistorial->historial.end();
     }
 
-    // Guardar la posición relativa
-    out.write(reinterpret_cast<const char*>(&posicionActualIdx), sizeof(posicionActualIdx));
+    size_t filtroLength;
+    in.read(reinterpret_cast<char*>(&filtroLength), sizeof(filtroLength));
+    nuevoHistorial->filtro.resize(filtroLength);
+    in.read(&nuevoHistorial->filtro[0], filtroLength);
+
+
+    return nuevoHistorial;
 }
+
+void Historial::guardarArchivoHistorial(std::ofstream& out)
+{
+    size_t historialSize = historial.size();
+    out.write(reinterpret_cast<const char*>(&historialSize), sizeof(historialSize));
+
+    for (SitioWeb* sitio : historial) {
+        if (sitio) {
+            sitio->guardarArchivoSitioWeb(out); 
+        }
+    }
+
+    auto posicionActualIdx = std::distance(historial.begin(), posicionActual);
+    out.write(reinterpret_cast<const char*>(&posicionActualIdx), sizeof(posicionActualIdx));
+
+    size_t filtroLength = filtro.size();
+    out.write(reinterpret_cast<const char*>(&filtroLength), sizeof(filtroLength));
+    out.write(filtro.c_str(), filtroLength);  // Guardar el contenido del filtro
+}
+
+
 std::string Historial::getUrlActual() const
 {
     if (posicionActual != historial.end()) {

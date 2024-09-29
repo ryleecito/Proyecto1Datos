@@ -44,7 +44,7 @@ class Interfaz
 
 		static void menuImportarExportar(Navegador* navegador);
 
-		static void importarHistorial(Navegador* navegador);
+		static Navegador* importarHistorial(Navegador* navegador);
 
 		static void exportarHistorial(Navegador* navegador);
 

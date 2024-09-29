@@ -14,8 +14,10 @@ void ConfigHistorial::destruirInstancia()
 	if (instancia != nullptr)
 	{
 		delete instancia;
+        std::cout << "configuracion borrada." << std::endl;
 		instancia = nullptr;
 	}
+
 }
 
 ConfigHistorial* ConfigHistorial::getInstancia()
@@ -66,7 +68,7 @@ void ConfigHistorial::guardarArchivoConfigHistorial(std::ofstream& out)
 
 ConfigHistorial* ConfigHistorial::cargarArchivoConfigHistorial(std::ifstream& in)
 {
-    ConfigHistorial* config = new ConfigHistorial();
+    ConfigHistorial* config = getInstancia();
     in.read(reinterpret_cast<char*>(&config->maxEntradas), sizeof(config->maxEntradas));
     in.read(reinterpret_cast<char*>(&config->tiempoMaximo), sizeof(config->tiempoMaximo));  
     return config;

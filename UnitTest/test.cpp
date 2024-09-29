@@ -254,6 +254,181 @@ TEST(NavegadorTest, BuscarPaginaWebExistente) {
     EXPECT_EQ(sitioBuscado->getUrl(), "www.google.com");  
 }
 
+TEST(ArchivosTest, GuardarSitioWeb) {
+    // Crear un sitio web de prueba
+    SitioWeb* sitioOriginal = new SitioWeb("http://ejemplo.com", "Ejemplo","ejemplo.com");
+
+    // Guardar el sitio web en un archivo
+    std::ofstream out("sitios_test.bin", std::ios::binary);
+    ASSERT_TRUE(out.is_open()); // Verifica que el archivo se haya abierto correctamente
+
+    sitioOriginal->guardarArchivoSitioWeb(out);
+    out.close();
+
+    // Cargar el sitio web desde el archivo
+    std::ifstream in("sitios_test.bin", std::ios::binary);
+    ASSERT_TRUE(in.is_open()); // Verifica que el archivo se haya abierto correctamente
+
+    SitioWeb* sitioCargado = SitioWeb::cargarArchivoSitioWeb(in);
+    in.close();
+
+    // Verificar que los datos sean los mismos
+    ASSERT_NE(sitioCargado, nullptr); // Asegura que se haya cargado un sitio web
+    EXPECT_EQ(sitioOriginal->getTitulo(), sitioCargado->getTitulo()); // Compara nombres
+    EXPECT_EQ(sitioOriginal->getUrl(), sitioCargado->getUrl()); // Compara URLs
+
+    // Limpiar memoria
+    delete sitioOriginal;
+    delete sitioCargado;
+
+    // Eliminar archivo de prueba
+    std::remove("sitios_test.bin");
+}
+TEST(ArchivosTest, GuardarYLeerHistorial) {
+
+    Historial historial;
+
+    SitioWeb* sitio1 = new SitioWeb("https://example1.com", "Ejemplo 1", "example1.com");
+    SitioWeb* sitio2 = new SitioWeb("https://example2.com", "Ejemplo 2", "example2.com");
+    SitioWeb* sitio3 = new SitioWeb("https://example3.com", "Ejemplo 3", "example3.com");
+
+    historial.add(sitio1);
+    historial.add(sitio2);
+    historial.add(sitio3);
+
+    // Guardar el historial en un archivo
+    std::ofstream archivoSalida("historial_test.bin", std::ios::binary);
+    ASSERT_TRUE(archivoSalida.is_open());
+    historial.guardarArchivoHistorial(archivoSalida);
+    archivoSalida.close();
+
+    // Limpiar el historial
+    historial.limpiarHistorial();
+
+    // Cargar el historial desde el archivo
+    std::ifstream archivoEntrada("historial_test.bin", std::ios::binary);
+    ASSERT_TRUE(archivoEntrada.is_open());
+    Historial* historialCargado = Historial::cargarArchivoHistorial(archivoEntrada);
+    archivoEntrada.close();
+
+    // Verificar que los sitios se hayan cargado correctamente
+    ASSERT_NE(historialCargado, nullptr); // Asegúrate de que el historial cargado no es nulo
+    ASSERT_EQ(historialCargado->size(), 3);
+
+    SitioWeb* sitioCargado1 = historialCargado->getHistorial().front(); // primer sitio
+    SitioWeb* sitioCargado2 = *(++historialCargado->getHistorial().begin()); // segundo sitio
+    SitioWeb* sitioCargado3 = historialCargado->getHistorial().back(); // último sitio
+
+    // Verificar los datos de los sitios cargados
+    EXPECT_EQ(sitioCargado1->getDominio(), "example1.com");
+    EXPECT_EQ(sitioCargado1->getUrl(), "https://example1.com");
+    EXPECT_EQ(sitioCargado1->getTitulo(), "Ejemplo 1");
+
+    EXPECT_EQ(sitioCargado2->getDominio(), "example2.com");
+    EXPECT_EQ(sitioCargado2->getUrl(), "https://example2.com");
+    EXPECT_EQ(sitioCargado2->getTitulo(), "Ejemplo 2");
+
+    EXPECT_EQ(sitioCargado3->getDominio(), "example3.com");
+    EXPECT_EQ(sitioCargado3->getUrl(), "https://example3.com");
+    EXPECT_EQ(sitioCargado3->getTitulo(), "Ejemplo 3");
+
+    // Verificar la posición actual
+    EXPECT_EQ(historialCargado->getUrlActual(), "https://example3.com");
+    EXPECT_EQ(historialCargado->getTituloActual(), "Ejemplo 3");
+    EXPECT_EQ(historialCargado->getDominioActual(), "example3.com");
+
+    // Verificar que la posición actual sea la misma que se guardó
+    EXPECT_EQ(historialCargado->getUrlActual(), historialCargado->getSitioActual()->getUrl());
+
+    // Limpiar el historial cargado
+    historialCargado->limpiarHistorial();
+    delete historialCargado;
+}
+
+TEST(ArchivosTest, PestaniaCargar) {
+
+    Pestania* pestania = new Pestania();
+    EXPECT_EQ(pestania->sizeHistorial(), 0);
+
+
+    SitioWeb* sitio1 = new SitioWeb("https://example1.com", "Ejemplo 1", "example1.com");
+    pestania->agregarPaginaWeb(sitio1);
+    EXPECT_EQ(pestania->sizeHistorial(), 1);
+    EXPECT_EQ(pestania->getSitioActual()->getUrl(), "https://example1.com"); 
+
+
+    SitioWeb* sitio2 = new SitioWeb("https://example2.com", "Ejemplo 2", "example2.com");
+    pestania->agregarPaginaWeb(sitio2);
+    EXPECT_EQ(pestania->sizeHistorial(), 2); 
+
+
+    pestania->irAtras();
+    EXPECT_EQ(pestania->getSitioActual()->getUrl(), "https://example1.com");
+
+
+    std::ofstream archivoSalida("pestania_test.bin", std::ios::binary);
+    ASSERT_TRUE(archivoSalida.is_open());
+    pestania->guardarArchivoPestania(archivoSalida);
+    archivoSalida.close();
+
+
+    delete pestania; 
+    pestania = nullptr;
+
+    std::ifstream archivoEntrada("pestania_test.bin", std::ios::binary);
+    ASSERT_TRUE(archivoEntrada.is_open());
+    pestania = Pestania::cargarArchivoPestania(archivoEntrada);
+    archivoEntrada.close();
+
+    ASSERT_NE(pestania, nullptr);
+    EXPECT_EQ(pestania->sizeHistorial(), 2);
+    EXPECT_EQ(pestania->getSitioActual()->getUrl(), "https://example1.com"); 
+
+    delete pestania;
+}
+TEST(ArchivosTest, TestGuardarYcargarPestaniasYPaginas) {
+    ListPestanias* listaOriginal = new ListPestanias();
+
+    // Crear pestañas de ejemplo
+    Pestania* pestania1 = new Pestania();
+    Pestania* pestania2 = new Pestania();
+
+    // Agregar páginas web a las pestañas
+    SitioWeb* sitio1 = new SitioWeb("https://example1.com", "Ejemplo 1", "example1.com");
+    SitioWeb* sitio2 = new SitioWeb("https://example2.com", "Ejemplo 2", "example2.com");
+
+    // Suponiendo que el método agregarPaginaWeb existe
+    pestania1->agregarPaginaWeb(sitio1);
+    pestania2->agregarPaginaWeb(sitio2);
+
+    // Añadir pestañas a la lista
+    listaOriginal->add(pestania1);
+    listaOriginal->add(pestania2);
+
+    // Guardar en archivo
+    std::ofstream out("pestanias.dat", std::ios::binary);
+    ASSERT_TRUE(out.is_open());  // Verificar que el archivo se abrió correctamente
+    listaOriginal->guardarArchivoListaPestanias(out);
+    out.close();
+
+    // Crear una nueva lista y cargar desde el archivo
+    ListPestanias* listaCargada = new ListPestanias();
+    std::ifstream in("pestanias.dat", std::ios::binary);
+    ASSERT_TRUE(in.is_open());  // Verificar que el archivo se abrió correctamente
+    listaCargada = ListPestanias::cargarArchivoListaPestanias(in);
+    in.close();
+
+    // Comprobar que el tamaño es el mismo
+    EXPECT_EQ(listaOriginal->size(), listaCargada->size());
+
+    EXPECT_EQ(listaOriginal->getPestaniaActual()->getSitioActual()->getUrl(), listaCargada->getSitioActual()->getUrl());
+
+    // Limpiar la memoria
+    delete listaOriginal;
+    delete listaCargada;
+}
+
+
 
 
 

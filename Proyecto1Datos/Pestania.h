@@ -15,7 +15,6 @@ private:
 
     Historial* historial;
     
-
 public:
   
     Pestania();

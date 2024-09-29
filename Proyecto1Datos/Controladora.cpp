@@ -250,6 +250,12 @@ void Controladora::control3_1()
 // importar historial
 void Controladora::control3_2()
 {
-	Interfaz::importarHistorial(navegador);
+    Navegador* navegador = Interfaz::importarHistorial(this->navegador);
+
+    if (navegador != nullptr) {
+		delete this->navegador;
+		this->navegador = navegador;
+	}
+
 }
 

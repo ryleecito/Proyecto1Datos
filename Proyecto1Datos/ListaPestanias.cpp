@@ -5,6 +5,7 @@ ListPestanias::ListPestanias()
 
 ListPestanias::~ListPestanias() {
     limpiarPestanias();
+    std::cout << "Lista pestanias eliminada" << std::endl;
 }
 
 int ListPestanias::size() const {
@@ -115,38 +116,46 @@ std::string ListPestanias::mostrarPestaniaActual() const
 
 void ListPestanias::guardarArchivoListaPestanias(std::ofstream& out)
 {
-  
-    posicionActualIdx = std::distance(pestanias.begin(), posicionActual);
 
     size_t numPestanias = pestanias.size();
     out.write(reinterpret_cast<const char*>(&numPestanias), sizeof(numPestanias));
 
-
-    for (const auto& pestania : pestanias) {
-        pestania->guardarArchivoPestania(out);
+    for (Pestania* pestania : pestanias) {
+        if (pestania) {
+            pestania->guardarArchivoPestania(out); 
+        }
     }
 
- 
     out.write(reinterpret_cast<const char*>(&posicionActualIdx), sizeof(posicionActualIdx));
 }
 
+
 ListPestanias* ListPestanias::cargarArchivoListaPestanias(std::ifstream& in)
 {
-    ListPestanias* listaPestanias = new ListPestanias();
-
+    ListPestanias* nuevaLista = new ListPestanias(); // Crear un nuevo objeto ListPestanias
     size_t numPestanias;
     in.read(reinterpret_cast<char*>(&numPestanias), sizeof(numPestanias));
 
     for (size_t i = 0; i < numPestanias; ++i) {
-        Pestania* pestania = Pestania::cargarArchivoPestania(in);
-        listaPestanias->pestanias.push_back(pestania);
+        Pestania* pestania = Pestania::cargarArchivoPestania(in); 
+        nuevaLista->add(pestania);
+
     }
 
-    in.read(reinterpret_cast<char*>(&listaPestanias->posicionActualIdx), sizeof(listaPestanias->posicionActualIdx));
+    size_t posicionActualIdx;
+    in.read(reinterpret_cast<char*>(&nuevaLista->posicionActualIdx), sizeof(nuevaLista->posicionActualIdx));
 
-    listaPestanias->posicionActual = std::next(listaPestanias->pestanias.begin(), listaPestanias->posicionActualIdx);
+    if (nuevaLista->posicionActualIdx < nuevaLista->pestanias.size()) {
+        nuevaLista->posicionActual = nuevaLista->pestanias.begin(); 
+        for (size_t i = 0; i < nuevaLista->posicionActualIdx; ++i) {
+            ++nuevaLista->posicionActual; 
+        }
+    }
+    else {
+        nuevaLista->posicionActual = nuevaLista->pestanias.end(); 
+    }
 
-    return listaPestanias;
+    return nuevaLista; 
 }
 
 SitioWeb* ListPestanias::getSitioActual() const

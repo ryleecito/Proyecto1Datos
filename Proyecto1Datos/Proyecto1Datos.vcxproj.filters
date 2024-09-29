@@ -77,14 +77,14 @@
     <ClCompile Include="Controladora.cpp">
       <Filter>Source Files\Interfaz</Filter>
     </ClCompile>
-    <ClCompile Include="Interfaz.cpp">
-      <Filter>Source Files\Interfaz</Filter>
-    </ClCompile>
     <ClCompile Include="Excepciones.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ListaPestanias.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaz.cpp">
+      <Filter>Source Files\Interfaz</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
