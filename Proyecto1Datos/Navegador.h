@@ -1,6 +1,7 @@
 #pragma once
 #include "Pestania.h"
 #include "ListaPestanias.h"
+#include <vector>
 #include <fstream>
 class Navegador
 {
@@ -8,7 +9,7 @@ private:
 
 	ListPestanias* listaPestanias;
 	ListPestanias* listaPestaniasIncognito;
-	std::list<SitioWeb*> sitios;
+	std::vector<SitioWeb*> sitios;
 	std::list<Marcador*> marcadoresGuardados;
 	bool modoIncognito;
 	ConfigHistorial* configuracion;
@@ -21,7 +22,7 @@ public:
 	ListPestanias* getListaPestanias();
 	std::list<Marcador*> getMarcadoresGuardados();
 	ListPestanias* getListaPestaniasIncognito();
-	std::list<SitioWeb*>* getListaSitiosW();
+	std::vector<SitioWeb*>* getListaSitiosW();
 
 	// metodos incognito
 	void cambiarModoIncognito();

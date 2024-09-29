@@ -8,7 +8,7 @@ Navegador::Navegador()
 	listaPestaniasIncognito = new ListPestanias();
     listaPestanias = new ListPestanias();
 	marcadoresGuardados = std::list<Marcador*>();
-	sitios = std::list<SitioWeb*>();
+	sitios = std::vector<SitioWeb*>();
 	cargarArchivoSitiosWebCSV("sitiosWeb.csv");
 }
 
@@ -50,7 +50,7 @@ ListPestanias* Navegador::getListaPestaniasIncognito()
 	return listaPestaniasIncognito;
 }
 
-std::list<SitioWeb*>* Navegador::getListaSitiosW()
+std::vector<SitioWeb*>* Navegador::getListaSitiosW()
 {
 	return &sitios;
 }
@@ -318,60 +318,29 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 
 void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) 
 {
-
-	const size_t tamanioBuffer = 2048;
-	char buffer[tamanioBuffer];
 	std::ifstream archivo(rutaArchivo);
 
 	if (!archivo.is_open()) {
-		std::cerr << "Error al abrir el archivo CSV: " << rutaArchivo << std::endl;
-		return;
+		throw ExcepcionGenerica("Error al abrir el archivo CSV: " + rutaArchivo);
 	}
 
-	std::string url, titulo, dominio;
-	std::string atributo;
+	std::string linea;
+	while (std::getline(archivo, linea)) {
+		std::stringstream ss(linea);
+		std::string url, titulo, dominio;
 
-	while (archivo.read(buffer, tamanioBuffer) || archivo.gcount() > 0) {
-		size_t bytes = archivo.gcount();
-		for (size_t i = 0; i < bytes; ++i) {
-			char c = buffer[i];
 
-			if (c == ',') {
-				if (url.empty()) {
-					url = atributo;
-					atributo.clear();
-				}
-				else if (titulo.empty()) {
-					titulo = atributo;
-					atributo.clear();
-				}
-			}
-			else if (c == '\n') {
-				dominio = atributo;
-				if (!url.empty() && !titulo.empty() && !dominio.empty()) {
-					SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
-					sitios.push_back(sitio);
-				}
+		if (std::getline(ss, url, ',') &&
+			std::getline(ss, titulo, ',') &&
+			std::getline(ss, dominio))
+		{
 
-				url.clear();
-				titulo.clear();
-				dominio.clear();
-				atributo.clear();
-			}
-			else {
-				atributo += c;
-			}
+			SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
+			sitios.push_back(sitio);
 		}
 	}
 
-	if (!url.empty() && !titulo.empty() && !atributo.empty()) {
-		dominio = atributo;  
-		SitioWeb* sitio = new SitioWeb(url, titulo, dominio);
-		sitios.push_back(sitio);
-	}
-
 	archivo.close();
-
 }
 
 

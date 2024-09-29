@@ -19,8 +19,8 @@ public:
 	virtual ~ConfigHistorial();
 	void setMaxEntradas(int maxEntradas);
 	void setTiempoMaximo(int tiempoMaximo);
-	int getTiempoMaximo();
-	int getMaxEntradas();
+	int getTiempoMaximo() const;
+	int getMaxEntradas() const;
 
 	void guardarArchivoConfigHistorial(std::ofstream& out);
 	static ConfigHistorial* cargarArchivoConfigHistorial(std::ifstream& in);

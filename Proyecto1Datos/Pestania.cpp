@@ -142,13 +142,10 @@ std::string Pestania::toString() const
     return s.str();
 }
 
-// la pestania siempre tendra un historia asignado entonces no hay
-// necesidad de verificar si es nullptr
+
 void Pestania::guardarArchivoPestania(std::ofstream& out)
 {
-
    historial->guardarArchivoHistorial(out);
- 
 }
 
 Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)

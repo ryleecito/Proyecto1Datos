@@ -44,7 +44,7 @@ void ConfigHistorial::setMaxEntradas(int maxEntradas)
     this->maxEntradas = maxEntradas;
 }
 
-int ConfigHistorial::getMaxEntradas()
+int ConfigHistorial::getMaxEntradas() const
 {
     return maxEntradas;
 }
@@ -54,7 +54,7 @@ void ConfigHistorial::setTiempoMaximo(int tiempoMaximo)
     this->tiempoMaximo = tiempoMaximo;
 }
 
-int ConfigHistorial::getTiempoMaximo()
+int ConfigHistorial::getTiempoMaximo() const
 {
     return tiempoMaximo;
 }

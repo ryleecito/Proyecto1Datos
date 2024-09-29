@@ -63,6 +63,7 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
 
 
 int Interfaz::detectarTecla(Navegador* navegador, bool mainMenu) {
+
     HANDLE hConsole = GetStdHandle(STD_INPUT_HANDLE);
     INPUT_RECORD irInBuf[128];
     DWORD cNumRead;

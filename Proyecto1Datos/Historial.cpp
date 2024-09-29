@@ -237,15 +237,13 @@ bool Historial::limpiarEntradasViejas()
 
     bool entradasBorradas = false;
 
-    auto posicionOriginal = posicionActual;
+    auto& posicionOriginal = posicionActual;
 
 
     for (auto it = historial.begin(); it != historial.end(); ) {
         SitioWeb* sitio = *it;
 
-        double diff = std::chrono::duration_cast<std::chrono::seconds>(
-            std::chrono::system_clock::now() - sitio->getTiempoDeIngreso()
-        ).count();
+        double diff = static_cast<double>(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - sitio->getTiempoDeIngreso()).count());
 
         if (diff > tiempoMaximo) {
             delete sitio;         
