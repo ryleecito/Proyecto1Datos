@@ -292,6 +292,7 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 	in.read(reinterpret_cast<char*>(&navegador->modoIncognito), sizeof(navegador->modoIncognito));
 
 	if (navegador->listaPestanias) {
+		delete navegador->listaPestanias;
 		navegador->listaPestanias= ListPestanias::cargarArchivoListaPestanias(in);
 	}
 
