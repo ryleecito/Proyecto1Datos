@@ -16,7 +16,7 @@ Navegador::~Navegador()
 {
 	delete listaPestaniasIncognito;  
 	delete listaPestanias;    
-	ConfigHistorial::destruirInstancia();
+	//ConfigHistorial::destruirInstancia();
 
 	for (auto marcador : marcadoresGuardados) {
 		delete marcador;               
@@ -308,7 +308,11 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 		}
 	}
 
-	navegador->configuracion = ConfigHistorial::cargarArchivoConfigHistorial(in);
+	ConfigHistorial* config = ConfigHistorial::cargarArchivoConfigHistorial(in);
+
+	navegador->configuracion->getInstancia()->setMaxEntradas(config->getMaxEntradas());
+	navegador->configuracion->getInstancia()->setTiempoMaximo(config->getTiempoMaximo());	
+
 	return navegador;
 }
 

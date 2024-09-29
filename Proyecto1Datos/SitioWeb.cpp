@@ -18,7 +18,6 @@ SitioWeb::SitioWeb(const SitioWeb& sitio)
 
 SitioWeb::~SitioWeb()
 {
-
 }
 
 std::string SitioWeb::getUrl() const

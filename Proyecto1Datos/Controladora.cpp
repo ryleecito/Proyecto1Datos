@@ -252,14 +252,10 @@ void Controladora::control3_2()
 {
     Navegador* navegador1 = Interfaz::importarHistorial(this->navegador);
 
-	int tiemMax = navegador1->getConfiguraciones()->getTiempoMaximo();
-	int cantMax = navegador1->getConfiguraciones()->getMaxEntradas();
 
     if (navegador1 != nullptr) {
 		delete this->navegador;
 		this->navegador = navegador1;
-		navegador->getConfiguraciones()->setMaxEntradas(cantMax);
-		navegador->getConfiguraciones()->setTiempoMaximo(tiemMax);
 	}
 
 
