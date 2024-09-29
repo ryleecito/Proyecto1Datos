@@ -53,12 +53,13 @@ std::list<SitioWeb*>* Navegador::getListaSitiosW()
 	return &sitios;
 }
 
-void Navegador::cambiarModoIncognito()
-{
-	if (modoIncognito == true) {
+void Navegador::cambiarModoIncognito() {
+	modoIncognito = !modoIncognito;
+
+	if (modoIncognito) {
 		listaPestaniasIncognito->limpiarPestanias();
 	}
-	modoIncognito = !modoIncognito;
+
 }
 
 bool Navegador::getModoIncognito() const
@@ -79,10 +80,8 @@ void Navegador::agregarPestania(Pestania* pest)
 {
 	if (modoIncognito)
 	{
-		if (listaPestaniasIncognito->size() == 0) {
-			return listaPestaniasIncognito->add(pest);
-		}
-		return;
+		 listaPestaniasIncognito->add(pest);
+		 return;
 	}
 	listaPestanias->add(pest);
 }
@@ -358,15 +357,6 @@ void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) {
 
 }
 
-void Navegador::limpiarPestanias()
-{
-	if (modoIncognito) {
-		listaPestaniasIncognito->limpiarPestanias();
-	}
-	else {
-		listaPestanias->limpiarPestanias();
-	}
-}
 
 ConfigHistorial* Navegador::getConfiguraciones() const
 {

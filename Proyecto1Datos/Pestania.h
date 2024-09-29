@@ -20,6 +20,7 @@ public:
   
     Pestania();
     Pestania(Historial* historial);
+    Pestania(const Pestania&);
     virtual ~Pestania();
     void setHistorial(Historial* historial);
     Historial* getHistorial() const; 

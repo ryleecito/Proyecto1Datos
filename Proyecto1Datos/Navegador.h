@@ -63,7 +63,6 @@ public:
 	static Navegador* cargarArchivoNavegador(std::ifstream& in);
 
 	void cargarArchivoSitiosWebCSV(const std::string& rutaArchivo);
-	void limpiarPestanias();
 
 
 

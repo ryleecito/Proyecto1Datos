@@ -43,12 +43,27 @@ void ListPestanias::avanzar() {
 }
 
 void ListPestanias::limpiarPestanias() {
-    for (auto& pestania : pestanias) {
-        delete pestania;  
+
+    if (!pestanias.empty()) {
+        for (auto& pestania : pestanias) {
+            delete pestania;
+        }
+
     }
-    pestanias.clear();   
+    pestanias.clear();
     posicionActual = pestanias.end();
     posicionActualIdx = -1;  
+}
+
+void ListPestanias::reiniciar() {
+    if (!pestanias.empty()) {
+        posicionActual = pestanias.begin();
+        posicionActualIdx = 0;
+    }
+    else {
+        posicionActual = pestanias.end();
+        posicionActualIdx = -1;
+    }
 }
 
 int ListPestanias::getPosicionActualIndex() const {

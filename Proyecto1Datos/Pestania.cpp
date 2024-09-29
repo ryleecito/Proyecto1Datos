@@ -10,6 +10,11 @@ Pestania::Pestania(Historial* historial)
 {
 }
 
+Pestania::Pestania(const Pestania&)
+{
+    this->historial = new Historial();
+}
+
 Pestania::~Pestania()
 {
     delete historial; 
@@ -119,6 +124,8 @@ std::string Pestania::toString() const
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
         s << border << std::endl;
         s << std::endl;
+
+
         
     }
     else {
@@ -128,6 +135,9 @@ std::string Pestania::toString() const
         s << "[ No hay sitio actual disponible       ]" << std::endl; 
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
         s << border << std::endl;
+        s << std::endl;
+
+        s << "Yo soy esta pestaña: " << this << std::endl;
         s << std::endl;
     }
 

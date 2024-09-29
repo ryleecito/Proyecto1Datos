@@ -138,7 +138,8 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
     SitioWeb* sitio = navegador->buscarPaginaWeb(url);
 
     if (!navegador->getPestaniaActual()) {
-        agregarPestania(navegador);
+
+        navegador->agregarPestania(new Pestania());
     }
 
    navegador->agregarPaginaWeb(sitio);

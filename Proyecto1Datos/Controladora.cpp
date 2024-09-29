@@ -85,8 +85,9 @@ void Controladora::control3()
 {
     int opcion = 0;
     do {
+        Interfaz::menuImportarExportar(navegador);
         try {
-            Interfaz::menuImportarExportar(navegador);
+
             Sleep(300);
             opcion = Interfaz::detectarTecla(navegador, 0);
             switch (opcion) {
@@ -118,8 +119,9 @@ void Controladora::control5()
 {
     int opcion = 0;
     do {
+        Interfaz::busquedaYFiltros(navegador);
         try {
-            Interfaz::busquedaYFiltros(navegador);
+
             Sleep(300);
             opcion = Interfaz::detectarTecla(navegador, 0);
             switch (opcion) {
@@ -160,8 +162,9 @@ void Controladora::control8()
 {
     int opcion = 0;
     do {
+        Interfaz::menuConfiguraciones(navegador);
         try {
-            Interfaz::menuConfiguraciones(navegador);
+
             Sleep(300);
             opcion = Interfaz::detectarTecla(navegador, 0);
             switch (opcion) {
