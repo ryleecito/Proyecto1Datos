@@ -15,7 +15,7 @@ Marcador::Marcador(SitioWeb* sitio, const std::string& etiqueta): sitio(new Siti
 Marcador::~Marcador()
 {
     delete sitio;
-    std::cout << "Marcador borrado" << std::endl;
+   
 }
 void Marcador::anadirEtiqueta(const std::string& etiqueta)
 {

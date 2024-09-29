@@ -18,7 +18,7 @@ Pestania::Pestania(const Pestania&)
 Pestania::~Pestania()
 {
     delete historial; 
-    std::cout << "Pestania borrada." << std::endl;
+  
 }
 
 int Pestania::sizeHistorial() const

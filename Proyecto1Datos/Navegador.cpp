@@ -24,7 +24,7 @@ Navegador::~Navegador()
 	for (auto sitio : sitios) {
 		delete sitio;                
 	}
-	std::cout << "Navegador borrado." << std::endl;
+
 
 }
 
@@ -280,6 +280,9 @@ void Navegador::guardarArchivoNavegador(std::ofstream& out)
 			marcador->guardarArchivoMarcador(out); 
 		}
 	}
+	ConfigHistorial* config = ConfigHistorial::getInstancia();
+	config->guardarArchivoConfigHistorial(out);
+
 
 
 }
@@ -305,8 +308,7 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 		}
 	}
 
-	//navegador->configuracion = ConfigHistorial::cargarArchivoConfigHistorial(in);
-
+	navegador->configuracion = ConfigHistorial::cargarArchivoConfigHistorial(in);
 	return navegador;
 }
 

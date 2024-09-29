@@ -5,7 +5,7 @@ ListPestanias::ListPestanias()
 
 ListPestanias::~ListPestanias() {
     limpiarPestanias();
-    std::cout << "Lista pestanias eliminada" << std::endl;
+   
 }
 
 int ListPestanias::size() const {

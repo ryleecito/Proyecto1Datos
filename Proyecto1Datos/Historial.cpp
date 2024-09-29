@@ -11,7 +11,7 @@ Historial::Historial() : posicionActual(historial.end()), filtro("")
 Historial::~Historial() 
 {
     limpiarHistorial();
-    std::cout << "Historial borrado." << std::endl;
+  
 }
 
 int Historial::size() const 

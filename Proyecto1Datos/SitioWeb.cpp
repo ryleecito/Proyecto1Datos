@@ -17,7 +17,7 @@ SitioWeb::SitioWeb(const SitioWeb& other)
 
 SitioWeb::~SitioWeb()
 {
-    std::cout << "sitioweb borrado"<<titulo << std::endl;
+
 }
 
 std::string SitioWeb::getUrl() const

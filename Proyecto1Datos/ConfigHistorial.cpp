@@ -14,7 +14,6 @@ void ConfigHistorial::destruirInstancia()
 	if (instancia != nullptr)
 	{
 		delete instancia;
-        std::cout << "configuracion borrada." << std::endl;
 		instancia = nullptr;
 	}
 
