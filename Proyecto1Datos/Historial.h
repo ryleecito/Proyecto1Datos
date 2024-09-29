@@ -37,8 +37,8 @@ public:
     void moverseAPrimeraCoincidencia();
 
     // metodos de guardar y cargar archivo
-    void serializarHistorial(std::ofstream& out);
-    static Historial* deserializar(std::ifstream& in);
+	void guardarArchivoHistorial(std::ofstream& in);
+	static Historial* cargarArchivoHistorial(std::ifstream& out);
 
     //Metodos de SitioWeb
 

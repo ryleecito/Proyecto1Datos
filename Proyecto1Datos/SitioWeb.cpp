@@ -98,6 +98,7 @@ SitioWeb* SitioWeb::cargarArchivoSitioWeb(std::ifstream& in)
     in.read(reinterpret_cast<char*>(&dominioTama), sizeof(dominioTama));
     std::string dominio(dominioTama, ' ');
     in.read(&dominio[0], dominioTama);
+   
     return new SitioWeb(url, titulo, dominio);
 }
 

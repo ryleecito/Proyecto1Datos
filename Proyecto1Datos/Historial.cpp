@@ -296,41 +296,43 @@ void Historial::moverseAPrimeraCoincidencia() {
     }
 }
 
+Historial* Historial::cargarArchivoHistorial(std::ifstream& in) {
+    Historial* historial = new Historial();
 
-void Historial::serializarHistorial(std::ofstream& out)
-{
-    //if (configuraciones != nullptr) {
-    //    configuraciones->guardarArchivoConfigHistorial(out);
-    //}
+    size_t numSitios;
+    in.read(reinterpret_cast<char*>(&numSitios), sizeof(numSitios));
 
-    //size_t size = historial.size();
-    //out.write(reinterpret_cast<const char*>(&size), sizeof(size));
+    // Cargar cada sitio web
+    for (size_t i = 0; i < numSitios; ++i) {
+        SitioWeb* sitio = SitioWeb::cargarArchivoSitioWeb(in); // Asumiendo que hay un método para cargar SitioWeb
+        historial->historial.push_back(sitio);
+    }
 
-    //for (SitioWeb* sitio : historial) {
-    //    sitio->guardarArchivoSitioWeb(out);
-    //}
+    // Cargar la posición relativa
+    int posicionActualIdx;
+    in.read(reinterpret_cast<char*>(&posicionActualIdx), sizeof(posicionActualIdx));
+
+    // Reconstruir el iterador
+    historial->posicionActual = std::next(historial->historial.begin(), posicionActualIdx);
+
+    return historial;
 }
+void Historial::guardarArchivoHistorial(std::ofstream& out) {
+    // Calcular la posición relativa del iterador
+    int posicionActualIdx = std::distance(historial.begin(), posicionActual);
 
-Historial* Historial::deserializar(std::ifstream& in)
-{
-    //Historial* historialCargado = new Historial(); 
-    //ConfigHistorial* configuracionCargado = ConfigHistorial::cargarArchivoConfigHistorial(in);
-    //historialCargado->setConfiguraciones(configuracionCargado);
+    // Guardar el número de sitios web en el historial
+    size_t numSitios = historial.size();
+    out.write(reinterpret_cast<const char*>(&numSitios), sizeof(numSitios));
 
-    //size_t size;
-    //in.read(reinterpret_cast<char*>(&size), sizeof(size));
-    //for (size_t i = 0; i < size; ++i) {
-    //    SitioWeb* sitio = SitioWeb::cargarArchivoSitioWeb(in);
-    //    if (sitio) {
-    //        historialCargado->historial.push_back(sitio);
-    //    }
-    //}
-    //historialCargado->posicionActual = historialCargado->historial.end();
+    // Guardar cada sitio web
+    for (const auto& sitio : historial) {
+        sitio->guardarArchivoSitioWeb(out); // Asumiendo que hay un método para guardar SitioWeb
+    }
 
-    //return historialCargado; 
-    return nullptr;
+    // Guardar la posición relativa
+    out.write(reinterpret_cast<const char*>(&posicionActualIdx), sizeof(posicionActualIdx));
 }
-
 std::string Historial::getUrlActual() const
 {
     if (posicionActual != historial.end()) {

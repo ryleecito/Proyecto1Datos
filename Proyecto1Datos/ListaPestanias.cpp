@@ -115,27 +115,38 @@ std::string ListPestanias::mostrarPestaniaActual() const
 
 void ListPestanias::guardarArchivoListaPestanias(std::ofstream& out)
 {
-    size_t size = pestanias.size();
-    out.write(reinterpret_cast<const char*>(&size), sizeof(size)); 
+  
+    posicionActualIdx = std::distance(pestanias.begin(), posicionActual);
 
-    for (Pestania* pestania : pestanias) {
+    size_t numPestanias = pestanias.size();
+    out.write(reinterpret_cast<const char*>(&numPestanias), sizeof(numPestanias));
+
+
+    for (const auto& pestania : pestanias) {
         pestania->guardarArchivoPestania(out);
     }
+
+ 
+    out.write(reinterpret_cast<const char*>(&posicionActualIdx), sizeof(posicionActualIdx));
 }
 
 ListPestanias* ListPestanias::cargarArchivoListaPestanias(std::ifstream& in)
 {
-    ListPestanias* listaCargada = new ListPestanias(); 
-    size_t size = 0;
-    in.read(reinterpret_cast<char*>(&size), sizeof(size)); 
+    ListPestanias* listaPestanias = new ListPestanias();
 
-    for (size_t i = 0; i < size; ++i) {
-        Pestania* pestania = Pestania::cargarArchivoPestania(in); 
-        if (pestania) {
-            listaCargada->add(pestania);
-        }
+    size_t numPestanias;
+    in.read(reinterpret_cast<char*>(&numPestanias), sizeof(numPestanias));
+
+    for (size_t i = 0; i < numPestanias; ++i) {
+        Pestania* pestania = Pestania::cargarArchivoPestania(in);
+        listaPestanias->pestanias.push_back(pestania);
     }
-    return listaCargada; 
+
+    in.read(reinterpret_cast<char*>(&listaPestanias->posicionActualIdx), sizeof(listaPestanias->posicionActualIdx));
+
+    listaPestanias->posicionActual = std::next(listaPestanias->pestanias.begin(), listaPestanias->posicionActualIdx);
+
+    return listaPestanias;
 }
 
 SitioWeb* ListPestanias::getSitioActual() const

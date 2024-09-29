@@ -148,12 +148,12 @@ std::string Pestania::toString() const
 // necesidad de verificar si es nullptr
 void Pestania::guardarArchivoPestania(std::ofstream& out)
 {
-    historial->serializarHistorial(out); 
+    historial->guardarArchivoHistorial(out); 
 }
 
 Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)
 {
-    Historial* historialCargado = Historial::deserializar(in);
+    Historial* historialCargado = Historial::cargarArchivoHistorial(in);
     return new Pestania(historialCargado);
 }
 
