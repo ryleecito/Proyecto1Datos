@@ -260,6 +260,10 @@ void Historial::setFiltro(std::string filtro)
 	this->filtro = filtro;
 }
 
+// Este metodo lo que hace es moverse a la primera coincidencia
+// cuando aplicamos el filtro, esto es por si estamos en una pagina web
+// que no esta dentro de las paginas webs con el filtro
+
 void Historial::moverseAPrimeraCoincidencia() 
 {
     

@@ -165,6 +165,8 @@ void Navegador::agregarMarcador(Marcador* marcador)
    // posicionActual = std::prev(marcadoresGuardados.end());
 }
 
+// Metodo para imprimir todos los bookmarks guardados en el navegador
+// Si no hay bookmarks guardados, se imprime un mensaje indicando que no hay bookmarks guardados
 std::string Navegador::mostrarMarcadoresGuardados() const
 {
 	std::stringstream ss;
@@ -186,6 +188,10 @@ std::string Navegador::mostrarMarcadoresGuardados() const
 	return ss.str();
 }
 
+// Este metodo busca un marcador por el sitio web que tiene asociado
+// Si no se encuentra el marcador, se retorna nullptr
+// Si se encuentra el marcador, se retorna el marcador
+// hace las comparaciones con la URL del sitio web asociado al marcador
 Marcador* Navegador::buscarMarcadorPorSitio(SitioWeb* sitio)
 {
 	auto it = std::find_if(marcadoresGuardados.begin(), marcadoresGuardados.end(), [&](Marcador* marcador) {
@@ -232,6 +238,9 @@ void Navegador::paginaSiguiente()
 	listaPestanias->irAdelante();
 }
 
+// Metodo que retorna la cantidad de paginas en el historial
+// Si no hay paginas en el historial, se retorna 0
+// si no hay pestanias, se retorna 0
 int Navegador::cantidadPaginas()
 {
 
@@ -316,6 +325,10 @@ Navegador* Navegador::cargarArchivoNavegador(std::ifstream& in)
 	return navegador;
 }
 
+// Metodo que carga los sitios web de un archivo CSV
+// Si no se puede abrir el archivo, se lanza una excepcion
+// Si se puede abrir el archivo, se leen las lineas del archivo
+// leemos los 3 campos de la linea (url,titulo, dominio)
 void Navegador::cargarArchivoSitiosWebCSV(const std::string& rutaArchivo) 
 {
 	std::ifstream archivo(rutaArchivo);
@@ -360,6 +373,9 @@ void Navegador::setTiempoMaximo(int time)
 	configuracion->setTiempoMaximo(time);
 	limpiarViejasEntradas();
 }
+
+// Metodo que reinicia las configuraciones del historial
+// Se reinicia el maximo de entradas y el tiempo maximo a -1 (que es cuando no hay configs)
 
 void Navegador::reiniciarConfiguraciones()
 {

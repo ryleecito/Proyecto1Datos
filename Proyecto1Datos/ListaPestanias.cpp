@@ -204,6 +204,9 @@ std::string ListPestanias::busquedaPalabraClave(const std::string& palabraClave)
     return "";
 }
 
+// Este metodo lo utilizamos para cuando aplicamos un filtro
+// y queremos movernos a la primera coincidencia
+// en la lista de historial
 void ListPestanias::moverseAPrimeraCoincidencia()
 {
     if (posicionActual != pestanias.end()) {
