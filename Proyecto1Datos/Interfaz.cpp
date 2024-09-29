@@ -192,7 +192,7 @@ void Interfaz::agregarBookmark(Navegador* navegador)
 void Interfaz::mostrarBookmarks(Navegador* navegador)
 {
     if (navegador->getModoIncognito()) {
-        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
+        throw ExcepcionGenerica("No se pueden mostrar bookmarks en modo incognito");
     }
     std::cout << navegador->mostrarMarcadoresGuardados();
     system("pause");
@@ -332,7 +332,7 @@ Navegador* Interfaz::importarHistorial(Navegador* navegador)
     std::cout << "Ingrese el nombre de la sesion que quiere importar al navegador: ";
     std::cin >> opc;
 
-    std::ifstream archivo(opc, std::ios::binary);
+    std::ifstream archivo(opc+".bin", std::ios::binary);
     if (!archivo) {
         throw ExcepcionGenerica("Error: No se ha podido abrir el archivo, verifique el nombre de la sesion");
     }
@@ -353,14 +353,12 @@ Navegador* Interfaz::importarHistorial(Navegador* navegador)
 
 void Interfaz::exportarHistorial(Navegador* navegador)
 {
-    if (navegador->getModoIncognito()) {
-        throw ExcepcionGenerica("No se pueden agregar bookmarks en modo incognito");
-    }
+
     std::string opc;
     std::cout << "Ingrese el nombre con el que quiere guardar la sesion: ";
     std::cin >> opc;
 
-    std::ofstream archivo(opc, std::ios::binary); 
+    std::ofstream archivo(opc+".bin", std::ios::binary);
     if (!archivo) {
         throw ExcepcionGenerica("Error: No se ha podido crear el archivo.");
 		system("pause");

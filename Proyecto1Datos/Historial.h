@@ -19,7 +19,6 @@ public:
     virtual ~Historial();
     int size() const;
     void add(SitioWeb* sitioWeb);
-    bool existeSitio(SitioWeb* site);
     void eliminarSitioSiExiste(SitioWeb* site);
     void retroceder();
     void avanzar();
@@ -30,10 +29,8 @@ public:
     std::string toString() const;
     void ajustarTamanoHistorial();
 	bool limpiarEntradasViejas();
-
     std::string getFiltro();
 	void setFiltro(std::string filtro);
-
     void moverseAPrimeraCoincidencia();
 
     // metodos de guardar y cargar archivo

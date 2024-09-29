@@ -16,13 +16,11 @@ Historial::~Historial()
 
 int Historial::size() const 
 {
-
     return (int)historial.size();
 }
 
 void Historial::add(SitioWeb* sitioWeb)
 {
-
     if (historial.empty()) {
         historial.push_back(new SitioWeb(*sitioWeb));
         posicionActual = std::prev(historial.end());
@@ -44,26 +42,12 @@ void Historial::add(SitioWeb* sitioWeb)
     filtro = "";
 }
 
-bool Historial::existeSitio(SitioWeb* site) {
-
-    for (const auto& sitio : historial) {
-        if (sitio->getUrl() == site->getUrl()) {
-            return true; 
-        }
-    }
-    return false; 
-}
-
-void Historial::eliminarSitioSiExiste(SitioWeb* site) {
-
-    if (!existeSitio(site)) {
-        return; 
-    }
-
+void Historial::eliminarSitioSiExiste(SitioWeb* site) 
+{
     for (auto iter = historial.begin(); iter != historial.end(); ++iter) {
-        if ((*iter)->getUrl() == site->getUrl()) { 
-            delete* iter;
-            historial.erase(iter);
+        if ((*iter)->getUrl() == site->getUrl()) {
+            delete* iter;        
+            historial.erase(iter); 
             return;
         }
     }
@@ -90,7 +74,7 @@ void Historial::retroceder()
             posicionActual = nuevaPosicion; 
             return;
         }
-        nuevaPosicion = std::prev(nuevaPosicion); 
+        nuevaPosicion = --nuevaPosicion; 
     }
 
     if ((*historial.begin())->getTitulo().find(filtro) != std::string::npos ||

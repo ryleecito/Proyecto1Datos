@@ -125,9 +125,6 @@ std::string Pestania::toString() const
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
         s << border << std::endl;
         s << std::endl;
-
-
-        
     }
     else {
         s << "              NAVEGADOR WEB          " << std::endl;
