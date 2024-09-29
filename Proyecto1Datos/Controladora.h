@@ -1,6 +1,8 @@
 #pragma once
 #include "Navegador.h"
 #include "Interfaz.h"
+#include <windows.h>
+
 class Controladora
 {
 private:

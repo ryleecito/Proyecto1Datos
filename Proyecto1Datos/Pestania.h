@@ -1,12 +1,4 @@
 #pragma once
-#include <iostream>
-#include <sstream>
-#include <deque>
-#include <fstream>  
-#include <string>   
-#include <chrono>
-#include "Marcador.h"
-#include "SitioWeb.h"
 #include "Historial.h"
 
 class Pestania

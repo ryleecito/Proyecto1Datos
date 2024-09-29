@@ -1,5 +1,5 @@
 #include "Navegador.h"
-#include "Excepciones.h"
+
 
 Navegador::Navegador()
 {

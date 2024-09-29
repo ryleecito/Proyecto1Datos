@@ -1,8 +1,7 @@
 #pragma once
-#include "Excepciones.h"
+#define NOMINMAX
 #include "Navegador.h"
-#include <sstream>
-#include <iostream>
+#include <windows.h>
 
 class Interfaz
 {

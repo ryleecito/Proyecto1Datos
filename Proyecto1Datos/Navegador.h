@@ -1,8 +1,11 @@
 #pragma once
+#include "Excepciones.h"
 #include "Pestania.h"
 #include "ListaPestanias.h"
+#include "Marcador.h"
+#include "ConfigHistorial.h"
 #include <vector>
-#include <fstream>
+
 class Navegador
 {
 private:

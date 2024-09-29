@@ -1,12 +1,7 @@
 
 #pragma once
-#define NOMINMAX
 #include "Interfaz.h"
-#include "Excepciones.h"
-#include "Navegador.h"
-#include <sstream>
-#include <iostream>
-#include <windows.h>
+
 
 
 void Interfaz::mostrarNavegador(Navegador* navegador) {

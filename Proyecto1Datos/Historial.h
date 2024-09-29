@@ -1,11 +1,6 @@
 #pragma once
-#include <deque>
 #include <list>
-#include <string>
-#include "ConfigHistorial.h"
 #include "SitioWeb.h"
-#include <fstream>
-
 
 class Historial
 {
@@ -15,6 +10,7 @@ private:
     std::string filtro;
     
 public:
+
     Historial();
     virtual ~Historial();
     int size() const;
@@ -34,6 +30,7 @@ public:
     void moverseAPrimeraCoincidencia();
 
     // metodos de guardar y cargar archivo
+
 	void guardarArchivoHistorial(std::ofstream& in);
 	static Historial* cargarArchivoHistorial(std::ifstream& out);
 
@@ -42,10 +39,5 @@ public:
     std::string getUrlActual() const;
     std::string getTituloActual() const;
     std::string getDominioActual()const;
-
-
-
-
-
 
 };

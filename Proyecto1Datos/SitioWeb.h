@@ -33,7 +33,4 @@ public:
     void guardarArchivoSitioWeb(std::ofstream& out);
     static SitioWeb* cargarArchivoSitioWeb(std::ifstream& in);
 
-
-
-
 };

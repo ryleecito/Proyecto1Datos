@@ -132,7 +132,7 @@ void ListPestanias::guardarArchivoListaPestanias(std::ofstream& out)
 
 ListPestanias* ListPestanias::cargarArchivoListaPestanias(std::ifstream& in)
 {
-    ListPestanias* nuevaLista = new ListPestanias(); // Crear un nuevo objeto ListPestanias
+    ListPestanias* nuevaLista = new ListPestanias();
     size_t numPestanias = 0;
     in.read(reinterpret_cast<char*>(&numPestanias), sizeof(numPestanias));
 

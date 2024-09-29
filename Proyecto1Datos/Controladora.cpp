@@ -1,5 +1,4 @@
 #include "Controladora.h"
-#include <windows.h>
 
 Controladora::Controladora() {
     navegador = new Navegador();
