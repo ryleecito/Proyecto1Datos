@@ -1,12 +1,13 @@
 #pragma once
 #include "Pestania.h"
+#include "PestaniaIncognito.h"
 
 class ListPestanias
 {
 private:
 
-    std::list<Pestania*> pestanias;
-    std::list<Pestania*>::iterator posicionActual;
+    std::list<PestaniaAbstracta*> pestanias;
+    std::list<PestaniaAbstracta*>::iterator posicionActual;
     int posicionActualIdx; 
    
 public:
@@ -16,14 +17,14 @@ public:
     virtual ~ListPestanias();
 
     int size() const;
-    void add(Pestania* pestania);
+    void add(PestaniaAbstracta* pestania);
     void retroceder();
     void avanzar();
     void limpiarPestanias();
     void reiniciar();
     int getPosicionActualIndex() const;
     std::string toString() const;
-    std::list<Pestania*> getPestanias() const;
+    std::list<PestaniaAbstracta*> getPestanias() const;
 
 
 	void guardarArchivoListaPestanias(std::ofstream& out);
@@ -33,7 +34,7 @@ public:
 
     Historial* getHistorial() const;
     void agregarPaginaWeb(SitioWeb* sitio);
-    Pestania* getPestaniaActual() const;
+    PestaniaAbstracta* getPestaniaActual() const;
     std::string mostrarPestaniaActual() const;
 
     //Metodos de historial

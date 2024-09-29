@@ -6,7 +6,7 @@ Pestania::Pestania()
 }
 
 Pestania::Pestania(Historial* historial)
-    : historial(historial) 
+    : historial(historial)
 {
 }
 
@@ -17,8 +17,8 @@ Pestania::Pestania(const Pestania&)
 
 Pestania::~Pestania()
 {
-    delete historial; 
-  
+    delete historial;
+
 }
 
 int Pestania::sizeHistorial() const
@@ -56,12 +56,12 @@ bool Pestania::limpiarEntradasViejas()
 
 std::string Pestania::busquedaPalabraClave(const std::string& palabraClave)
 {
-	return historial->busquedaPalabraClave(palabraClave);
+    return historial->busquedaPalabraClave(palabraClave);
 }
 
 void Pestania::moverseAPrimeraCoincidencia()
 {
-	historial->moverseAPrimeraCoincidencia();
+    historial->moverseAPrimeraCoincidencia();
 }
 
 void Pestania::setFiltro(const std::string& filtro)
@@ -92,7 +92,7 @@ void Pestania::setHistorial(Historial* historial1)
     {
         delete this->historial;
     }
-    this->historial = historial1; 
+    this->historial = historial1;
 }
 
 Historial* Pestania::getHistorial() const
@@ -112,7 +112,7 @@ std::string Pestania::toString() const
     const int contentWidth = width - 4;
     const std::string border(width, '-');
 
-    if ( historial->getSitioActual() != nullptr) {
+    if (historial->getSitioActual() != nullptr) {
         s << "              NAVEGADOR WEB          " << std::endl;
         s << border << std::endl;
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
@@ -130,7 +130,7 @@ std::string Pestania::toString() const
         s << "              NAVEGADOR WEB          " << std::endl;
         s << border << std::endl;
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
-        s << "[ No hay sitio actual disponible       ]" << std::endl; 
+        s << "[ No hay sitio actual disponible       ]" << std::endl;
         s << "[ " << std::string(contentWidth, ' ') << " ]" << std::endl;
         s << border << std::endl;
         s << std::endl;
@@ -142,7 +142,7 @@ std::string Pestania::toString() const
 
 void Pestania::guardarArchivoPestania(std::ofstream& out)
 {
-   historial->guardarArchivoHistorial(out);
+    historial->guardarArchivoHistorial(out);
 }
 
 Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)
@@ -150,4 +150,3 @@ Pestania* Pestania::cargarArchivoPestania(std::ifstream& in)
     Historial* historialCargado = Historial::cargarArchivoHistorial(in);
     return new Pestania(historialCargado);
 }
-

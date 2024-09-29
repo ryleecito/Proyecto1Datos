@@ -1,6 +1,6 @@
 #pragma once
 #include "Excepciones.h"
-#include "Pestania.h"
+#include "PestaniaAbstracta.h"
 #include "ListaPestanias.h"
 #include "Marcador.h"
 #include "ConfigHistorial.h"
@@ -34,12 +34,12 @@ public:
 
 	//metodos de lista pestanias
 	int cantidadPestanias();
-	void agregarPestania(Pestania* pest);
+	void agregarPestania();
 	int posicionDelIndex();
 	void pestaniaAnterior();
 	void pestaniaSiguiente();
 	void agregarPaginaWeb(SitioWeb* sitio);
-	Pestania* getPestaniaActual();
+	PestaniaAbstracta* getPestaniaActual();
 	std::string mostrarPestaniaActual();
 	bool limpiarViejasEntradas();
 	void ajustarTamanoHistorial();
@@ -57,7 +57,6 @@ public:
 	SitioWeb* buscarPaginaWeb(const std::string url);
 	void paginaAnterior();
 	void paginaSiguiente();
-	int cantidadPaginas();
 	std::string busquedaPalabraClave(const std::string& palabraClave);
 	void setFiltro(const std::string& filtro);
 	void moverseAPrimeraCoincidencia();

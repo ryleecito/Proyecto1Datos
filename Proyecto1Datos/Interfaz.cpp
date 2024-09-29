@@ -111,7 +111,7 @@ int Interfaz::detectarTecla(Navegador* navegador, bool mainMenu) {
 
 void Interfaz::agregarPestania(Navegador* navegador )
 {
-    navegador->agregarPestania(new Pestania());
+    navegador->agregarPestania();
 }
 
 void Interfaz::pestaniaAnterior(Navegador* navegador)
@@ -135,7 +135,7 @@ void Interfaz::agregarPaginaWeb(Navegador* navegador)
 
     if (!navegador->getPestaniaActual()) {
 
-        navegador->agregarPestania(new Pestania());
+        agregarPestania(navegador);
     }
 
     sitio->setTiempoDeIngreso(std::chrono::system_clock::now());

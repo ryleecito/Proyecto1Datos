@@ -136,6 +136,8 @@
     <ClInclude Include="Marcador.h" />
     <ClInclude Include="Navegador.h" />
     <ClInclude Include="Pestania.h" />
+    <ClInclude Include="PestaniaAbstracta.h" />
+    <ClInclude Include="PestaniaIncognito.h" />
     <ClInclude Include="SitioWeb.h" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +150,7 @@
     <ClCompile Include="Marcador.cpp" />
     <ClCompile Include="Navegador.cpp" />
     <ClCompile Include="Pestania.cpp" />
+    <ClCompile Include="PestaniaIncognito.cpp" />
     <ClCompile Include="SitioWeb.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>

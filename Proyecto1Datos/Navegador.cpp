@@ -78,14 +78,14 @@ int Navegador::cantidadPestanias()
 	return listaPestanias->size();
 }
 
-void Navegador::agregarPestania(Pestania* pest)
+void Navegador::agregarPestania()
 {
 	if (modoIncognito)
 	{
-		 listaPestaniasIncognito->add(pest);
+		 listaPestaniasIncognito->add(new PestaniaIncognito());
 		 return;
 	}
-	listaPestanias->add(pest);
+	listaPestanias->add(new Pestania());
 }
 
 int Navegador::posicionDelIndex()
@@ -126,7 +126,7 @@ void Navegador::agregarPaginaWeb(SitioWeb* sitio)
 	listaPestanias->agregarPaginaWeb(sitio);
 }
 
-Pestania* Navegador::getPestaniaActual()
+PestaniaAbstracta* Navegador::getPestaniaActual()
 {
 	if (modoIncognito) {
 		return listaPestaniasIncognito->getPestaniaActual();
@@ -236,25 +236,6 @@ void Navegador::paginaAnterior()
 void Navegador::paginaSiguiente()
 {
 	listaPestanias->irAdelante();
-}
-
-// Metodo que retorna la cantidad de paginas en el historial
-// Si no hay paginas en el historial, se retorna 0
-// si no hay pestanias, se retorna 0
-int Navegador::cantidadPaginas()
-{
-
-	if (listaPestanias == nullptr) {
-		return 0;
-	}
-	if (listaPestanias->getPestaniaActual() == nullptr) {
-		return 0;
-	}
-	if (listaPestanias->getHistorial() == nullptr) {
-		return 0;
-	}
-
-	return listaPestanias->sizeHistorial();
 }
 
 std::string Navegador::busquedaPalabraClave(const std::string& palabraClave)

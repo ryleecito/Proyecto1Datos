@@ -21,7 +21,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pestania.h">
+    <ClInclude Include="PestaniaAbstracta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Marcador.h">
@@ -49,6 +49,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListaPestanias.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pestania.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PestaniaIncognito.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -85,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="Interfaz.cpp">
       <Filter>Source Files\Interfaz</Filter>
+    </ClCompile>
+    <ClCompile Include="PestaniaIncognito.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

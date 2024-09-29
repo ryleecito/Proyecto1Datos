@@ -1,30 +1,25 @@
 #pragma once
 #include "PestaniaAbstracta.h"
 
-class Pestania : public PestaniaAbstracta 
-{
-
+class PestaniaIncognito : public PestaniaAbstracta {
 private:
 
-    Historial* historial;
+    SitioWeb* sitio;
 
 public:
+    PestaniaIncognito();
+    PestaniaIncognito(SitioWeb* sitioWeb);
+    PestaniaIncognito(const PestaniaIncognito&);
+    virtual ~PestaniaIncognito();
 
-    Pestania();
-    Pestania(Historial* historial);
-    Pestania(const Pestania&);
-    virtual ~Pestania();
-    void setHistorial(Historial* historial);
+    void setSitioWeb(SitioWeb* sitioWeb);
+    SitioWeb* getSitioWeb() const;
+
     Historial* getHistorial() const;
 
     std::string toString() const;
 
-    void guardarArchivoPestania(std::ofstream& out);
-    static Pestania* cargarArchivoPestania(std::ifstream& in);
-
-
-    //Metodos de historial
-
+    // Métodos de historial (pueden ser no aplicables o definidos de otra manera)
     int sizeHistorial() const;
     void agregarPaginaWeb(SitioWeb* sitio);
     void irAtras();
@@ -37,9 +32,7 @@ public:
     void setFiltro(const std::string& filtro);
 
 
-    //Metodos de SitioWeb
 
-    std::string getUrlActual() const;
-    std::string getTituloActual() const;
-    std::string getDominioActual() const;
+    // Métodos de archivo
+    void guardarArchivoPestania(std::ofstream& out);
 };

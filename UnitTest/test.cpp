@@ -4,6 +4,7 @@
 #include "..\Proyecto1Datos\SitioWeb.cpp"
 #include "..\Proyecto1Datos\ConfigHistorial.cpp"
 #include "..\Proyecto1Datos\Pestania.cpp"
+#include "..\Proyecto1Datos\PestaniaIncognito.cpp"
 #include "..\Proyecto1Datos\ListaPestanias.cpp"
 #include "..\Proyecto1Datos\Navegador.cpp"
 #include "..\Proyecto1Datos\Marcador.cpp"
@@ -92,7 +93,7 @@ TEST(PestaniaTest, AgregarPaginaWeb) {
 
 TEST(PestaniaTest, AgregarPaginaWebCuandoExiste) {
 
-    Pestania* p = new Pestania();
+    PestaniaAbstracta* p = new Pestania();
     SitioWeb* sitio = new SitioWeb("www.google.com", "Google", "dom");
     SitioWeb* sitio1 = new SitioWeb("www.youtube.com", "Youtube", "dom");
     SitioWeb* sitio2 = new SitioWeb("www.Yahoo.com", "Yahoo", "dom");
@@ -112,7 +113,7 @@ TEST(PestaniaTest, AgregarPaginaWebCuandoExiste) {
 
 TEST(ListPestaniasTest, AddPestania) {
     ListPestanias lista;
-    Pestania* pestania1 = new Pestania();
+    PestaniaAbstracta* pestania1 = new Pestania();
     lista.add(pestania1);
 
     EXPECT_EQ(lista.size(), 1);
@@ -122,8 +123,8 @@ TEST(ListPestaniasTest, AddPestania) {
 
 TEST(ListPestaniasTest, RetrocederYAvanzar) {
     ListPestanias lista;
-    Pestania* pestania1 = new Pestania();
-    Pestania* pestania2 = new Pestania();
+    PestaniaAbstracta* pestania1 = new Pestania();
+    PestaniaAbstracta* pestania2 = new Pestania();
     lista.add(pestania1);
     lista.add(pestania2);
 
@@ -136,8 +137,8 @@ TEST(ListPestaniasTest, RetrocederYAvanzar) {
 
 TEST(ListPestaniasTest, LimpiarPestanias) {
     ListPestanias lista;
-    Pestania* pestania1 = new Pestania();
-    Pestania* pestania2 = new Pestania();
+    PestaniaAbstracta* pestania1 = new Pestania();
+    PestaniaAbstracta* pestania2 = new Pestania();
     lista.add(pestania1);
     lista.add(pestania2);
 
@@ -150,7 +151,7 @@ TEST(ListPestaniasTest, LimpiarPestanias) {
 
 TEST(ListPestaniasTest, AgregarPaginaWeb) {
     ListPestanias lista;
-    Pestania* pestania = new Pestania();
+    PestaniaAbstracta* pestania = new Pestania();
     SitioWeb* sitio = new SitioWeb("www.google.com", "Google", "dominio");
     lista.add(pestania);
     lista.agregarPaginaWeb(sitio);
@@ -169,21 +170,12 @@ TEST(NavegadorTest, CambiarModoIncognito) {
     EXPECT_FALSE(navegador.getModoIncognito());
 }
 
-TEST(NavegadorTest, AgregarPestania) {
-    Navegador navegador;
-    Pestania* pestania = new Pestania();
-    int pestaniasInicial = navegador.cantidadPestanias();
-    navegador.agregarPestania(pestania);
-    EXPECT_EQ(navegador.cantidadPestanias(), pestaniasInicial + 1);
-}
-
 TEST(NavegadorTest, MoverseEntrePestanias) {
     Navegador navegador;
-    Pestania* pestania1 = new Pestania();
-    Pestania* pestania2 = new Pestania();
 
-    navegador.agregarPestania(pestania1);
-    navegador.agregarPestania(pestania2);
+
+    navegador.agregarPestania();
+    navegador.agregarPestania();
     EXPECT_EQ(navegador.posicionDelIndex(), 1);
     navegador.pestaniaAnterior();
     EXPECT_EQ(navegador.posicionDelIndex(), 0);
@@ -210,8 +202,7 @@ TEST(NavegadorTest, AgregarPaginaWebIncognito) {
     navegador.cambiarModoIncognito(); 
 
     ListPestanias* list = new ListPestanias();
-    Pestania* pestania = new Pestania();
-    navegador.agregarPestania(pestania);
+    navegador.agregarPestania();
 
     SitioWeb* sitio = new SitioWeb("www.google.com", "Google", "dom");
     navegador.agregarPaginaWeb(sitio);
@@ -221,8 +212,7 @@ TEST(NavegadorTest, AgregarPaginaWebIncognito) {
 
 TEST(NavegadorTest, AgregarPaginaWeb) {
     Navegador navegador;
-    Pestania* pestania = new Pestania();
-    navegador.agregarPestania(pestania);
+    navegador.agregarPestania();
 
     SitioWeb* sitio = new SitioWeb("www.google.com", "Google", "dom");
     navegador.agregarPaginaWeb(sitio);
@@ -239,8 +229,7 @@ TEST(NavegadorTest, BuscarPaginaWebExistente) {
     navegador.getListaSitiosW()->push_back(sitio2);
     navegador.getListaSitiosW()->push_back(sitio3);
 
-    Pestania* pestania = new Pestania();
-    navegador.agregarPestania(pestania);
+    navegador.agregarPestania();
 
     navegador.agregarPaginaWeb(sitio1);
     navegador.agregarPaginaWeb(sitio2);
@@ -347,7 +336,7 @@ TEST(ArchivosTest, GuardarYLeerHistorial) {
 
 TEST(ArchivosTest, PestaniaCargar) {
 
-    Pestania* pestania = new Pestania();
+    PestaniaAbstracta* pestania = new Pestania();
     EXPECT_EQ(pestania->sizeHistorial(), 0);
 
 
@@ -390,8 +379,8 @@ TEST(ArchivosTest, TestGuardarYcargarPestaniasYPaginas) {
     ListPestanias* listaOriginal = new ListPestanias();
 
     // Crear pestañas de ejemplo
-    Pestania* pestania1 = new Pestania();
-    Pestania* pestania2 = new Pestania();
+    PestaniaAbstracta* pestania1 = new Pestania();
+    PestaniaAbstracta* pestania2 = new Pestania();
 
     // Agregar páginas web a las pestañas
     SitioWeb* sitio1 = new SitioWeb("https://example1.com", "Ejemplo 1", "example1.com");

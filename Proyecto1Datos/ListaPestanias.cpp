@@ -12,7 +12,7 @@ int ListPestanias::size() const {
     return (int)pestanias.size();
 }
 
-void ListPestanias::add(Pestania* pestania) {
+void ListPestanias::add(PestaniaAbstracta* pestania) {
 
     pestanias.push_back(pestania);
     posicionActual = std::prev(pestanias.end());  
@@ -81,11 +81,11 @@ std::string ListPestanias::toString() const {
     return s.str();
 }
 
-std::list<Pestania*> ListPestanias::getPestanias() const {
+std::list<PestaniaAbstracta*> ListPestanias::getPestanias() const {
     return pestanias;
 }
 
-Pestania* ListPestanias::getPestaniaActual() const {
+PestaniaAbstracta* ListPestanias::getPestaniaActual() const {
     if (posicionActual != pestanias.end()) {
         return *posicionActual;
     }
@@ -120,7 +120,7 @@ void ListPestanias::guardarArchivoListaPestanias(std::ofstream& out)
     size_t numPestanias = pestanias.size();
     out.write(reinterpret_cast<const char*>(&numPestanias), sizeof(numPestanias));
 
-    for (Pestania* pestania : pestanias) {
+    for (PestaniaAbstracta* pestania : pestanias) {
         if (pestania) {
             pestania->guardarArchivoPestania(out); 
         }
@@ -137,7 +137,7 @@ ListPestanias* ListPestanias::cargarArchivoListaPestanias(std::ifstream& in)
     in.read(reinterpret_cast<char*>(&numPestanias), sizeof(numPestanias));
 
     for (size_t i = 0; i < numPestanias; ++i) {
-        Pestania* pestania = Pestania::cargarArchivoPestania(in); 
+        PestaniaAbstracta* pestania = Pestania::cargarArchivoPestania(in); 
         nuevaLista->add(pestania);
 
     }
