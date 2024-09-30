@@ -15,7 +15,6 @@ void Controladora::control0() {
     int opcion = 0;
     do {
         try {
-            //Interfaz::mostrarNavegador(navegador);
 
             opcion = Interfaz::detectarTecla(navegador,1);
             switch (opcion) {
@@ -256,6 +255,9 @@ void Controladora::control3_1()
 // importar historial
 void Controladora::control3_2()
 {
+    //Aqui se importa el navegador
+    //Se elimina el antiguo navegador y pone el importado
+
     Navegador* navegador1 = Interfaz::importarHistorial(this->navegador);
 
 
