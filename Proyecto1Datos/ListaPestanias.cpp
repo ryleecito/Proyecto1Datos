@@ -55,18 +55,6 @@ void ListPestanias::limpiarPestanias() {
     posicionActual = pestanias.end();
     posicionActualIdx = -1;  
 }
-
-void ListPestanias::reiniciar() {
-    if (!pestanias.empty()) {
-        posicionActual = pestanias.begin();
-        posicionActualIdx = 0;
-    }
-    else {
-        posicionActual = pestanias.end();
-        posicionActualIdx = -1;
-    }
-}
-
 int ListPestanias::getPosicionActualIndex() const {
     return posicionActualIdx; 
 }

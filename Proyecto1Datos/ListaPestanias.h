@@ -21,7 +21,6 @@ public:
     void retroceder();
     void avanzar();
     void limpiarPestanias();
-    void reiniciar();
     int getPosicionActualIndex() const;
     std::string toString() const;
     std::list<PestaniaAbstracta*> getPestanias() const;

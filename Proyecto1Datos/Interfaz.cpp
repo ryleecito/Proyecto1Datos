@@ -204,8 +204,8 @@ void Interfaz::agregarCantidadEntradas(Navegador* navegador)
     int opc;
 	std::cout << " Ingrese la cantidad de entradas: ";
     std::cin >> opc;
-	if (opc < 0) {
-		throw ExcepcionGenerica("La cantidad de entradas no puede ser negativa");
+	if (opc <= 0) {
+		throw ExcepcionGenerica("La cantidad de entradas no puede ser negativa ni 0");
 	}
     if (std::cin.fail()) { 
         std::cin.clear(); 

@@ -4,6 +4,10 @@
 
 class PestaniaAbstracta {
 public:
+
+    //Herencia para dividir las pestanias que tienen historial de las que 
+    //Son incognitas que solo pueden tener un sitio web
+
     virtual ~PestaniaAbstracta() {}
 
     virtual std::string toString() const = 0;

@@ -21,6 +21,10 @@ int Historial::size() const
 
 void Historial::add(SitioWeb* sitioWeb)
 {
+
+    //El proceso de aniadir es el siguiente
+    //Si la lista está vacía, se añade el sitio web de manera directa
+
     if (historial.empty()) {
         historial.push_back(new SitioWeb(*sitioWeb));
         posicionActual = std::prev(historial.end());
@@ -28,14 +32,21 @@ void Historial::add(SitioWeb* sitioWeb)
         return;
     }
 
+    //si no esta vacía mediante este metodo se le busca y elimina si ya existe
+
     eliminarSitioSiExiste(sitioWeb);
+
+    //Se obtiene el maximo de entradas permitidas en el historial llamando a una instancia de ConfigHistorial
 
     int maxEntradas = ConfigHistorial::getInstancia()->getMaxEntradas();
 
     if (historial.size() >= maxEntradas) {
-        delete historial.front();
-        historial.pop_front();
+        delete historial.front();// Se elimina el primer sitio web ingresado, primero liberamos la memoria, debido a que una lista de punteros
+        historial.pop_front();//Seguidamente le hacemos pop de la lista de historial
     }
+
+    //Una vez se elimina el primer sitio web (o no en caso de que no haya maximo de entradas o no se halla llegado al maximo de entradas)
+    //Se añade el sitio web al final de la lista de historial
 
     historial.push_back(new SitioWeb(*sitioWeb));
     posicionActual = std::prev(historial.end());
@@ -44,6 +55,8 @@ void Historial::add(SitioWeb* sitioWeb)
 
 void Historial::eliminarSitioSiExiste(SitioWeb* site) 
 {
+    //Se recorre la lista de historial, si el sitio web ya existe, se elimina de la lista de historial
+
     for (auto iter = historial.begin(); iter != historial.end(); ++iter) {
         if ((*iter)->getUrl() == site->getUrl()) {
             delete* iter;        
@@ -56,9 +69,16 @@ void Historial::eliminarSitioSiExiste(SitioWeb* site)
 
 void Historial::retroceder()
 {
+    //En el retroceder se verifica primero si la lista esta vacia
+    //o en su caso si la posicion actual es igual a la primera posicion de la lista 
+    //si es asi pues no se hace nada
+
     if (historial.empty() || posicionActual == historial.begin()) {
         return; 
     }
+
+    //Si no tiene filtro se retrocede el iterador una vez
+
 
     if (filtro.empty()) {
 
@@ -66,16 +86,24 @@ void Historial::retroceder()
         return;
     }
 
-    auto nuevaPosicion = std::prev(posicionActual);
+    //Si tiene filtro entonces vemos a la posicion anterior
 
-    while (nuevaPosicion != historial.begin()) {
-        if ((*nuevaPosicion)->getTitulo().find(filtro) != std::string::npos ||
-            (*nuevaPosicion)->getUrl().find(filtro) != std::string::npos) {
-            posicionActual = nuevaPosicion; 
+    auto posicionAnterior = std::prev(posicionActual);
+
+    while (posicionAnterior != historial.begin()) {
+
+        // verificamos mientras la posicionanterior no coincida con el filtro
+        // entonces se retrocede el iterador (todo esto mientras no se llegue al inicio de la lista)
+
+        if ((*posicionAnterior)->getTitulo().find(filtro) != std::string::npos || //cabe aclarar que si el find es diferente de npos significa que si se encontro la coincidencia
+            (*posicionAnterior)->getUrl().find(filtro) != std::string::npos) {//esto significa que es una posicion invalida o fuera de rango de la cadena
+            posicionActual = posicionAnterior; //si coincide la posicion actual apuntara a la coincidencia
             return;
         }
-        nuevaPosicion = --nuevaPosicion; 
+        posicionAnterior = --posicionAnterior; 
     }
+
+    //Si no se encontro ninguna coincidencia entonces la posicion actual sera el inicio de la lista en caso de que esta coincida con el filtro
 
     if ((*historial.begin())->getTitulo().find(filtro) != std::string::npos ||
         (*historial.begin())->getUrl().find(filtro) != std::string::npos) {
@@ -84,6 +112,8 @@ void Historial::retroceder()
 }
 
 void Historial::avanzar() {
+
+    //Mismo caso que en retroceder se verifica si esta vacia pero la diferencia es ahora si es el final
     if (historial.empty() || posicionActual == historial.end()) {
         return; 
     }
@@ -95,16 +125,20 @@ void Historial::avanzar() {
         return;
     }
 
-    auto nuevaPosicion = std::next(posicionActual);
+    //En este caso se toma la posicion siguiente
+    auto posicionSiguiente = std::next(posicionActual);
 
-    while (nuevaPosicion != historial.end()) {
 
-        if ((*nuevaPosicion)->getTitulo().find(filtro) != std::string::npos ||
-            (*nuevaPosicion)->getUrl().find(filtro) != std::string::npos) {
-            posicionActual = nuevaPosicion;
+    while (posicionSiguiente != historial.end()) {
+
+        //Se avanza mientras sea diferente de end
+
+        if ((*posicionSiguiente)->getTitulo().find(filtro) != std::string::npos ||
+            (*posicionSiguiente)->getUrl().find(filtro) != std::string::npos) {
+            posicionActual = posicionSiguiente;// si coincide la posicion actual apuntara a la coincidencia
             return;
         }
-        ++nuevaPosicion; 
+        ++posicionSiguiente; 
     }
 
 }
@@ -214,15 +248,20 @@ bool Historial::limpiarEntradasViejas()
         return false; 
     }
 
+    //Obtenemos el tiempo configurado para eliminar las entradas del historial
+    //Si este esta en su calor predeterminado (-1) significa que esto no esta configurado entonces no se hace nada
+
     int tiempoMaximo = ConfigHistorial::getInstancia()->getTiempoMaximo();
     if (tiempoMaximo <= 0) {
         return false; 
     }
 
+    //Este es un valor bool que se retornara para saber si se eliminaron entradas del historial
     bool entradasBorradas = false;
 
-    auto& posicionOriginal = posicionActual;
+    auto posicionOriginal = posicionActual;
 
+    //Recorremos el historial y eliminamos las entradas que tengan un tiempo mayor al tiempo maximo configurado
 
     for (auto it = historial.begin(); it != historial.end(); ) {
         SitioWeb* sitio = *it;
@@ -260,34 +299,36 @@ void Historial::setFiltro(std::string filtro)
 	this->filtro = filtro;
 }
 
-// Este metodo lo que hace es moverse a la primera coincidencia
-// cuando aplicamos el filtro, esto es por si estamos en una pagina web
-// que no esta dentro de las paginas webs con el filtro
 
-void Historial::moverseAPrimeraCoincidencia() 
+void Historial::moverseAPrimeraCoincidencia()
 {
-    
+    // Si el historial esta vacio no hacemos nada
     if (historial.empty()) {
         return;
     }
 
+    // Si el filtro esta vacio no hacemos nada
     if (filtro.empty()) {
-        return;  
+        return;
     }
 
+    // Creamos una variable para saber si se encontro una coincidencia
+    // dentro del historial
     bool coincidenciaEncontrada = false;
 
+    // Este ciclo recorre el historial y busca la primera coincidencia
     for (auto it = historial.begin(); it != historial.end(); ++it) {
         if ((*it)->getTitulo().find(filtro) != std::string::npos ||
-            (*it)->getUrl().find(filtro) != std::string::npos) {
-            posicionActual = it;
-            coincidenciaEncontrada = true;
-            break; 
+            (*it)->getUrl().find(filtro) != std::string::npos) { 
+            posicionActual = it; // Movemos la posicion actual a la primera coincidencia
+            coincidenciaEncontrada = true; // Cambiamos la variable de que si encontramos una coincidencia
+            break;
         }
     }
 
+    // Si no se encontro una coincidencia, movemos la posicion actual al final
     if (!coincidenciaEncontrada) {
-        posicionActual = historial.end(); 
+        posicionActual = historial.end();
     }
 }
 

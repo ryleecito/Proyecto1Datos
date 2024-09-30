@@ -4,6 +4,8 @@
 class PestaniaIncognito : public PestaniaAbstracta {
 private:
 
+    //Pestania incognito no guarda historial
+
     SitioWeb* sitio;
 
 public:
@@ -19,7 +21,7 @@ public:
 
     std::string toString() const;
 
-    // Métodos de historial (pueden ser no aplicables o definidos de otra manera)
+
     int sizeHistorial() const;
     void agregarPaginaWeb(SitioWeb* sitio);
     void irAtras();
@@ -31,8 +33,5 @@ public:
     void moverseAPrimeraCoincidencia();
     void setFiltro(const std::string& filtro);
 
-
-
-    // Métodos de archivo
     void guardarArchivoPestania(std::ofstream& out);
 };
