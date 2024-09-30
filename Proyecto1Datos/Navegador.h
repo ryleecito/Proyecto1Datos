@@ -41,7 +41,7 @@ public:
 	void agregarPaginaWeb(SitioWeb* sitio);
 	PestaniaAbstracta* getPestaniaActual();
 	std::string mostrarPestaniaActual();
-	bool limpiarViejasEntradas();
+	bool limpiarSitiosViejos();
 	void ajustarTamanoHistorial();
 
 

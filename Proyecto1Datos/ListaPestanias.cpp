@@ -154,7 +154,7 @@ SitioWeb* ListPestanias::getSitioActual() const
     return nullptr;
 }
 
-bool ListPestanias::limpiarEntradasViejas()
+bool ListPestanias::limpiarSitiosViejos()
 {
 
 
@@ -162,7 +162,7 @@ bool ListPestanias::limpiarEntradasViejas()
 
     for (auto& pestania : pestanias) { 
 
-        if (pestania->limpiarEntradasViejas()) {
+        if (pestania->limpiarSitiosViejos()) {
             entradasBorradas = true;
         }
     }
@@ -192,9 +192,6 @@ std::string ListPestanias::busquedaPalabraClave(const std::string& palabraClave)
     return "";
 }
 
-// Este metodo lo utilizamos para cuando aplicamos un filtro
-// y queremos movernos a la primera coincidencia
-// en la lista de historial
 void ListPestanias::moverseAPrimeraCoincidencia()
 {
     if (posicionActual != pestanias.end()) {

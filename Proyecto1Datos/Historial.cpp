@@ -158,13 +158,24 @@ std::string Historial::busquedaPalabraClave(const std::string& palabraClave) con
     int contador = 1;
     std::string palabraFiltrada = palabraClave;
 
+    // Obtenemos la palabra clave, y con el transform lo convertimos a minusculas 
+    // para que no importe si la palabra clave esta en mayusculas o minusculas
+
     transform(palabraFiltrada.begin(), palabraFiltrada.end(), palabraFiltrada.begin(), ::tolower);
+
+    // Recorremos todos los sitios webs en el historial
 
     for (SitioWeb* sitio : historial) {
         if (sitio != nullptr) {
- 
+
+            // Obtenemos el titulo del sitio web y lo convertimos a minusculas
+            // dentro del historial 
+
             std::string tituloSitio = sitio->getTitulo();
             transform(tituloSitio.begin(), tituloSitio.end(), tituloSitio.begin(), ::tolower);
+
+            // Si cumple la condicion de que la palabra clave esta en el titulo del sitio web
+            // procedemos a mostrar la coincidencia 
 
             if (tituloSitio.find(palabraFiltrada) != std::string::npos) {
                 s << "------------------------------------------------------" << std::endl;
@@ -175,9 +186,9 @@ std::string Historial::busquedaPalabraClave(const std::string& palabraClave) con
             }
         }
     }
-
-    return s.str(); 
+    return s.str();
 }
+
 std::list<SitioWeb*> Historial::getHistorial() const 
 {
     return historial;
@@ -202,47 +213,58 @@ std::string Historial::toString() const {
     return ss.str();
 }
 
-void Historial::ajustarTamanoHistorial() 
+void Historial::ajustarTamanoHistorial()
 {
-
+    // Si el historial esta vacio no hacemos nada
     if (historial.empty()) {
         return;
     }
 
+    // Obtenemos el maximo de entradas que puede tener el historial
+    // con la configuracion del navegador
     int maxEntradas = ConfigHistorial::getInstancia()->getMaxEntradas();
     bool posicionActualEliminada = false;
 
+    // Si el maximo de entradas es menor o igual a 0, no hacemos nada
     if (maxEntradas <= 0) {
         return;
     }
 
     filtro = "";
 
+    // Mientras el historial tenga mas entradas que el maximo permitido
+    // vamos a eliminar las entradas mas antiguas esto para que el historial
+    // no tenga mas entradas de las que se permiten y si si tiene que borre las mas antiguas
+
     while (historial.size() > maxEntradas) {
         if (posicionActual == historial.begin()) {
             posicionActualEliminada = true;
         }
 
+        // Borramos la entrada mas antigua tanto como del historial como de la memoria
         delete historial.front();
         historial.pop_front();
 
+        // Si la posicion actual es la primera, la movemos a la siguiente
+        // ya que la primera entrada fue eliminada
         if (posicionActual == historial.begin()) {
 
             ++posicionActual;
         }
     }
 
+    // Si el historial quedo vacio, la posicion actual la ponemos en el final
     if (historial.empty()) {
-        posicionActual = historial.end();
-        return; 
+        posicionActual = historial.end(); // Ponemos la posicion actual al final
+        return;
     }
-
+    // Si la posicion actual fue eliminada, la movemos al final
     if (posicionActualEliminada || posicionActual == historial.end()) {
-        posicionActual = --historial.end(); 
+        posicionActual = --historial.end();  // Movemos la posicion actual al final
     }
 }
 
-bool Historial::limpiarEntradasViejas()
+bool Historial::limpiarSitiosViejos()
 {
     if (historial.empty()) {
         return false; 
@@ -261,29 +283,39 @@ bool Historial::limpiarEntradasViejas()
 
     auto posicionOriginal = posicionActual;
 
+    //Guardamos la posicion actual debido a que si se elimina el sitio al que esta apuntando
+    //Puede quedar en una posicion ivalida asi que guardamos la posicion actual para luego asignarla
+
     //Recorremos el historial y eliminamos las entradas que tengan un tiempo mayor al tiempo maximo configurado
 
     for (auto it = historial.begin(); it != historial.end(); ) {
+
         SitioWeb* sitio = *it;
+
+        // Calculamos la diferencia en segundos entre el tiempo actual y el tiempo de ingreso del sitio web
 
         double diff = static_cast<double>(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - sitio->getTiempoDeIngreso()).count());
 
+        // Si la diferencia de tiempo es mayor que el tiempo máximo configurado se elimina la entrada
+
         if (diff > tiempoMaximo) {
-            delete sitio;         
+            delete sitio;
             it = historial.erase(it); 
-            entradasBorradas = true;  
+            entradasBorradas = true; 
         }
         else {
             ++it; 
+
+
         }
     }
 
 
     if (historial.empty()) {
-        posicionActual = historial.end(); 
+        posicionActual = historial.end(); //Si el historial esta vacio la posicion actual sera el final
     }
     else if (posicionActual == historial.end() || posicionActual == posicionOriginal) {
-        posicionActual = --historial.end(); 
+        posicionActual = --historial.end(); //Si la posicion actual es el final o es igual a la posicion original entonces se le asigna el ultimo sitio web
     }
 
     return entradasBorradas; 
@@ -313,20 +345,21 @@ void Historial::moverseAPrimeraCoincidencia()
     }
 
     // Creamos una variable para saber si se encontro una coincidencia
-    // dentro del historial
+
     bool coincidenciaEncontrada = false;
 
     // Este ciclo recorre el historial y busca la primera coincidencia
     for (auto it = historial.begin(); it != historial.end(); ++it) {
         if ((*it)->getTitulo().find(filtro) != std::string::npos ||
             (*it)->getUrl().find(filtro) != std::string::npos) { 
-            posicionActual = it; // Movemos la posicion actual a la primera coincidencia
-            coincidenciaEncontrada = true; // Cambiamos la variable de que si encontramos una coincidencia
+            posicionActual = it; 
+            coincidenciaEncontrada = true; 
             break;
         }
     }
 
-    // Si no se encontro una coincidencia, movemos la posicion actual al final
+    // Si no se encontro una coincidencia movemos la posicion actual al final
+
     if (!coincidenciaEncontrada) {
         posicionActual = historial.end();
     }

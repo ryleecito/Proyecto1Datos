@@ -49,9 +49,9 @@ void Pestania::ajustarTamanoHistorial()
     historial->ajustarTamanoHistorial();
 }
 
-bool Pestania::limpiarEntradasViejas()
+bool Pestania::limpiarSitiosViejos()
 {
-    return historial->limpiarEntradasViejas();
+    return historial->limpiarSitiosViejos();
 }
 
 std::string Pestania::busquedaPalabraClave(const std::string& palabraClave)

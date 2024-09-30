@@ -144,10 +144,10 @@ std::string Navegador::mostrarPestaniaActual()
 	return listaPestanias->mostrarPestaniaActual();
 }
 
-bool Navegador::limpiarViejasEntradas()
+bool Navegador::limpiarSitiosViejos()
 {
 
-	return listaPestanias->limpiarEntradasViejas();
+	return listaPestanias->limpiarSitiosViejos();
 }
 
 void Navegador::ajustarTamanoHistorial()
@@ -352,7 +352,7 @@ void Navegador::setMaxEntradas(int max)
 void Navegador::setTiempoMaximo(int time)
 {
 	configuracion->setTiempoMaximo(time);
-	limpiarViejasEntradas();
+	limpiarSitiosViejos();
 }
 
 // Metodo que reinicia las configuraciones del historial
@@ -363,7 +363,7 @@ void Navegador::reiniciarConfiguraciones()
 	configuracion->setMaxEntradas(-1);
 	ajustarTamanoHistorial();
 	configuracion->setTiempoMaximo(-1);
-	limpiarViejasEntradas();
+	limpiarSitiosViejos();
 }
 
 

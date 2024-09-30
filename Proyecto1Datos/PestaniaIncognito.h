@@ -28,7 +28,7 @@ public:
     void irAdelante();
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
-    bool limpiarEntradasViejas();
+    bool limpiarSitiosViejos();
     std::string busquedaPalabraClave(const std::string& palabraClave);
     void moverseAPrimeraCoincidencia();
     void setFiltro(const std::string& filtro);

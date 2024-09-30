@@ -43,7 +43,7 @@ public:
     void irAdelante();
     SitioWeb* getSitioActual() const;
     void ajustarTamanoHistorial();
-	bool limpiarEntradasViejas();
+	bool limpiarSitiosViejos();
 	void setFiltro(const std::string& filtro);
 	std::string busquedaPalabraClave(const std::string& palabraClave);
 	void moverseAPrimeraCoincidencia();

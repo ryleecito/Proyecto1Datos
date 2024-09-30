@@ -59,9 +59,22 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
 
 int Interfaz::detectarTecla(Navegador* navegador, bool mainMenu) {
 
-    HANDLE hConsole = GetStdHandle(STD_INPUT_HANDLE);
-    INPUT_RECORD irInBuf[128];
-    DWORD cNumRead;
+    //Aqui se muestra el menu principal y la funcion donde se detectan las teclas
+    //Cabe aclarar que se uso una api de windows para lo mismo y como espera constantemente una tecla
+    //se hizo un bucle infinito que solo se rompe cuando detecta una de las teclas especificadas
+
+    // HANDLE es un tipo de dato que representa un manejador, en este caso para la entrada estandar
+    // Esto permite intereactuar con la consola con el teclado
+    HANDLE consola = GetStdHandle(STD_INPUT_HANDLE);
+
+    //El INPUT_RECORD es una estructura que contiene informacion sobre un evento de entrada, guardamos
+    //en un buffer de 128 porque es recomendado para evitar errores si entran muchos inputs a la vez
+    INPUT_RECORD bufferDeEventos[128];
+
+    //DWORD basicamente es un tipo de numero muy grande que cuenta la cantidad de eventos leidos en este caso
+    //Se usa DWORD ya que para las funciones de la API de windows se usa este tipo de dato
+    DWORD eventosLeidos;
+
     int tecla = 0;
 
     if (mainMenu) {
@@ -70,41 +83,58 @@ int Interfaz::detectarTecla(Navegador* navegador, bool mainMenu) {
 
     while (true) {
 
+
         if (navegador->getSitioActual()) {
-            if (navegador->limpiarViejasEntradas() && mainMenu) {
-                mostrarNavegador(navegador);
+            if (navegador->limpiarSitiosViejos() && mainMenu) {//aqui se esta verificando constantemente los sitios viejos
+                mostrarNavegador(navegador);//por eso se hizo bool, si se devuelve que si borro un sitio por tiempo se actualiza el navegador
             }
         }
+        //Este DWORD es para capturar los eventos de entrada que han OCURRIDO a diferencia 
+        DWORD eventosOcurridos = 0;
+        if (GetNumberOfConsoleInputEvents(consola, &eventosOcurridos) && eventosOcurridos > 0) {//obtenemos los eventos ocurridos
 
-        DWORD numEvents = 0;
-        if (GetNumberOfConsoleInputEvents(hConsole, &numEvents) && numEvents > 0) {
+            if (PeekConsoleInput(consola, bufferDeEventos, 128, &eventosLeidos)) {
 
-            if (PeekConsoleInput(hConsole, irInBuf, 128, &cNumRead)) {
-                for (DWORD i = 0; i < cNumRead; i++) {
-                    if (irInBuf[i].EventType == KEY_EVENT && irInBuf[i].Event.KeyEvent.bKeyDown) {
-                        switch (irInBuf[i].Event.KeyEvent.wVirtualKeyCode) {
-                        case VK_LEFT: tecla = 10; break;
+                //El peek consel recibe donde ocurren los eventos, el buffer donde se guardan, la cantidad de eventos que se pueden guardar
+                //y la cantidad de eventos leidos
+
+                //A diferencia del ReadConsoleInput el peek no limpia/procesa los elementos solo los guarada para examinarlos
+
+                for (DWORD i = 0; i < eventosLeidos; i++) { //ahora recorremos en buffer en busqueda de eventos
+
+                    if (bufferDeEventos[i].EventType == KEY_EVENT && bufferDeEventos[i].Event.KeyEvent.bKeyDown) {
+
+                        //Primero detecttamos que el evento sea de teclado con el event type
+                        // y luego que el evento sea de presionar una tecla con el bKeyDown
+
+                        switch (bufferDeEventos[i].Event.KeyEvent.wVirtualKeyCode) {//Examinamos el codigo de la tecla y si cumple con alguna se devueve un valor
+                        case VK_LEFT: tecla = 10; break;                            //Que sera procesado en la controladora
                         case VK_RIGHT: tecla = 11; break;
                         case VK_UP: tecla = 12; break;
                         case VK_DOWN: tecla = 13; break;
                         default:
 
-                            if (irInBuf[i].Event.KeyEvent.uChar.AsciiChar >= '1' &&
-                                irInBuf[i].Event.KeyEvent.uChar.AsciiChar <= '9') {
-                                tecla = irInBuf[i].Event.KeyEvent.uChar.AsciiChar - '0';
+                            //Ahora si no coincide con las teclas de navegacion se examina si es una tecla numerica
+                            //Se obtiene el el uChar que es un tipo de dato que almacena un caracter.
+                            //luego se obtiene el codigo ascii de ese caracter y se verifica si esta entre el ascii 1 y de 9
+
+
+                            if (bufferDeEventos[i].Event.KeyEvent.uChar.AsciiChar >= '1' &&
+                                bufferDeEventos[i].Event.KeyEvent.uChar.AsciiChar <= '9') {
+                                tecla = bufferDeEventos[i].Event.KeyEvent.uChar.AsciiChar - '0'; // si es asi se toma el caracter y se le resta el ascii de 0
+                                                                                                 //que devolvera el numero entero correspondiente a la tecla
                             }
                             break;
                         }
                         if (tecla != 0) {
-                            FlushConsoleInputBuffer(hConsole); 
-                            return tecla; 
+                            FlushConsoleInputBuffer(consola); //Se limpia el buffer de entrada
+                            return tecla; //Y se devuelve la tecla
                         }
                     }
                 }
             }
         }
 
-        Sleep(50); 
     }
 }
 

@@ -20,7 +20,7 @@ public:
     virtual void irAdelante() = 0;
     virtual SitioWeb* getSitioActual() const = 0;
     virtual void ajustarTamanoHistorial() = 0;
-    virtual bool limpiarEntradasViejas() = 0;
+    virtual bool limpiarSitiosViejos() = 0;
     virtual std::string busquedaPalabraClave(const std::string& palabraClave) = 0;
     virtual void moverseAPrimeraCoincidencia() = 0;
     virtual void setFiltro(const std::string& filtro) = 0;

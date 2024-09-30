@@ -116,7 +116,7 @@ void PestaniaIncognito::ajustarTamanoHistorial()
 	return;
 }
 
-bool PestaniaIncognito::limpiarEntradasViejas()
+bool PestaniaIncognito::limpiarSitiosViejos()
 {
 	return false;
 }
