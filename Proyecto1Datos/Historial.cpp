@@ -111,7 +111,8 @@ void Historial::retroceder()
     }
 }
 
-void Historial::avanzar() {
+void Historial::avanzar()
+{
 
     //Mismo caso que en retroceder se verifica si esta vacia pero la diferencia es ahora si es el final
     if (historial.empty() || posicionActual == historial.end()) {

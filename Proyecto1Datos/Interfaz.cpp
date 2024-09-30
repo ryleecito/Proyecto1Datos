@@ -4,7 +4,8 @@
 
 
 
-void Interfaz::mostrarNavegador(Navegador* navegador) {
+void Interfaz::mostrarNavegador(Navegador* navegador) 
+{
 
     system("cls");
 
@@ -57,7 +58,8 @@ void Interfaz::mostrarNavegador(Navegador* navegador) {
 }
 
 
-int Interfaz::detectarTecla(Navegador* navegador, bool mainMenu) {
+int Interfaz::detectarTecla(Navegador* navegador, bool mainMenu)
+{
 
     //Aqui se muestra el menu principal y la funcion donde se detectan las teclas
     //Cabe aclarar que se uso una api de windows para lo mismo y como espera constantemente una tecla
@@ -306,7 +308,7 @@ void Interfaz::busquedaYFiltros(Navegador* navegador)
     std::cout << "|       MENU BUSQUEDA Y FILTROS               | " << std::endl;
     std::cout << "-----------------------------------------------" << std::endl;
     std::cout << "| 1. Buscar paginas web por filtro            |" << std::endl;
-    std::cout << "| 2. Buscar paginas web por nombre exacto     |" << std::endl;
+    std::cout << "| 2. Buscar paginas web                       |" << std::endl;
     std::cout << "| 3. Eliminar filtro anadido                  |" << std::endl;
     std::cout << "| 4. Regresar                                 |" << std::endl;
     std::cout << "-----------------------------------------------" << std::endl;
@@ -365,7 +367,7 @@ Navegador* Interfaz::importarHistorial(Navegador* navegador)
     Navegador* navegadorCargado = Navegador::cargarArchivoNavegador(archivo);
 
     if (navegadorCargado) {
-        std::cout << "Se ha importado el historial con éxito." << std::endl;
+        std::cout << "Se ha importado el historial con exito." << std::endl;
         system("pause");
     }
     else {

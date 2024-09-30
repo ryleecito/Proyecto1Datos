@@ -5,7 +5,7 @@
 #include "Controladora.h"
 
 
-int main() {
+int main(){
 
     Controladora*C0 = new Controladora();
 	C0->control0();

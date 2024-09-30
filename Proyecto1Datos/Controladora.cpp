@@ -1,16 +1,19 @@
 #include "Controladora.h"
 
-Controladora::Controladora() {
+Controladora::Controladora()
+{
     navegador = new Navegador();
 }
 
-Controladora::~Controladora() {
+Controladora::~Controladora()
+{
     if (navegador != nullptr) {
         delete navegador;
     }
 }
 
-void Controladora::control0() {
+void Controladora::control0()
+{
    
     int opcion = 0;
     do {
@@ -68,6 +71,7 @@ void Controladora::control0() {
     } while (opcion != 9);
 }
 
+//agregar pagina web
 void Controladora::control1()
 {
 	Interfaz::agregarPaginaWeb(navegador);

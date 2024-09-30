@@ -10,6 +10,11 @@
 #include "..\Proyecto1Datos\Marcador.cpp"
 #include "..\Proyecto1Datos\Excepciones.cpp"
 
+//Para configurar irse a propiedades del unit test
+//en la parte de c/c++-> preprocesador-> definir _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING
+// en encabezados precompilados poner NO Utilizar encabezados precompilados
+
+
 TEST(TestCaseName, TestName) {
 	EXPECT_EQ(1, 1);
 	EXPECT_TRUE(true);
@@ -244,33 +249,28 @@ TEST(NavegadorTest, BuscarPaginaWebExistente) {
 }
 
 TEST(ArchivosTest, GuardarSitioWeb) {
-    // Crear un sitio web de prueba
+
     SitioWeb* sitioOriginal = new SitioWeb("http://ejemplo.com", "Ejemplo","ejemplo.com");
 
-    // Guardar el sitio web en un archivo
     std::ofstream out("sitios_test.bin", std::ios::binary);
-    ASSERT_TRUE(out.is_open()); // Verifica que el archivo se haya abierto correctamente
+    ASSERT_TRUE(out.is_open()); 
 
     sitioOriginal->guardarArchivoSitioWeb(out);
     out.close();
 
-    // Cargar el sitio web desde el archivo
     std::ifstream in("sitios_test.bin", std::ios::binary);
-    ASSERT_TRUE(in.is_open()); // Verifica que el archivo se haya abierto correctamente
+    ASSERT_TRUE(in.is_open());
 
     SitioWeb* sitioCargado = SitioWeb::cargarArchivoSitioWeb(in);
     in.close();
 
-    // Verificar que los datos sean los mismos
-    ASSERT_NE(sitioCargado, nullptr); // Asegura que se haya cargado un sitio web
-    EXPECT_EQ(sitioOriginal->getTitulo(), sitioCargado->getTitulo()); // Compara nombres
-    EXPECT_EQ(sitioOriginal->getUrl(), sitioCargado->getUrl()); // Compara URLs
+    ASSERT_NE(sitioCargado, nullptr); 
+    EXPECT_EQ(sitioOriginal->getTitulo(), sitioCargado->getTitulo()); 
+    EXPECT_EQ(sitioOriginal->getUrl(), sitioCargado->getUrl()); 
 
-    // Limpiar memoria
     delete sitioOriginal;
     delete sitioCargado;
 
-    // Eliminar archivo de prueba
     std::remove("sitios_test.bin");
 }
 TEST(ArchivosTest, GuardarYLeerHistorial) {
@@ -285,30 +285,27 @@ TEST(ArchivosTest, GuardarYLeerHistorial) {
     historial.add(sitio2);
     historial.add(sitio3);
 
-    // Guardar el historial en un archivo
     std::ofstream archivoSalida("historial_test.bin", std::ios::binary);
     ASSERT_TRUE(archivoSalida.is_open());
     historial.guardarArchivoHistorial(archivoSalida);
     archivoSalida.close();
 
-    // Limpiar el historial
+
     historial.limpiarHistorial();
 
-    // Cargar el historial desde el archivo
     std::ifstream archivoEntrada("historial_test.bin", std::ios::binary);
     ASSERT_TRUE(archivoEntrada.is_open());
     Historial* historialCargado = Historial::cargarArchivoHistorial(archivoEntrada);
     archivoEntrada.close();
 
-    // Verificar que los sitios se hayan cargado correctamente
-    ASSERT_NE(historialCargado, nullptr); // Asegúrate de que el historial cargado no es nulo
+    ASSERT_NE(historialCargado, nullptr); 
     ASSERT_EQ(historialCargado->size(), 3);
 
-    SitioWeb* sitioCargado1 = historialCargado->getHistorial().front(); // primer sitio
-    SitioWeb* sitioCargado2 = *(++historialCargado->getHistorial().begin()); // segundo sitio
-    SitioWeb* sitioCargado3 = historialCargado->getHistorial().back(); // último sitio
+    SitioWeb* sitioCargado1 = historialCargado->getHistorial().front(); 
+    SitioWeb* sitioCargado2 = *(++historialCargado->getHistorial().begin()); 
+    SitioWeb* sitioCargado3 = historialCargado->getHistorial().back(); 
 
-    // Verificar los datos de los sitios cargados
+
     EXPECT_EQ(sitioCargado1->getDominio(), "example1.com");
     EXPECT_EQ(sitioCargado1->getUrl(), "https://example1.com");
     EXPECT_EQ(sitioCargado1->getTitulo(), "Ejemplo 1");
@@ -321,15 +318,15 @@ TEST(ArchivosTest, GuardarYLeerHistorial) {
     EXPECT_EQ(sitioCargado3->getUrl(), "https://example3.com");
     EXPECT_EQ(sitioCargado3->getTitulo(), "Ejemplo 3");
 
-    // Verificar la posición actual
+
     EXPECT_EQ(historialCargado->getUrlActual(), "https://example3.com");
     EXPECT_EQ(historialCargado->getTituloActual(), "Ejemplo 3");
     EXPECT_EQ(historialCargado->getDominioActual(), "example3.com");
 
-    // Verificar que la posición actual sea la misma que se guardó
+
     EXPECT_EQ(historialCargado->getUrlActual(), historialCargado->getSitioActual()->getUrl());
 
-    // Limpiar el historial cargado
+
     historialCargado->limpiarHistorial();
     delete historialCargado;
 }
@@ -378,41 +375,37 @@ TEST(ArchivosTest, PestaniaCargar) {
 TEST(ArchivosTest, TestGuardarYcargarPestaniasYPaginas) {
     ListPestanias* listaOriginal = new ListPestanias();
 
-    // Crear pestañas de ejemplo
+
     PestaniaAbstracta* pestania1 = new Pestania();
     PestaniaAbstracta* pestania2 = new Pestania();
 
-    // Agregar páginas web a las pestañas
+
     SitioWeb* sitio1 = new SitioWeb("https://example1.com", "Ejemplo 1", "example1.com");
     SitioWeb* sitio2 = new SitioWeb("https://example2.com", "Ejemplo 2", "example2.com");
 
-    // Suponiendo que el método agregarPaginaWeb existe
     pestania1->agregarPaginaWeb(sitio1);
     pestania2->agregarPaginaWeb(sitio2);
 
-    // Añadir pestañas a la lista
     listaOriginal->add(pestania1);
     listaOriginal->add(pestania2);
 
-    // Guardar en archivo
+
     std::ofstream out("pestanias.dat", std::ios::binary);
-    ASSERT_TRUE(out.is_open());  // Verificar que el archivo se abrió correctamente
+    ASSERT_TRUE(out.is_open());
     listaOriginal->guardarArchivoListaPestanias(out);
     out.close();
 
-    // Crear una nueva lista y cargar desde el archivo
     ListPestanias* listaCargada = new ListPestanias();
     std::ifstream in("pestanias.dat", std::ios::binary);
-    ASSERT_TRUE(in.is_open());  // Verificar que el archivo se abrió correctamente
+    ASSERT_TRUE(in.is_open());  
     listaCargada = ListPestanias::cargarArchivoListaPestanias(in);
     in.close();
 
-    // Comprobar que el tamaño es el mismo
+
     EXPECT_EQ(listaOriginal->size(), listaCargada->size());
 
     EXPECT_EQ(listaOriginal->getPestaniaActual()->getSitioActual()->getUrl(), listaCargada->getSitioActual()->getUrl());
 
-    // Limpiar la memoria
     delete listaOriginal;
     delete listaCargada;
 }

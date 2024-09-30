@@ -1,25 +1,31 @@
 #include "ListaPestanias.h"
 
 ListPestanias::ListPestanias()
-    : posicionActual(pestanias.end()), posicionActualIdx(-1) {}
+    : posicionActual(pestanias.end()), posicionActualIdx(-1) 
+{
+}
 
-ListPestanias::~ListPestanias() {
+ListPestanias::~ListPestanias() 
+{
     limpiarPestanias();
    
 }
 
-int ListPestanias::size() const {
+int ListPestanias::size() const
+{
     return (int)pestanias.size();
 }
 
-void ListPestanias::add(PestaniaAbstracta* pestania) {
+void ListPestanias::add(PestaniaAbstracta* pestania)
+{
 
     pestanias.push_back(pestania);
     posicionActual = std::prev(pestanias.end());  
     posicionActualIdx = (int)pestanias.size() - 1;
 }
 
-void ListPestanias::retroceder() {
+void ListPestanias::retroceder() 
+{
 
     if (pestanias.empty() || posicionActual == pestanias.begin()) {
         return;
@@ -31,7 +37,8 @@ void ListPestanias::retroceder() {
     }
 }
 
-void ListPestanias::avanzar() {
+void ListPestanias::avanzar()
+{
 
     if (pestanias.empty() || posicionActual == pestanias.end()) {
         return;
@@ -55,11 +62,13 @@ void ListPestanias::limpiarPestanias() {
     posicionActual = pestanias.end();
     posicionActualIdx = -1;  
 }
-int ListPestanias::getPosicionActualIndex() const {
+int ListPestanias::getPosicionActualIndex() const 
+{
     return posicionActualIdx; 
 }
 
-std::string ListPestanias::toString() const {
+std::string ListPestanias::toString() const
+{
 
 
     std::stringstream s;
@@ -69,11 +78,13 @@ std::string ListPestanias::toString() const {
     return s.str();
 }
 
-std::list<PestaniaAbstracta*> ListPestanias::getPestanias() const {
+std::list<PestaniaAbstracta*> ListPestanias::getPestanias() const 
+{
     return pestanias;
 }
 
-PestaniaAbstracta* ListPestanias::getPestaniaActual() const {
+PestaniaAbstracta* ListPestanias::getPestaniaActual() const
+{
     if (posicionActual != pestanias.end()) {
         return *posicionActual;
     }
@@ -88,7 +99,8 @@ Historial* ListPestanias::getHistorial() const
     return nullptr;
 }
 
-void ListPestanias::agregarPaginaWeb(SitioWeb* sitio) {
+void ListPestanias::agregarPaginaWeb(SitioWeb* sitio)
+{
     if (posicionActual != pestanias.end()) {
         (*posicionActual)->agregarPaginaWeb(sitio);
     }

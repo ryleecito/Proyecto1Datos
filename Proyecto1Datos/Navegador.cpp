@@ -162,7 +162,7 @@ void Navegador::agregarMarcador(Marcador* marcador)
         return;
     }
     marcadoresGuardados.push_back(marcador);
-   // posicionActual = std::prev(marcadoresGuardados.end());
+
 }
 
 // Metodo para imprimir todos los bookmarks guardados en el navegador
@@ -361,9 +361,7 @@ void Navegador::setTiempoMaximo(int time)
 void Navegador::reiniciarConfiguraciones()
 {
 	configuracion->setMaxEntradas(-1);
-	ajustarTamanoHistorial();
 	configuracion->setTiempoMaximo(-1);
-	limpiarSitiosViejos();
 }
 
 
